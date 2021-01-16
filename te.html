@@ -1,0 +1,554 @@
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public class Subject : AuditableEntity
+                    {
+                        public int SubjectId { get; set; }
+                
+                        public string Name { get; set; }
+                
+                        public ICollection<VideoCourse> Courses { get; set; }
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public class Order : AuditableEntity
+                    {
+                        public int Id { get; set; }
+                
+                        public int UserId { get; set; }
+                
+                        public int OrderTotal { get; set; }
+                
+                        public DateTime OrderPlaced { get; set; }
+                
+                        public bool OrderPaid { get; set; }
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public class Author : AuditableEntity
+                    {
+                        public int Id { get; set; }
+                        public string Name { get; set; }
+                        public string Description { get; set; }
+                
+                        public ICollection<VideoCourse> Courses { get; set; }
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public class AuditableEntity
+                    {
+                        public string CreadtedBy { get; set; }
+                
+                        public DateTime CreadtedDate { get; set; }
+                
+                        public string LastModifiedBy { get; set; }
+                
+                        public DateTime? LastModifiedDate { get; set; }
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public interface IAsyncRepository&lt;T&gt; where T : class
+                    {
+                        Task&lt;T&gt; GetbyIdAsync(int id);
+                    
+                        Task&lt;IReadOnlyList&lt;T&gt;&gt; ListAllAsync();
+                    
+                        Task&lt;T&gt; AddAsync();
+                    
+                        Task&lt;T&gt; UpdateAsync(T entity);
+                    
+                        Task&lt;T&gt; DeleteAsync(T entity);
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public interface IVideoCourseRepository 
+                    : IAsyncRepository&lt;VideoCourse&gt;
+                    {
+
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    &lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+                    &lt;PropertyGroup&gt;
+                      &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
+                    &lt;/PropertyGroup&gt;
+                  
+                    &lt;ItemGroup&gt;
+                      &lt;PackageReference Include=&quot;AutoMapper&quot; Version=&quot;10.1.1&quot; /&gt;
+                      &lt;PackageReference Include=&quot;AutoMapper.Extensions.Microsoft.DependencyInjection&quot; Version=&quot;8.1.0&quot; /&gt;
+                      &lt;PackageReference Include=&quot;MediatR.Extensions.Microsoft.DependencyInjection&quot; Version=&quot;9.0.0&quot; /&gt;
+                    &lt;/ItemGroup&gt;
+                  
+                    &lt;ItemGroup&gt;
+                      &lt;ProjectReference Include=&quot;..\EdoZbieracz.Domain\EdoZbieracz.Domain.csproj&quot; /&gt;
+                    &lt;/ItemGroup&gt;
+                  
+                  &lt;/Project&gt;
+                  
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public class VideoCourseViewModel
+                    {
+                        public int CourseId { get; set; }
+                
+                        public string Name { get; set; }
+                
+                        public string ImageUrl { get; set; }
+                
+                        public DateTime? DateToBuy { get; set; }
+                
+                        public decimal Price { get; set; }
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public class GetVideoCoursesListQueryHandler
+                    : IRequestHandler&lt;GetVideoCourseListQuery, List&lt;VideoCourseViewModel&gt;&gt;
+                {
+                    public Task&lt;List&lt;VideoCourseViewModel&gt;&gt;
+                        Handle(GetVideoCourseListQuery request,
+                        CancellationToken cancellationToken)
+                    {
+                        throw new NotImplementedException();
+                    }
+                }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public class GetVideoCoursesListQueryHandler
+                    : IRequestHandler&lt;GetVideoCourseListQuery, List&lt;VideoCourseViewModel&gt;&gt;
+                    {
+                        private readonly IAsyncRepository&lt;VideoCourse&gt; _videocourseRepository;
+                        private readonly IMapper _mapper;
+                    
+                        public GetVideoCoursesListQueryHandler
+                            (IAsyncRepository&lt;VideoCourse&gt; videocourseRepository,
+                            IMapper mapper)
+                        {
+                            _mapper = mapper;
+                            _videocourseRepository = videocourseRepository;
+                        }
+                    
+                        public async Task&lt;List&lt;VideoCourseViewModel&gt;&gt;
+                            Handle(GetVideoCourseListQuery request,
+                            CancellationToken cancellationToken)
+                        {
+                            var allcourses = (await _videocourseRepository.ListAllAsync());
+                            var allcoursesOrdered = allcourses.OrderBy(c =&gt; c.DateToBuy);
+                    
+                            return _mapper.Map&lt;List&lt;VideoCourseViewModel&gt;&gt;(allcoursesOrdered);
+                        }
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public class MappingProfile : Profile
+                    {
+                        public MappingProfile()
+                        {
+                            CreateMap&lt;VideoCourse, VideoCourseViewModel&gt;()
+                                .ReverseMap();
+                        }
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="slide" style="background-color:black">
+    <figure>
+        <img class="cover" src="pictures/core/core-00.PNG" alt="blog">
+        <figcaption class="white">Copyright © 2021 Diagram</figcaption>
+    </figure>
+</section>
+<section class="slide" style="background-color:black">
+    <figure>
+        <img class="cover" src="pictures/core/core-01.PNG" alt="blog">
+        <figcaption class="white">Copyright © 2021 Diagram</figcaption>
+    </figure>
+</section>
+<section class="slide" style="background-color:black">
+    <figure>
+        <img class="cover" src="pictures/core/core-02.PNG" alt="blog">
+        <figcaption class="white">Copyright © 2021 Diagram</figcaption>
+    </figure>
+</section>
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">Domyślna ścieżka</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    app.UseEndpoints(endpoints =>
+                    {
+                        endpoints.MapControllerRoute(
+                            name: "default",
+        
+                            pattern: "{controller=MainP}/{action=Index}/{id?}",
+                            defaults: new
+                            {
+                                controller = "MainP",
+                                action = "Index"
+        
+                            });
+                    });
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">Domyślna ścieżka dla ASP.NET CORE .NET 5</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    [ApiController]
+                    [Route(&quot;[controller]&quot;)]
+                    public class TestLogController : ControllerBase
+                    {
+                        private readonly ICezLog _logger;
+                        public TestLogController(ICezLog logger)
+                        {
+                            _logger = logger;
+                        }
+                    
+                        [HttpGet]
+                        public IEnumerable&lt;string&gt; Get()
+                        {
+                            return new string[] { &quot;aaa&quot;, &quot;bbb&quot; };
+                        }
+                    }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">MainPController</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                <code style="line-height: 25px !important;">
+                    public class MainPController : Controller
+                    {
+                        private IPirateService _pirateService;
+                        
+                        private readonly IOptions&lt;PiratesGridOptions&gt; _options;
+                        
+                        public MainPController(IPirateService pirateService,
+                            IOptions&lt;PiratesGridOptions&gt; options)
+                        {
+                            _pirateService = pirateService;
+                            _options = options;
+                        }
+                        
+                        public IActionResult Index()
+                        {
+                            ViewBag.Title = _options.Value.WebSiteName;
+                            var pirates = _pirateService.GetAllPiratesWithData();
+                        
+                            return View(pirates);
+                        }
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>
+<section class="slide prism over bhgry">
+    <div class="grid-container">
+        <div class="HeaderTitle PP"> 
+            <h2 class="headerCODE PP">Widok</h2>
+        </div>
+        <div class="PlaceCodeHere">
+            <pre style="font-size: 25px;overflow: hidden;  " class="language-html">
+                <code style="line-height: 25px !important;">
+                    @model IList&lt;PirateApp.Domain.Pirate&gt;;
+                    &lt;div class=&quot;marTopBot&quot;&gt;
+                        &lt;h2&gt;Pokaż Pirat&#243;w&lt;/h2&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;a asp-action=&quot;AddForm&quot;&gt;Dodaj Pirata&lt;/a&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                        &lt;div class=&quot;row&quot;&gt;
+                            &lt;div class=&quot;col-md-10 offset-md-1 &quot;&gt;
+                                &lt;table class=&quot;table&quot;&gt;
+                                    &lt;tr&gt;
+                                        &lt;th&gt;Imie&lt;/th&gt;
+                                        &lt;th&gt;Nazwa Statku&lt;/th&gt;
+                                        &lt;th&gt;Nazwa Załogi&lt;/th&gt;
+                                        &lt;th&gt;&lt;/th&gt;
+                                    &lt;/tr&gt;
+                    
+                                    @for (int i = 0; i &lt; Model.Count; i++)
+                                    {
+                                        &lt;tr&gt;
+                                            &lt;td&gt;@Model[i].Name&lt;/td&gt;
+                                            &lt;td&gt;
+                    
+                                                @Model[i].Ship.Name.GiveUnderScoreIfEmpty()
+                    
+                                            &lt;/td&gt;
+                                            &lt;td&gt;@Model[i].Crew.CrewName.GiveUnderScoreIfEmpty()&lt;/td&gt;
+                                            &lt;td&gt;&lt;/td&gt;
+                                        &lt;/tr&gt;
+                                    }
+                                &lt;/table&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                </code>
+            </pre>
+        </div>
+        <div class="AnswerCode">
+            <div class="pytanie">
+                <h3></h3>
+            </div>
+            <div class="odpowiedz">
+                
+            </div>
+        </div>
+    </div>
+</section>

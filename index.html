@@ -1,0 +1,3333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Aplikacja C# od Zera Architektura,CQRS : Dobre Praktyki</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,900&amp;subset=latin-ext" rel="stylesheet" />
+    <!-- Shower Theme -->
+    <link rel="stylesheet" href="vendors/shower-ribbon/styles/screen-16x9.css" />
+    <link rel="stylesheet" href="vendors/shower-CezaryWalenciuk/styles/main.css" />
+    <!-- Prism.js -->
+    <link rel="stylesheet" href="vendors/prism/prism.css" />
+    <link rel="stylesheet" href="vendors/prism/custom-prism.css" />
+    <link rel="stylesheet" href="codegrid.css" />
+</head>
+<body class="shower list">
+    <header class="caption">
+        <h1>Aplikacja C# od Zera Architektura,CQRS : Dobre Praktyki</h1>
+        <p></p>
+    </header>
+
+    <section class="slide front-page">
+
+        <div class="details">
+            <!-- 1. Avatar -->
+
+
+            <h2>Cezary Walenciuk</h2>
+
+            <!-- 3. Presentation title -->
+            <h2 class="bigbig"><strong style="font-size: 35px;  line-height: 1.3;">
+
+                    <span class="titlec1">Aplikacja C# od Zera</span>
+                    <br />
+                    <span class="titlec5">Architektura, CQRS</span> :
+                    <span class="titlec3">Dobre Praktyki</span></strong></h2>
+
+
+
+            <!-- 5. Contact the speaker -->
+            <h2><a href="https://twitter.com/WalenciukC">@walenciukC</a></h2>
+        </div>
+        <div>
+
+
+            <!-- 2. Speaker -->
+
+        </div>
+        <div class="imag">
+            <img src="images/my-avatar.jpg" alt="Speaker">
+        </div>
+    </section>
+
+    <section class="slide creamPPP   compact ">
+        <h2>Słuchaj przez te 10 lat programowałem</h2>
+        <ol class="nonumbers">
+            <li class="next">ASP.NET Web Forms</li>
+            <li class="next">ASP.NET MVC</li>
+            <li class="next">ASP.NET CORE</li>
+        </ol>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors" ><span>Dlaczego warto znać wzorce i style architektury?
+        </span></span>
+    </section>
+    
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP"> 
+                <h2 class="headerCODE PP">ASP.NET Web Form : jak kiedyś się uczyłe tworzyć swoją pierwszą aplikacje</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 18px;overflow: hidden;  " class="language-html">
+                    <code style="line-height: 18px !important;">
+                        &lt;asp:SqlDataSource ID=&quot;SqlDataSource1&quot; runat=&quot;server&quot; 
+                            ConnectionString=&quot;&lt;%$ ConnectionStrings:SklepConnectionString1 %&gt;&quot; 
+                            DeleteCommand=&quot;DELETE FROM [Products] WHERE [ProductId] = @ProductId&quot; 
+                            InsertCommand=&quot;INSERT INTO [Products] ([ProductName], [RecommendedRetailPrice],
+                            [Selling Price]) VALUES (@ProductName, @RecommendedRetailPrice, @Selling_Price)&quot; 
+                            ProviderName=&quot;&lt;%$ ConnectionStrings:SklepConnectionString1.ProviderName %&gt;&quot; 
+                            SelectCommand=&quot;SELECT [ProductId], [ProductName], [RecommendedRetailPrice],
+                            [Selling Price] AS Selling_Price FROM [Products]&quot;
+                            UpdateCommand=&quot;UPDATE [Products] SET [ProductName] = @ProductName, 
+                            [RecommendedRetailPrice] = @RecommendedRetailPrice,
+                            [Selling Price] = @Selling_Price WHERE [ProductId] = @ProductId&quot;&gt;
+                            &lt;DeleteParameters&gt;
+                                &lt;asp:Parameter Name=&quot;ProductId&quot; Type=&quot;Int32&quot; /&gt;
+                            &lt;/DeleteParameters&gt;
+                            &lt;InsertParameters&gt;
+                                &lt;asp:Parameter Name=&quot;ProductName&quot; Type=&quot;String&quot; /&gt;
+                                &lt;asp:Parameter Name=&quot;RecommendedRetailPrice&quot; Type=&quot;Decimal&quot; /&gt;
+                                &lt;asp:Parameter Name=&quot;Selling_Price&quot; Type=&quot;Decimal&quot; /&gt;
+                            &lt;/InsertParameters&gt;
+                            &lt;UpdateParameters&gt;
+                                &lt;asp:Parameter Name=&quot;ProductName&quot; Type=&quot;String&quot; /&gt;
+                                &lt;asp:Parameter Name=&quot;RecommendedRetailPrice&quot; Type=&quot;Decimal&quot; /&gt;
+                                &lt;asp:Parameter Name=&quot;Selling_Price&quot; Type=&quot;Decimal&quot; /&gt;
+                                &lt;asp:Parameter Name=&quot;ProductId&quot; Type=&quot;Int32&quot; /&gt;
+                            &lt;/UpdateParameters&gt;
+                        &lt;/asp:SqlDataSource&gt;
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/smartUI.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/asp.net web forms.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>UI nie powinno być zależne od dostępu do danych
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/ksiązka.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors" ><span>W roku 2021 ta książka ma już przestarzałe rady
+        </span></span>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors" ><span>Często zadaje sobie pytanie czy moja wiedza jest na czasie
+        </span></span>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
+            <div class="TitleMain"><h3>Czy twoja wiedza jest na czasie.</h3></div>
+            <div class="Title1"><h3>Najlepsze prakyki?</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/02.png" /></div>
+            <div class="TitleMain"><h3>Czy twoja wiedza jest na czasie.</h3></div>
+            <div class="Title1"><h3>Najlepsze prakyki?</h3></div>
+            <div class="Title2"><h3>Paczki NuGet?</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/02.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/03.png" /></div>
+            <div class="TitleMain"><h3>Czy twoja wiedza jest na czasie.</h3></div>
+            <div class="Title1"><h3>Najlepsze prakyki?</h3></div>
+            <div class="Title2"><h3>Paczki NuGet?</h3></div>
+            <div class="Title3"><h3>Jasna architektura</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/02.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/03.png" /></div>
+            <div class="Image4"><img src="pictures/iconsFr/04.png" /></div>
+            <div class="TitleMain"><h3>Czy twoja wiedza jest na czasie.</h3></div>
+            <div class="Title1"><h3>Najlepsze prakyki?</h3></div>
+            <div class="Title2"><h3>Paczki NuGet?</h3></div>
+            <div class="Title3"><h3>Jasna architektura</h3></div>
+            <div class="Title4"><h3>Testowalna, Łatwa do zarządzania</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Jak to napisać ?
+        </span></span>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>ASP.NET CORE w pigułce
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/normal/01.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Gdybyś miał napisać aplikacje od zera to od czego byś zaczął?
+            <br />🤔
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/demo/demo-01.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/demo/demo-02.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>My nawet chcemy wydzielić warstwę UI tak aby mogło to być...
+            <br />🤯
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/normal/cochcemy.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/iconsFr/restapi.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">REST API</li>
+                    <ol class="nonumbers">
+                        <li class="next">Zbudujemy używając ASP.NET CORE</li>
+                        <li class="next">Dostęp do danych : EF Core</li>
+                        <li class="next">Przed tem jednak dodamy architekturę</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>
+    <section class="slide creamGG fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/iconsFr/balzor.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Client</li>
+                    <ol class="nonumbers">
+                        <li class="next">Blazor WebAssembly</li>
+                        <li class="next">Jeśli Client się zestarzeje 👴 to chcemy go podmienić</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/iconsFr/biblioteki.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Biblioteki klas</li>
+                    <ol class="nonumbers">
+                        <li class="next">.NET Standard</li>
+                        <ol class="nonumbers">
+                            <li class="next">Tak, aby one działały wszędzie</li>
+                        </ol>
+                        <li class="next">Tutaj warto omówić układ naszych projektów</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>
+    <section class="slide creamGG fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/iconsFr/nuget.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers ">
+                    <li class="next bold">Jakie paczki NuGet? (Spoiler)&nbsp;&nbsp; &nbsp;&nbsp;</li>
+                    <ol class="nonumbers">
+                        <li class="next">MediatR</li>
+                        <li class="next">Automapper</li>
+                        <li class="next">Fluent Validation</li>
+                        <li class="next">Swagger UI</li>
+                        <li class="next">NSwag</li>
+                        <li class="next">xUnit,Moq,Shouldly </li>
+                        <li class="next">Serilog lub NLog</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Co budujemy ? <BR /> 🙈🙉🙊
+        </span></span>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Poznaj <BR /> 😲 EdoZbieracza 😲
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/eduzbieracz-01.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/eduzbieracz-02.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/eduzbieracz-04.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/eduzbieracz-06.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/eduzbieracz-07.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamGG  smaller compact ">
+        <h2>Czyli mamy </h2>
+        <ol class="nonumbers">
+            <li class="next">Listę wpisów </li>
+            <li class="next">Listę wpisów po kategoriach</li>
+            <li class="next">Listę webinarów</li>
+            <li class="next">Edycje wpisów</li>
+            <li class="next">Edycje kategori</li>
+            <li class="next">Edycje Webinarów</li>
+        </ol>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Poznaj <BR /> 🧐 Podstawy architektury 🧐
+        </span></span>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-6Squares">
+            <div class="TitleMain9Squares"><h3>Ważne zasady projektowe</h3></div>
+            <div class="Square-1 square-background-orange"><span>Dependency Inversion</span></div>
+        </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-6Squares">
+            <div class="TitleMain9Squares"><h3>Ważne zasady projektowe</h3></div>
+            <div class="Square-1 square-background-orange"><span>Dependency Inversion</span></div>
+            <div class="Square-2 square-background-Blue"><span>Seperation of Concerns</span></div>
+        </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-6Squares">
+            <div class="TitleMain9Squares"><h3>Ważne zasady projektowe</h3></div>
+            <div class="Square-1 square-background-orange"><span>Dependency Inversion</span></div>
+            <div class="Square-2 square-background-Blue"><span>Seperation of Concerns</span></div>
+            <div class="Square-3 square-background-pinkos"><span>Single Responsibility</span></div>
+        </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-6Squares">
+            <div class="TitleMain9Squares"><h3>Ważne zasady projektowe</h3></div>
+            <div class="Square-1 square-background-orange"><span>Dependency Inversion</span></div>
+            <div class="Square-2 square-background-Blue"><span>Seperation of Concerns</span></div>
+            <div class="Square-3 square-background-pinkos"><span>Single Responsibility</span></div>
+            <div class="Square-4 square-background-Green"><span>DRY</span></div>
+        </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-6Squares">
+            <div class="TitleMain9Squares"><h3>Ważne zasady projektowe</h3></div>
+            <div class="Square-1 square-background-orange"><span>Dependency Inversion</span></div>
+            <div class="Square-2 square-background-Blue"><span>Seperation of Concerns</span></div>
+            <div class="Square-3 square-background-pinkos"><span>Single Responsibility</span></div>
+            <div class="Square-4 square-background-Green"><span>DRY</span></div>
+            <div class="Square-5 square-background-gray"><span>Persistence Ignorance</span></div>
+        </div>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Wstrzykiwanie zależności
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/klasy-01.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/klasy-02.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/iconsFr/seperationofconcerns.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="bold">Seperation of Concerns</li>
+                    <ol class="nonumbers">
+                        <li class="next">Rodzielenie każdej funkcji na bloki</li>
+                        <li class="next">Więcej modularnego kodu</li>
+                        <li class="next">Niezbędne w aplikacji wielowarstwowej</li>
+                        <li class="next">Łatwy do zarządzania kod</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/iconsFr/singleresponsibilty.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="bold">Single Responsibility</li>
+                    <ol class="nonumbers">
+                        <li class="next">Każdy blok robi ma tylko jeden cel</li>
+                        <li class="next">Więcej klas, ale mniej scyzorków które robią wszystko</li>
+                        <li class="next">Mogą być rozszerzane</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/iconsFr/dry2.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="bold">DRY</li>
+                    <ol class="nonumbers">
+                        <li class="next">Im mniej potarzajacego się kodu tym lepiej</li>
+                        <li class="next">Zmieniasz kod tylko w 1 miejscu</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>    
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/iconsFr/persistenceIgnorance.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="bold">Persistence Ignorance</li>
+                    <ol class="nonumbers">
+                        <li class="next">Klasy domenowe nie powinny być zależne od tego jak one są przetrzmywane</li>
+                        <ol class="nonumbers">
+                            <li class="next">Niektóre frameworki wymagają od Ciebie właściwości : virtual</li>
+                        </ol>
+                        <li class="next">Od tego masz jeszcze inne klasy</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>
+
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>🧐 Typy architektury 🧐
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/normal/cochcemy2.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPPP   compact ">
+        <h2>Typy architektury</h2>
+        <ol class="nonumbers">
+            <li class="next">All-in-on Architecture</li>
+            <li class="next">"Warsztwy" z 3 albo 5</li>
+        </ol>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/layers/1960s-70s-layered-architecture-1-tier.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/wszystko w jednym projekcie.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Czyli warstwy to foldery
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/layers/ilewartstw0.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/layers/ilewartstw.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/twitter-01.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/ksiązka.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>To w czym jest problem ?
+        </span></span>
+    </section>
+    <section class="slide creamPPP   compact ">
+        <h2>To w czym jest problem </h2>
+        <ol class="nonumbers">
+            <li class="next">Mimo iż podzieliśmy to na warstwy to wciąż te warstwy są zależne od siebie</li>
+            <li class="next">Zachowuje się to wszystko jak jedna duża aplikacja. Monolit</li>
+            <li class="next">Co jeśli poszczególne warstwy są nie tylko do tej aplikacji</li>
+        </ol>
+    </section>
+    <section class="slide" style="background-color:white">
+        <figure>
+            <img class="cover" src="pictures/layers/ilewartstw2.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:white">
+        <figure>
+            <img class="cover" src="pictures/circular/inverted-layered-complex-dependency-graph.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:white">
+        <figure>
+            <img class="cover" src="pictures/circular/onion-layers-dependency-graph.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:white">
+        <figure>
+            <img class="cover" src="pictures/circular/hexagonal-architecture-dependency-graph.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+
+    <section class="slide creamPPP   compact ">
+        <h2>Typy architektury</h2>
+        <ol class="nonumbers">
+            <li >All-in-on Architecture</li>
+            <li >"Warsztwy" z 3 albo 5</li>
+            <li class="next"><span class="green">Clean Architecture</span></li>
+        </ol>
+    </section>
+    <section class="slide creamPPP   compact ">
+        <h2>Mamy dwa style <span class="green">Clean Architecture</span></h2>
+        <ol class="nonumbers">
+            <li class="next">Onion 🧅</li>
+            <li class="next">Hexagonalna (Porty i Adaptery)</li>
+            <li class="next">Jeden architekt powie, że to jest to samo - drugi, że nie</li>
+        </ol>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/circular/Hexagonalna.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 https://bulldogjob.pl/news/1145-architektura-heksagonalna-w-javie-w-3-minuty</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/circular/Hexagonalna2.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 https://bulldogjob.pl/news/1145-architektura-heksagonalna-w-javie-w-3-minuty</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/circular/Hexagonalna3.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 https://bulldogjob.pl/news/1145-architektura-heksagonalna-w-javie-w-3-minuty</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Jak skoncentruje się na Cebuli ? <br />🧅
+        </span></span>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-0-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-1-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Clean Architecture : Onion</li>
+                    <ol class="nonumbers">
+                        <li class="next">Wszytsko, ze sobą jest luźnio powiązane</li>
+                        <li class="next">Niezależna od UI czy od bazy danych</li>
+                        <li class="next">Różne kółka dla różnych warstw</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>    
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-01-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP fullscreen " >
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-01-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Application Core</li>
+                    <ol class="nonumbers">
+                        <li class="next">Interfejsy i encje</li>
+                        <li class="next">Logika biznesowa i przypadki użycia, która jest centrum aplikacji</li>
+                        <li class="next">Niezależna od zewnętrznych kółek</li>
+                        <li class="next">Nie ma zależności</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-02-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-02-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Infrastruktura </li>
+                    <ol class="nonumbers">
+                        <li class="next">Zależny od Core</li>
+                        <li class="next">Implementuje on interfejsy z Core</li>
+                        <li class="next">Zależności są odwrócone</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-03-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">UI</li>
+                    <ol class="nonumbers">
+                        <li class="next">Zależne od Core</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-04-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-04-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Interface and Entities</li>
+                    <ol class="nonumbers">
+                        <li class="next">Centrum całej aplikacji</li>
+                        <li class="next">Ich nazewnictwo To ból głowy</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-containerOnlyTwo ">
+            <div class="TitleOnlyTwo"><h3>Dwie najważnieszje zasady</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-containerOnlyTwo ">
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/depedencyInjection.png" /></div>
+            <div class="TitleOnlyTwo"><h3>Dwie najważnieszje zasady</h3></div>
+            <div class="TextOnlyTwo1 "><h3>Depedency Inversion</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-containerOnlyTwo ">
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/depedencyInjection.png" /></div>
+            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/mediator.png" /></div>
+            <div class="TitleOnlyTwo"><h3>Dwie najważnieszje zasady</h3></div>
+            <div class="TextOnlyTwo1 "><h3>Depedency Inversion</h3></div>
+            <div class="TextOnlyTwo2 "><h3>Mediator i CQRS</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-containerOnlyThree ">
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/depedencyInjection.png" /></div>
+            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/mediator.png" /></div>
+            <div class="ImageOnlyThree "> <img src="pictures/iconsFr/mediator.png" /></div>
+            <div class="TitleOnlyTwo"><h3>CQRS</h3></div>
+            <div class="TextOnlyTwo1 "><h3>Command-Query<br />Responsibility<br />Segregation</h3></div>
+            <div class="TextOnlyTwo2 "><h3>Róźne modele<br /><span class="smallerfont">Command do aktualizacji danych <br />Query do odczytu</span></h3></div>
+            <div class="TextOnlyThree "><h3>Command jest Task=iem<br /><span class="smallerfont"> Może być asychroniczny</span><br />&nbsp;</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Co idzie do Core</li>
+                    <ol class="nonumbers">
+                        <li class="next">Encję, Interfejsy</li>
+                        <li class="next">Services (usługi)</li>
+                        <li class="next">Exceptions</li>
+                        <li class="next">Nie ma zależności do kodu z Infrastury czy jego paczek</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Co idzie do Infrastructure?</li>
+                    <ol class="nonumbers">
+                        <li class="next">Dostęp do danych (EF Core)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                        <li class="next">Loggowanie</li>
+                        <li class="next">Autoryzacja</li>
+                        <li class="next">API Klienckie</li>
+                        <li class="next">Dostęp do plików</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Co idzie do UI?</li>
+                    <ol class="nonumbers">
+                        <li class="next">ASP.NET MVC/Core, Razor Pages, Blazor &nbsp;&nbsp;</li>
+                        <li class="next">Specficzne dla ASP.NET CORE rzeczy jak : Middleware&nbsp;&nbsp;</li>
+                        <li class="next">Interakcja z innymi usługami przez MediatR&nbsp;&nbsp;</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section> 
+
+    
+    <!--DEMO TUTAJ  -->
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/demo/demo-01.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/demo/demo-02.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/01.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/02.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/03.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/04.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/05.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Nazewnictwo klas domain powinno być najkrótsze
+        </span></span>
+    </section>
+    <section class="slide creamPPP   compact ">
+        <h2>Jak byś nazwał "kurs wideo" ?</h2>
+        <ol class="nonumbers">
+            <li class="next">Video</li>
+            <li class="next">Course</li>
+            <li class="next">VideoCourse</li>
+            <li class="next">Webinars</li>
+        </ol>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/06.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/05.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Post</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public class Post
+                        {
+                            public int PostId { get; set; }
+                            public string Title { get; set; }
+                            public string Author { get; set; }
+                            public DateTime Date { get; set; }
+                            public string Description { get; set; }
+                    
+                            public int CategoryId { get; set; }
+                            public Category Category { get; set; }
+                    
+                            public string ImageUrl { get; set; }
+                            public string Url { get; set; }
+                            public int Rate { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Category</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public class Category
+                        {
+                            public int CategoryId { get; set; }
+                            public string Name { get; set; }
+                                           
+                            public string DisplayName { get; set; }
+                            public ICollection&lt;Post&gt; Posts { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Webinars</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public class Webinars
+                        {
+                            public int Id { get; set; }
+                    
+                            public string Title { get; set; }
+                            public string Description { get; set; }
+                    
+                            public string ImageUrl { get; set; }
+                            public string FacebookEventUrl { get; set; }
+                            public string SlidesUrl { get; set; }
+                    
+                            public string WatchFacebookLink { get; set; }
+                            public string WatchYoutubeLink { get; set; }
+
+                            public DateTime Date { get; set; }
+                            public bool AlreadyHappend { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/07.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">AuditableEntity</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public class AuditableEntity
+                        {
+                            public string CreatedBy { get; set; }
+                    
+                            public DateTime CreatedDate { get; set; }
+                    
+                            public string LastModifiedBy { get; set; }
+
+                            public DateTime? LastModifiedDate { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">AuditableEntity</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public class Category : AuditableEntity
+                        {
+                            public int CategoryId { get; set; }
+                        
+                            public string Name { get; set; }
+                        
+                            public string DisplayName { get; set; }
+                        
+                            public ICollection&lt;Post&gt; Posts { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Mamy klasy domenowe ?
+        </span></span>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-04-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-01-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Jak osiągnać luźne powiązania ?</li>
+                    <ol class="nonumbers">
+                        <li class="next">Kontrakty czyli Interfejsy</li>
+                        <li class="next">Wsyłanie sobie komend : Command, Mediator czyli CQRS</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Kontrakty czyli Interfejsy</li>
+                    <ol class="nonumbers">
+                        <li class="next">Opisujemy co chcemy</li>
+                        <li class="next">Implementujemy w Core albo w Infrastrukturze</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Skorzystamy z wzorca Repository ?
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/08.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/09.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">IAsyncRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public interface IAsyncRepository&lt;T&gt; where T : class
+                        {
+                            Task&lt;T&gt; GetByIdAsync(int id);
+                        
+                            Task&lt;IReadOnlyList&lt;T&gt;&gt; GetAllAsync();
+                        
+                            Task&lt;T&gt; AddAsync(T entity);
+                        
+                            Task UpdateAsync(T entity);
+                        
+                            Task DeleteAsync(T entity);
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/10.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/11.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">IPostRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public interface IPostRepository : IAsyncRepository&lt;Post&gt;
+                        {
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ICategoryRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public interface ICategoryRepository : IAsyncRepository<Category>
+                        {
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ICategoryRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public interface IWebinaryRepository : IAsyncRepository&lt;Webinars&gt;
+                        {
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/12.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/13.gif" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Wzorzec projektowy Mediator
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/mediator.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/mediator2.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/adobe/mediator3.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Mediator</li>
+                    <ol class="nonumbers">
+                        <li class="next">Klasa która określa jak obiekty gadają między sobą</li>
+                        <li class="next">Unikniemy w ten sposób referencji jednej klasy do drugiej</li>
+                        <li class="next">Pomoże nam w komunikacji z klasami z projektu Core</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/adobe/mediator3.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Zalety</li>
+                    <ol class="nonumbers">
+                        <li class="next">Zmiany łatwo dokonać &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                        <li class="next">Łatwy do testowania</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/adobe/mediator3.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Do czego tego  używać</li>
+                    <ol class="nonumbers">
+                        <li class="next">Dobre miejsce do mapowania klas</li>
+                    </ol>
+                    <li class="next bold">Do czego tego nie używać</li>
+                    <ol class="nonumbers">
+                        <li class="next">Logowanie</li>
+                        <li class="next">Sprawdzania danych</li>
+                        <li class="next">Caching</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/adobe/mediator3.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Paczka NuGet "MediatR" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <ol class="nonumbers">
+                        <li class="next">IRequest</li>
+                        <li class="next">IRequestHandler</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Przykład query</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public class GetVideoCoursesListQuery 
+                        : IRequest&lt;List&lt;VideoCoursesVideModel&gt;&gt; 
+                        { 
+
+
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Przykład obsługi zapytania</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
+                        public class GetVideoCoursesQueryHandler 
+                        : IRequestHandler&lt;GetVideoCoursesListQuery, List&lt;VideoCoursesVideModel&gt;&gt;
+                        {
+                            public async Task&lt;List&lt;VideoCoursesVideModel&gt;&gt; Handle
+                                (GetVideoCoursesListQuery request, 
+                                CancellationToken cancellationToken)
+                            {
+                        
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Problem z mapowaniem obiektów ?
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/viewmodel.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Na pomoc przychodzi AutoMapper ?
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Przykład AutoMapper</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        [ApiController]
+                        [Route(&quot;[controller]&quot;)]
+                        public class EmployeeController : Controller
+                        {
+                            private readonly IMapper _mapper;
+                        
+                            public Employee Index()
+                            {
+                                EmployeeDto eDTO = new EmployeeDto()
+                                {
+                                    EmployeeId = 121,
+                                    FirstName = &quot;Damian&quot;,
+                                    LastName = &quot;Morfeus&quot;,
+                                    Login = &quot;frankodomanamiga&quot;,
+                                    OrganizationCompanyName = &quot;LichyDzwig&quot;,
+                                    OrganizationId = 34,
+                                    Role = &quot;Sprzątacz podłogi pietra 34&quot;,
+                                    RootOrganizationCompanyName = &quot;Dobra Winda&quot;,
+                                    RootOrganizationId = 12,
+                                    Type = &quot;Sprzątacz&quot;
+                                };
+                        
+                                return _mapper.Map&lt;Employee&gt;(eDTO);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Przykład AutoMapper</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class AutoMapperProfile : Profile
+                        {
+                            public AutoMapperProfile()
+                            {
+                                CreateMap&lt;EmployeeDto, Employee&gt;();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/blog-01.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/15.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/16.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/17.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Przykład AutoMapper</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 18px;overflow: hidden;  " class="language-xml">
+                    <code style="line-height: 18px !important;">
+                      &lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+                        &lt;PropertyGroup&gt;
+                          &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
+                        &lt;/PropertyGroup&gt;
+                      
+                        &lt;ItemGroup&gt;
+                          &lt;ProjectReference Include=&quot;..\EduZbieracz.Domain\EduZbieracz.Domain.csproj&quot; /&gt;
+                        &lt;/ItemGroup&gt;
+                      
+                        &lt;ItemGroup&gt;
+                          &lt;Folder Include=&quot;Functions\&quot; /&gt;
+                        &lt;/ItemGroup&gt;
+                      
+                        &lt;ItemGroup&gt;
+                          &lt;PackageReference Include=&quot;AutoMapper&quot; Version=&quot;10.1.1&quot; /&gt;
+                          &lt;PackageReference Include=&quot;AutoMapper.Extensions.Microsoft.DependencyInjection&quot; Version=&quot;8.1.0&quot; /&gt;
+                          &lt;PackageReference Include=&quot;MediatR&quot; Version=&quot;9.0.0&quot; /&gt;
+                        &lt;/ItemGroup&gt;
+                      
+                      &lt;/Project&gt;
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/18.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">PostInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class PostInListViewModel
+                        {
+                            public int PostId { get; set; }
+                            public string Title { get; set; }
+                            public DateTime Date { get; set; }
+                            public string ImageUrl { get; set; }
+                            public int Rate { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/eduzbieracz-02.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQuery</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class GetPostsListQuery 
+                        : IRequest&lt;List&lt;PostInListViewModel&gt;&gt;
+                        {
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/19.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class GetPostsListQueryHandler :
+                        IRequestHandler&lt;GetPostsListQuery, List&lt;PostInListViewModel&gt;&gt;
+                        {
+                            public Task&lt;List&lt;PostInListViewModel&gt;&gt;
+                                Handle(GetPostsListQuery request,
+                                CancellationToken cancellationToken)
+                            {
+                                throw new NotImplementedException();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class GetPostsListQueryHandler :
+                        IRequestHandler&lt;GetPostsListQuery, List&lt;PostInListViewModel&gt;&gt;
+                        {
+                            private readonly IAsyncRepository&lt;Post&gt; _postRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public GetPostsListQueryHandler
+                                (IMapper mapper,
+                                IAsyncRepository&lt;Post&gt; postRepository)
+                            {
+                                _mapper = mapper;
+                                _postRepository = postRepository;
+                            }
+                        
+                            public async Task&lt;List&lt;PostInListViewModel&gt;&gt;
+                                Handle(GetPostsListQuery request,
+                                CancellationToken cancellationToken)
+                            {
+                                var all = await _postRepository.GetAllAsync();
+                                var allordered = all.OrderBy(x =&gt; x.Date);
+                        
+                                return _mapper.Map&lt;List&lt;PostInListViewModel&gt;&gt;(all);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                            private readonly IAsyncRepository&lt;Post&gt; _postRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public GetPostsListQueryHandler
+                                (IMapper mapper,
+                                IAsyncRepository&lt;Post&gt; postRepository)
+                            {
+                                _mapper = mapper;
+                                _postRepository = postRepository;
+                            }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public async Task&lt;List&lt;PostInListViewModel&gt;&gt;
+                        Handle(GetPostsListQuery request,
+                        CancellationToken cancellationToken)
+                        {
+                            var all = await _postRepository.GetAllAsync();
+                            var allordered = all.OrderBy(x =&gt; x.Date);
+                    
+                            return _mapper.Map&lt;List&lt;PostInListViewModel&gt;&gt;(all);
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/20.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/21.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class MappingProfile : Profile
+                        {
+                            public MappingProfile()
+                            {
+                                CreateMap&lt;Post, PostInListViewModel&gt;()
+                                    .ReverseMap();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class PostDetailViewModel
+                        {
+                            public int PostId { get; set; }
+                            public string Title { get; set; }
+                            public string Author { get; set; }
+                            public DateTime Date { get; set; }
+                            public string Description { get; set; }
+                    
+                            public CategoryDto Category { get; set; }
+                    
+                            public string ImageUrl { get; set; }
+                            public string Url { get; set; }
+                            public int Rate { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class CategoryDto
+                        {
+                            public int CategoryId { get; set; }
+                    
+                            public string Name { get; set; }
+                    
+                            public string DisplayName { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/22.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class GetPostDetailQueryHandler :
+                        IRequestHandler&lt;GetPostDetailQuery, PostDetailViewModel&gt;
+                        {
+                            private readonly IAsyncRepository&lt;Post&gt; _postRepository;
+                            private readonly IAsyncRepository&lt;Category&gt; _categoryRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public GetPostDetailQueryHandler(
+                                IAsyncRepository&lt;Post&gt; postRepository,
+                                IAsyncRepository&lt;Category&gt; categoryRepository,
+                                IMapper mapper)
+                            {
+                                _postRepository = postRepository;
+                                _categoryRepository = categoryRepository;
+                                _mapper = mapper;
+                            }
+                        
+                            public async Task&lt;PostDetailViewModel&gt; Handle
+                                (GetPostDetailQuery request,
+                                CancellationToken cancellationToken)
+                            {
+                                var post = await _postRepository.GetByIdAsync(request.Id);
+                                var postdetail = _mapper.Map&lt;PostDetailViewModel&gt;(post);
+                        
+                                var category = await _categoryRepository.GetByIdAsync(post.CategoryId);
+                        
+                                postdetail.Category = _mapper.Map&lt;CategoryDto&gt;(category);
+                        
+                                return postdetail;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                            public GetPostDetailQueryHandler(
+                                IAsyncRepository&lt;Post&gt; postRepository,
+                                IAsyncRepository&lt;Category&gt; categoryRepository,
+                                IMapper mapper)
+                            {
+                                _postRepository = postRepository;
+                                _categoryRepository = categoryRepository;
+                                _mapper = mapper;
+                            }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                            public async Task&lt;PostDetailViewModel&gt; Handle
+                                (GetPostDetailQuery request,
+                                CancellationToken cancellationToken)
+                            {
+                                var post = await _postRepository.GetByIdAsync(request.Id);
+                                var postdetail = _mapper.Map&lt;PostDetailViewModel&gt;(post);
+                        
+                                var category = await _categoryRepository.GetByIdAsync(post.CategoryId);
+                        
+                                postdetail.Category = _mapper.Map&lt;CategoryDto&gt;(category);
+                        
+                                return postdetail;
+                            }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class MappingProfile : Profile
+                        {
+                            public MappingProfile()
+                            {
+                                CreateMap&lt;Post, PostInListViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Post, PostDetailViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Category, CategoryDto&gt;();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/23.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/24.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/25.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/26.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public static class ApplicationInstallation
+                        {
+                            public static IServiceCollection Install(this IServiceCollection services)
+                            {
+                                services.AddAutoMapper(Assembly.GetExecutingAssembly());
+                                services.AddMediatR(Assembly.GetExecutingAssembly());
+                    
+                                return services;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Odczytywanie i zapisywanie danych</li>
+                    <ol class="nonumbers">
+                        <li class="next">Różne zapytania, Różne obiekty zwracane</li>
+                        <li class="next">Bezpieczeństwo może być inne</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP">
+        <span class="shout colors" ><span>Dlaczego nie stworzyć klasę "Service" ?
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/27.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/27-1.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/28.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-containerOnlyThree ">
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/depedencyInjection.png" /></div>
+            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/mediator.png" /></div>
+            <div class="ImageOnlyThree "> <img src="pictures/iconsFr/mediator.png" /></div>
+            <div class="TitleOnlyTwo"><h3>CQRS</h3></div>
+            <div class="TextOnlyTwo1 "><h3>Command-Query<br />Responsibility<br />Segregation</h3></div>
+            <div class="TextOnlyTwo2 "><h3>Róźne modele<br /><span class="smallerfont">Command do aktualizacji danych <br />Query do odczytu</span></h3></div>
+            <div class="TextOnlyThree "><h3>Command jest Task=iem<br /><span class="smallerfont"> Może być asychroniczny</span><br />&nbsp;</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Zalety</li>
+                    <ol class="nonumbers">
+                        <li class="next">Skalowalne</li>
+                        <li class="next">Bezpieczeństwo</li>
+                        <li class="next">Łatwe do zmian</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Wady</li>
+                    <ol class="nonumbers">
+                        <li class="next">Zwiększa liczbę klas</li>
+                        <li class="next">Zwiększona złożoność aplikacji</li>
+                        <li class="next">Dobry pomysł dla dużych aplikacji</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/29.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/30.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/31.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/32.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/33.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/34.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class CategoryInListViewModel
+                        {
+                            public int CategoryId { get; set; }
+                    
+                            public string Name { get; set; }
+                    
+                            public string DisplayName { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class GetCategoriesListQuery
+                        : IRequest&lt;List&lt;CategoryInListViewModel&gt;&gt;
+                        {
+                            
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class GetCategoriesListQueryHandler :
+                        IRequestHandler&lt;GetCategoriesListQuery, List&lt;CategoryInListViewModel&gt;&gt;
+                        {
+                            private readonly IAsyncRepository&lt;Category&gt; _categoryRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public GetCategoriesListQueryHandler(IMapper mapper,
+                                IAsyncRepository&lt;Category&gt; categoryRepository)
+                            {
+                                _mapper = mapper;
+                                _categoryRepository = categoryRepository;
+                            }
+                        
+                        
+                            public async Task&lt;List&lt;CategoryInListViewModel&gt;&gt; Handle
+                                (GetCategoriesListQuery request, CancellationToken cancellationToken)
+                            {
+                                var all = await _categoryRepository.GetAllAsync();
+                                var ordered = all.OrderBy(a =&gt; a.Name);
+                        
+                                return _mapper.Map&lt;List&lt;CategoryInListViewModel&gt;&gt;(ordered);
+                            }
+                        }
+                        </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                            private readonly IAsyncRepository&lt;Category&gt; _categoryRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public GetCategoriesListQueryHandler(IMapper mapper,
+                                IAsyncRepository&lt;Category&gt; categoryRepository)
+                            {
+                                _mapper = mapper;
+                                _categoryRepository = categoryRepository;
+                            }
+                        </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                            public async Task&lt;List&lt;CategoryInListViewModel&gt;&gt; Handle
+                                (GetCategoriesListQuery request, CancellationToken cancellationToken)
+                            {
+                                var all = await _categoryRepository.GetAllAsync();
+                                var ordered = all.OrderBy(a =&gt; a.Name);
+                        
+                                return _mapper.Map&lt;List&lt;CategoryInListViewModel&gt;&gt;(ordered);
+                            }
+                        </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/35.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CategoryPostDto
+                        {
+                            public int PostId { get; set; }
+                            public string Title { get; set; }
+                            public string Author { get; set; }
+                            public DateTime Date { get; set; }
+                            public string ImageUrl { get; set; }
+                            public int Rate { get; set; }
+
+                            public int CategoryId { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CategoryPostListViewModel
+                        {
+                            public int CategoryId { get; set; }
+                        
+                            public string Name { get; set; }
+                        
+                            public string DisplayName { get; set; }
+                        
+                            public ICollection&lt;CategoryPostDto&gt; Posts { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CategoryPostListViewModel
+                        {
+                            public int CategoryId { get; set; }
+                        
+                            public string Name { get; set; }
+                        
+                            public string DisplayName { get; set; }
+                        
+                            public ICollection&lt;CategoryPostDto&gt; Posts { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class GetCategoriesWithPostListQuery :
+                        IRequest&lt;List&lt;CategoryPostListViewModel&gt;&gt;
+                        {
+                            public SearchCategoryOptions searchCategory { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public enum SearchCategoryOptions
+                        {
+                            All = 0,
+                            FirstBestThisWeek = 1,
+                            FirstBestThisMonth = 2,
+                            FirstBestAllTheTime = 3,
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class GetCategoriesWithPostListQueryHandler :
+                        IRequestHandler&lt;GetCategoriesWithPostListQuery, List&lt;CategoryPostListViewModel&gt;&gt;
+                        {
+                            private readonly IAsyncRepository&lt;Category&gt; _categoryRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public GetCategoriesWithPostListQueryHandler(IMapper mapper,
+                                IAsyncRepository&lt;Category&gt; categoryRepository)
+                            {
+                                _mapper = mapper;
+                                _categoryRepository = categoryRepository;
+                            }
+                        
+                            public Task&lt;List&lt;CategoryPostListViewModel&gt;&gt;
+                                Handle(GetCategoriesWithPostListQuery request,
+                                CancellationToken cancellationToken)
+                            {
+                                var list = await _categoryRepository.
+                                    GetCategoriesWithPost(request.searchCategory);
+                        
+                                return _mapper.Map&lt;List&lt;CategoryPostListViewModel&gt;&gt;(list);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class GetCategoriesWithPostListQueryHandler :
+                        IRequestHandler&lt;GetCategoriesWithPostListQuery, List&lt;CategoryPostListViewModel&gt;&gt;
+                        {
+                            private readonly ICategoryRepository _categoryRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public GetCategoriesWithPostListQueryHandler(IMapper mapper,
+                                ICategoryRepository categoryRepository)
+                            {
+                                _mapper = mapper;
+                                _categoryRepository = categoryRepository;
+                            }
+                        
+                            public Task&lt;List&lt;CategoryPostListViewModel&gt;&gt;
+                                Handle(GetCategoriesWithPostListQuery request,
+                                CancellationToken cancellationToken)
+                            {
+                                var list = await _categoryRepository.
+                                    GetCategoriesWithPost(request.searchCategory);
+                        
+                                return _mapper.Map&lt;List&lt;CategoryPostListViewModel&gt;&gt;(list);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public interface ICategoryRepository : IAsyncRepository&lt;Category&gt;
+                        {
+                            Task&lt;List&lt;Category&gt;&gt; 
+                                GetCategoriesWithPost(SearchCategoryOptions searchCategory);
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class MappingProfile : Profile
+                        {
+                            public MappingProfile()
+                            {
+                                CreateMap&lt;Post, PostInListViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Post, PostDetailViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Category, CategoryDto&gt;();
+                        
+                                CreateMap&lt;Category, CategoryInListViewModel&gt;();
+                                CreateMap&lt;Category, CategoryPostDto&gt;();
+                                CreateMap&lt;Category, CategoryPostListViewModel&gt;();
+                        
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/adobe/Command.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/d/37.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommand : IRequest&lt;int&gt;
+                        {
+                            public int PostId { get; set; }
+                            public string Title { get; set; }
+                            public string Author { get; set; }
+                            public DateTime Date { get; set; }
+                            public string Description { get; set; }
+                        
+                            public int CategoryId { get; set; }
+                        
+                            public string ImageUrl { get; set; }
+                            public string Url { get; set; }
+                        
+                            public int Rate { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryInListViewModel</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommandHandler
+                        : IRequestHandler&lt;CreatedPostCommand, int&gt;
+                        {
+                            private readonly IPostRepository _postRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public async Task&lt;int&gt; Handle(CreatedPostCommand request,
+                                CancellationToken cancellationToken)
+                            {
+                                var post = _mapper.Map&lt;Post&gt;(request);
+                        
+                                post = await _postRepository.AddAsync(post);
+                        
+                                return post.PostId;
+                            }
+                        
+                            public CreatedPostCommandHandler(IPostRepository postRepository,
+                                IMapper mapper)
+                            {
+                                _postRepository = postRepository;
+                                _mapper = _mapper;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class MappingProfile : Profile
+                        {
+                            public MappingProfile()
+                            {
+                                CreateMap&lt;Post, PostInListViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Post, PostDetailViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Category, CategoryDto&gt;();
+                        
+                                CreateMap&lt;Category, CategoryInListViewModel&gt;();
+                                CreateMap&lt;Category, CategoryPostDto&gt;();
+                                CreateMap&lt;Category, CategoryPostListViewModel&gt;();
+                        
+                                CreateMap&lt;Post, CreatedPostCommand&gt;().ReverseMap();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/d/38.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class UpdatePostCommand : IRequest
+                        {
+                            public int PostId { get; set; }
+                            public string Title { get; set; }
+                            public string Author { get; set; }
+                            public DateTime Date { get; set; }
+                            public string Description { get; set; }
+                    
+                            public int CategoryId { get; set; }
+                    
+                            public string ImageUrl { get; set; }
+                            public string Url { get; set; }
+                    
+                            public int Rate { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class UpdatePostCommandHandler
+                        : IRequestHandler&lt;UpdatePostCommand&gt;
+                        {
+                            private readonly IPostRepository _postRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public async Task&lt;Unit&gt; Handle(UpdatePostCommand request,
+                                CancellationToken cancellationToken)
+                            {
+                                var post = _mapper.Map&lt;Post&gt;(request);
+                        
+                                await _postRepository.UpdateAsync(post);
+                        
+                                return Unit.Value;
+                            }
+                        
+                            public UpdatePostCommandHandler(IPostRepository postRepository,
+                                IMapper mapper)
+                            {
+                                _postRepository = postRepository;
+                                _mapper = mapper;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class MappingProfile : Profile
+                        {
+                            public MappingProfile()
+                            {
+                                CreateMap&lt;Post, PostInListViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Post, PostDetailViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Category, CategoryDto&gt;();
+                        
+                                CreateMap&lt;Category, CategoryInListViewModel&gt;();
+                                CreateMap&lt;Category, CategoryPostDto&gt;();
+                                CreateMap&lt;Category, CategoryPostListViewModel&gt;();
+                        
+                                CreateMap&lt;Post, CreatedPostCommand&gt;().ReverseMap();
+                                CreateMap&lt;Post, UpdatePostCommand&gt;().ReverseMap();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class DeletePostCommand : IRequest
+                        {
+                            public int PostId { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class DeletePostCommandHandler : IRequestHandler&lt;DeletePostCommand&gt;
+                        {
+                            private readonly IPostRepository _postRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public async Task&lt;Unit&gt; Handle(DeletePostCommand request, CancellationToken cancellationToken)
+                            {
+                                var posttodelete = await _postRepository.GetByIdAsync(request.PostId);
+                        
+                                await _postRepository.DeleteAsync(posttodelete);
+                        
+                                return Unit.Value;
+                            }
+                        
+                            public DeletePostCommandHandler(IPostRepository postRepository,
+                        IMapper mapper)
+                            {
+                                _postRepository = postRepository;
+                                _mapper = mapper;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Sprawdzanie poprawności danych
+        </span></span>
+    </section>
+
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/39.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class Post
+                        {
+                            public int PostId { get; set; }
+                            
+                            [Required]
+                            [StringLenght(80)]
+                            public string Title { get; set; }
+                            
+                            [StringLenght(40)]
+                            public string Author { get; set; }
+
+                            .....    
+
+                            [Range(0, 100)]
+                            public int Rate { get; set; }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/40.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>W którym miejscu sprawdzać dane? 
+        </span></span>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Mogę to zwalić na warstwę UI (Client albo Web API)
+        </span></span>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Mogę to zwalić na warstwę infrastruktury (EF Core)
+        </span></span>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Oczywiście, że nie
+        </span></span>
+    </section>
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/adobe/mediator3.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Paczka NuGet "Fluent Validation" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <ol class="nonumbers">
+                        <li class="next">Używa ona wyrażenia lambda i stylu extension method</li>
+                        <li class="next bold">Może być użyty w projekcie Core</li>
+                        <ol class="nonumbers">
+                            <li class="next">RequestHandler</li>
+                            <li class="next">IRequestHandler</li>
+                        </ol>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Dobry powód do dodania swoich wyjątków
+        </span></span>
+    </section>
+    <section class="slide creamPPP   compact ">
+        <h2>Jakie wyjatki na będą potrzebne</h2>
+        <ol class="nonumbers">
+            <li class="next">NotFoundException</li>
+            <li class="next">BadQueryRequestExpception</li>
+            <li class="next">ValidationException</li>
+        </ol>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/41.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/42.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        &lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+                        &lt;PropertyGroup&gt;
+                          &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
+                        &lt;/PropertyGroup&gt;
+                      
+                        &lt;ItemGroup&gt;
+                          &lt;ProjectReference Include=&quot;..\EduZbieracz.Domain\EduZbieracz.Domain.csproj&quot; /&gt;
+                        &lt;/ItemGroup&gt;
+                      
+                        &lt;ItemGroup&gt;
+                          &lt;PackageReference Include=&quot;AutoMapper&quot; Version=&quot;10.1.1&quot; /&gt;
+                          &lt;PackageReference Include=&quot;AutoMapper.Extensions.Microsoft.DependencyInjection&quot; Version=&quot;8.1.0&quot; /&gt;
+                          &lt;PackageReference Include=&quot;FluentValidation&quot; Version=&quot;9.4.0&quot; /&gt;
+                          &lt;PackageReference Include=&quot;FluentValidation.DependencyInjectionExtensions&quot; Version=&quot;9.4.0&quot; /&gt;
+                          &lt;PackageReference Include=&quot;MediatR&quot; Version=&quot;9.0.0&quot; /&gt;
+                          &lt;PackageReference Include=&quot;MediatR.Extensions.Microsoft.DependencyInjection&quot; Version=&quot;9.0.0&quot; /&gt;
+                        &lt;/ItemGroup&gt;
+                      
+                        &lt;ItemGroup&gt;
+                          &lt;Folder Include=&quot;Functions\Categories\Commands\CreateCategory\&quot; /&gt;
+                          &lt;Folder Include=&quot;Functions\Webinars\Command\&quot; /&gt;
+                          &lt;Folder Include=&quot;Functions\Webinars\Queries\GetWebinarList\&quot; /&gt;
+                        &lt;/ItemGroup&gt;
+                      
+                        &lt;/Project&gt;
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommandValidator
+                        : AbstractValidator&lt;CreatedPostCommand&gt;
+                        {
+                            public CreatedPostCommandValidator()
+                            {
+                                RuleFor(p =&gt; p.Title)
+                                    .NotEmpty()
+                                    .WithMessage(&quot;{PropertyName} is required&quot;)
+                                    .NotNull()
+                                    .MaximumLength(80)
+                                    .WithMessage(&quot;{PropertyName} must not exceed 80 characters&quot;);
+                        
+                                RuleFor(p =&gt; p.Date)
+                                    .NotEmpty()
+                                    .WithMessage(&quot;{PropertyName} is required&quot;)
+                                    .NotNull()
+                                    .LessThan(DateTime.Now.AddDays(1));
+                        
+                                RuleFor(p =&gt; p.Rate)
+                                    .InclusiveBetween(0, 100)
+                                    .WithMessage(&quot;{PropertyName} is beetween 0 to 100&quot;);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommandValidator
+                        : AbstractValidator&lt;CreatedPostCommand&gt;
+                        {
+                            public CreatedPostCommandValidator()
+                            {
+                                RuleFor(p =&gt; p.Title)
+                                    .NotEmpty()
+                                    .WithMessage(&quot;{PropertyName} is required&quot;)
+                                    .NotNull()
+                                    .MaximumLength(80)
+                                    .WithMessage(&quot;{PropertyName} must not exceed 80 characters&quot;);
+                        
+                                RuleFor(p =&gt; p.Date)
+                                    .NotEmpty()
+                                    .WithMessage(&quot;{PropertyName} is required&quot;)
+                                    .NotNull()
+                                    .LessThan(DateTime.Now.AddDays(1));
+                        
+                                RuleFor(p =&gt; p.Rate)
+                                    .InclusiveBetween(0, 100)
+                                    .WithMessage(&quot;{PropertyName} is beetween 0 to 100&quot;);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">MappingProfile</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommandHandler
+                        : IRequestHandler&lt;CreatedPostCommand, int&gt;
+                        {
+                        ......
+                        
+                            public async Task&lt;int&gt; Handle(CreatedPostCommand request,
+                                CancellationToken cancellationToken)
+                            {
+                                var validator = new CreatedPostCommandValidator();
+                                var validatorResult = await validator.ValidateAsync(request);
+                        
+                                var post = _mapper.Map&lt;Post&gt;(request);
+                        
+                                post = await _postRepository.AddAsync(post);
+                        
+                                return post.PostId;
+                            }
+                        .....
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class ValidationEduException : ApplicationException
+                        {
+                            public List&lt;string&gt; ErrorMessages { get; set; }
+                        
+                            public ValidationEduException(ValidationResult validationResult)
+                            {
+                                ErrorMessages = new List&lt;String&gt;();
+                        
+                                foreach (var item in validationResult.Errors)
+                                {
+                                    ErrorMessages.Add(item.ErrorMessage);
+                                }
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/43.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+
+    <section class="slide creamG">
+        <span class="shout colors" ><span>Podsumowanie
+        </span></span>
+    </section>
+    <!-- <div class="progress"></div> -->
+    <footer class="badge badge-top-left">
+        <a href="#" class="fullscreen">Fullscreen</a>
+    </footer>
+
+    <script src="vendors/gamepad/gamepad.js"></script>
+    <script src="vendors/shower/shower.min.js"></script>
+    <script src="vendors/shower-gamepad/shower.gamepad.js"></script>
+
+    <!-- Prism.js -->
+    <script src="vendors/prism/prism.js"></script>
+    <script src="vendors/prism/custom-prism.js"></script>
+
+</body>
+
+</html>
