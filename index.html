@@ -3035,6 +3035,10 @@
         </figure>
     </section>
     <section class="slide creamPPP">
+        <span class="shout colors" ><span>Potraktujmy jednak "Single Responsibility Principle" poważnie
+        </span></span>
+    </section>
+    <section class="slide creamPPP">
         <span class="shout colors" ><span>W którym miejscu sprawdzać dane? 
         </span></span>
     </section>
@@ -3046,6 +3050,11 @@
         <span class="shout colors" ><span>Mogę to zwalić na warstwę infrastruktury (EF Core)
         </span></span>
     </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-1-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
     <section class="slide creamPPP">
         <span class="shout colors" ><span>Oczywiście, że nie
         </span></span>
@@ -3100,7 +3109,7 @@
                 <h2 class="headerCODE PP PP">MappingProfile</h2>
             </div>
             <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-xml">
                     <code style="line-height: 19px !important;">
                         &lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
 
@@ -3309,6 +3318,2400 @@
             <img class="cover" src="pictures/d/43.png" alt="blog">
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public async Task&lt;int&gt; Handle(CreatedPostCommand request,
+                        CancellationToken cancellationToken)
+                        {
+                            var validator = new CreatedPostCommandValidator();
+                            var validatorResult = await validator.ValidateAsync(request);
+                        
+                            if (!validatorResult.IsValid)
+                                throw new ValidationEduException(validatorResult);
+                        
+                            var post = _mapper.Map&lt;Post&gt;(request);
+                        
+                            post = await _postRepository.AddAsync(post);
+                        
+                            return post.PostId;
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/44.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public async Task&lt;int&gt; Handle(CreatedPostCommand request,
+                        CancellationToken cancellationToken)
+                        {
+                            var validator = new CreatedPostCommandValidator();
+                            var validatorResult = await validator.ValidateAsync(request);
+                        
+                            if (!validatorResult.IsValid)
+                                throw new ValidationEduException(validatorResult);
+                        
+                            var post = _mapper.Map&lt;Post&gt;(request);
+                        
+                            post = await _postRepository.AddAsync(post);
+                        
+                            return post.PostId;
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public async Task&lt;int&gt; Handle(CreatedPostCommand request,
+                        CancellationToken cancellationToken)
+                        {
+                            var validator = new CreatedPostCommandValidator();
+                            var validatorResult = await validator.ValidateAsync(request);
+                        
+                            if (!validatorResult.IsValid)
+                                throw new ValidationEduException(validatorResult);
+                        
+                            var post = _mapper.Map&lt;Post&gt;(request);
+                        
+                            post = await _postRepository.AddAsync(post);
+                        
+                            return post.PostId;
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommandValidator
+                        : AbstractValidator&lt;CreatedPostCommand&gt;
+                        {
+                            private readonly IPostRepository _postRepository;
+                        
+                            public CreatedPostCommandValidator(IPostRepository postRepository)
+                            {
+                                _postRepository = postRepository;
+                                ......................
+                                ......................
+                                RuleFor(p =&gt; p).
+                                    MustAsync(IsNameAndAuthorAlreadyExist)
+                                    .WithMessage(&quot;Post with the same Title and Author already exist&quot;);
+                            }
+                        
+                        
+                            private async Task&lt;bool&gt; IsNameAndAuthorAlreadyExist
+                                (CreatedPostCommand e, CancellationToken cancellationToken)
+                            {
+                                var check = await _postRepository.
+                                    IsNameAndAuthorAlreadyExist(e.Title, e.Author);
+                                return !check;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public interface IPostRepository : IAsyncRepository&lt;Post&gt;
+                        {
+                            Task&lt;bool&gt; IsNameAndAuthorAlreadyExist(string title, string author);
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommandHandler
+                        : IRequestHandler&lt;CreatedPostCommand, int&gt;
+                        {
+                            private readonly IPostRepository _postRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public async Task&lt;int&gt; Handle(CreatedPostCommand request,
+                                CancellationToken cancellationToken)
+                            {
+                                var validator = new CreatedPostCommandValidator(_postRepository);
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide cream">
+        <span class="shout colors" ><span>A może pora na lepsze podjeście
+        </span></span>
+    </section>
+    <section class="slide cream">
+        <span class="shout colors" ><span>Wyjątki są zbyt agresywne
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/45-dodanieResponse.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class BaseResponse
+                        {
+                            public BaseResponse(ValidationResult validationResult)
+                            {
+                                ValidationErrors = new List&lt;String&gt;();
+                                Success = validationResult.Errors.Count &gt; 0;
+                                foreach (var item in validationResult.Errors)
+                                {
+                                    ValidationErrors.Add(item.ErrorMessage);
+                                }
+                        
+                            }
+                        
+                            public bool Success { get; set; }
+                            public string Message { get; set; }
+                            public List&lt;string&gt; ValidationErrors { get; set; }
+                        
+                            public BaseResponse()
+                            {
+                                Success = true;
+                            }
+                            public BaseResponse(string message = null)
+                            {
+                                Success = true;
+                                Message = message;
+                            }
+                        
+                            public BaseResponse(string message, bool success)
+                            {
+                                Success = success;
+                                Message = message;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/46.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/47.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommandResponse : BaseResponse
+                        {
+                            public int? PostId { get; set; }
+                        
+                            public CreatedPostCommandResponse() : base()
+                            { }
+                        
+                            public CreatedPostCommandResponse(ValidationResult validationResult)
+                                : base(validationResult)
+                            { }
+                        
+                            public CreatedPostCommandResponse(string message)
+                            : base(message)
+                            { }
+                        
+                            public CreatedPostCommandResponse(string message, bool success)
+                                : base(message, success)
+                            { }
+                        
+                            public CreatedPostCommandResponse(int postId)
+                            {
+                                PostId = postId;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommand : IRequest&lt;CreatedPostCommandResponse&gt;
+                        {
+                            public int PostId { get; set; }
+                            public string Title { get; set; }
+                            public string Author { get; set; }
+                            public DateTime Date { get; set; }
+                            public string Description { get; set; }
+                        
+                            public int CategoryId { get; set; }
+                        
+                            public string ImageUrl { get; set; }
+                            public string Url { get; set; }
+                        
+                            public int Rate { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommand : IRequest&lt;int&gt;
+                        {
+                            public int PostId { get; set; }
+                            public string Title { get; set; }
+                            public string Author { get; set; }
+                            public DateTime Date { get; set; }
+                            public string Description { get; set; }
+                        
+                            public int CategoryId { get; set; }
+                        
+                            public string ImageUrl { get; set; }
+                            public string Url { get; set; }
+                        
+                            public int Rate { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedPostCommandHandler
+                        : IRequestHandler&lt;CreatedPostCommand, CreatedPostCommandResponse&gt;
+                        {
+                            private readonly IPostRepository _postRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public async Task&lt;CreatedPostCommandResponse&gt;
+                                Handle(CreatedPostCommand request,
+                                CancellationToken cancellationToken)
+                            {
+                                var validator = new CreatedPostCommandValidator(_postRepository);
+                                var validatorResult = await validator.ValidateAsync(request);
+                        
+                                if (!validatorResult.IsValid)
+                                    return new CreatedPostCommandResponse(validatorResult);
+                        
+                                var post = _mapper.Map&lt;Post&gt;(request);
+                        
+                                post = await _postRepository.AddAsync(post);
+                        
+                                return new CreatedPostCommandResponse(post.PostId);
+                            }
+                        
+                            public CreatedPostCommandHandler(IPostRepository postRepository,
+                                IMapper mapper)
+                            {
+                                _postRepository = postRepository;
+                                _mapper = mapper;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="slide cream">
+        <span class="shout colors" ><span>To jest ciekawy problem jak REST API który zwraca "Failed" z kodem HTTP 200
+        </span></span>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public enum ResponseStatus
+                        {
+                            Success = 0,
+                            NotFound = 1,
+                            BadQueryRequest = 2,
+                            ValidationError = 3,
+                            Exception = 4
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class BaseResponse
+                        {
+                            public ResponseStatus Status { get; set; }
+                            public bool Success { get; set; }
+                            public string Message { get; set; }
+                            public List&lt;string&gt; ValidationErrors { get; set; }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/48.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedCategoryCommand : IRequest&lt;CreatedCategoryCommandResponse&gt;
+                        {
+                            public int CategoryId { get; set; }
+                        
+                            public string Name { get; set; }
+                        
+                            public string DisplayName { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedCategoryCommandResponse : BaseResponse
+                        {
+                            public int? CategoryId { get; set; }
+                        
+                            public CreatedCategoryCommandResponse() : base()
+                            { }
+                        
+                            public CreatedCategoryCommandResponse(ValidationResult validationResult)
+                                : base(validationResult)
+                            { }
+                        
+                            public CreatedCategoryCommandResponse(string message)
+                            : base(message)
+                            { }
+                        
+                            public CreatedCategoryCommandResponse(string message, bool success)
+                                : base(message, success)
+                            { }
+                        
+                            public CreatedCategoryCommandResponse(int categoryId)
+                            {
+                                CategoryId = categoryId;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/49.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedCategoryCommandValidator :
+                        AbstractValidator&lt;CreatedCategoryCommand&gt;
+                        {
+                            public CreatedCategoryCommandValidator()
+                            {
+                                RuleFor(c =&gt; c.Name)
+                                    .MinimumLength(2).MaximumLength(15)
+                                    .WithMessage(&quot;{PropertName} Length is beewten 2 and 15&quot;);
+                                RuleFor(c =&gt; c.DisplayName)
+                                    .MinimumLength(2).MaximumLength(15)
+                                    .WithMessage(&quot;{PropertName} Length is beewten 2 and 15&quot;);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedCategoryCommandHandler
+                        : IRequestHandler&lt;CreatedCategoryCommand, CreatedCategoryCommandResponse&gt;
+                        {
+                            private readonly ICategoryRepository _categoryRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public async Task&lt;CreatedCategoryCommandResponse&gt; Handle(CreatedCategoryCommand request, CancellationToken cancellationToken)
+                            {
+                                var validator = new CreatedCategoryCommandValidator();
+                                var validatorResult = await validator.ValidateAsync(request);
+                        
+                                if (!validatorResult.IsValid)
+                                    return new CreatedCategoryCommandResponse(validatorResult);
+                        
+                                var category = _mapper.Map&lt;Category&gt;(request);
+                        
+                                category = await _categoryRepository.AddAsync(category);
+                        
+                                return new CreatedCategoryCommandResponse(category.CategoryId);
+                            }
+                        
+                            public CreatedCategoryCommandHandler(ICategoryRepository categoryRepository,
+                                IMapper mapper)
+                            {
+                                _categoryRepository = categoryRepository;
+                                _mapper = mapper;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class MappingProfile : Profile
+                        {
+                            public MappingProfile()
+                            {
+                                CreateMap&lt;Post, PostInListViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Post, PostDetailViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Category, CategoryDto&gt;();
+                        
+                                CreateMap&lt;Category, CategoryInListViewModel&gt;();
+                                CreateMap&lt;Category, CategoryPostDto&gt;();
+                                CreateMap&lt;Category, CategoryPostListViewModel&gt;();
+                        
+                                CreateMap&lt;Post, CreatedPostCommand&gt;().ReverseMap();
+                                CreateMap&lt;Post, UpdatePostCommand&gt;().ReverseMap();
+                        
+                                CreateMap&lt;Category, CreatedCategoryCommand&gt;().ReverseMap();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide cream">
+        <span class="shout colors" ><span>Pora na szybkie podsumowanie
+        </span></span>
+    </section>
+
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/50.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class GetWebinarsByDateQuery : IRequest&lt;PageWebinarByDateViewModel&gt;
+                        {
+                            public DateTime Date { get; set; }
+                            public int Page { get; set; }
+                            public int PageSize { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class WebinarsByDateViewModel
+                        {
+                            public int Id { get; set; }
+                        
+                            public string Title { get; set; }
+                        
+                            public string Description { get; set; }
+                        
+                            public string ImageUrl { get; set; }
+                        
+                            public string FacebookEventUrl { get; set; }
+                        
+                            public string SlidesUrl { get; set; }
+                        
+                            public string WatchFacebookLink { get; set; }
+                        
+                            public string WatchYoutubeLink { get; set; }
+                        
+                            public DateTime Date { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class GetWebinarsByDateQuery : IRequest&lt;PageWebinarByDateViewModel&gt;
+                        {
+                            public DateTime Date { get; set; }
+                            public int Page { get; set; }
+                            public int PageSize { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class GetWebinarsByDateQueryHandler :
+                        IRequestHandler&lt;GetWebinarsByDateQuery, PageWebinarByDateViewModel&gt;
+                        {
+                            private readonly IWebinaryRepository _webinarRepository;
+                            private readonly IMapper _mapper;
+                        
+                            public GetWebinarsByDateQueryHandler(IWebinaryRepository webinarRepository,
+                                IMapper mapper)
+                            {
+                                _webinarRepository = webinarRepository;
+                                _mapper = mapper;
+                            }
+                        
+                            public async Task&lt;PageWebinarByDateViewModel&gt; Handle(GetWebinarsByDateQuery request, CancellationToken cancellationToken)
+                            {
+                                var list = await _webinarRepository.GetPagedWebinarsForDate(request.Date, request.Page, request.PageSize);
+                                var webinars = _mapper.Map&lt;List&lt;WebinarsByDateViewModel&gt;&gt;(list);
+                        
+                                var count = await _webinarRepository.GetTotalCountOfWebinarsForDate(request.Date);
+                                return new PageWebinarByDateViewModel()
+                                {
+                                    AllCount = count,
+                                    Webinars = webinars,
+                                    Page = request.Page,
+                                    PageSize = request.PageSize
+                                };
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public interface IWebinaryRepository : IAsyncRepository&lt;Webinar&gt;
+                        {
+                            Task&lt;int&gt; GetTotalCountOfWebinarsForDate(DateTime date);
+                            Task&lt;List&lt;Webinar&gt;&gt; GetPagedWebinarsForDate(DateTime date, int page, int pageSize);
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class MappingProfile : Profile
+                        {
+                            public MappingProfile()
+                            {
+                                CreateMap&lt;Post, PostInListViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Post, PostDetailViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Category, CategoryDto&gt;();
+                        
+                                CreateMap&lt;Category, CategoryInListViewModel&gt;();
+                                CreateMap&lt;Category, CategoryPostDto&gt;();
+                                CreateMap&lt;Category, CategoryPostListViewModel&gt;();
+                        
+                                CreateMap&lt;Post, CreatedPostCommand&gt;().ReverseMap();
+                                CreateMap&lt;Post, UpdatePostCommand&gt;().ReverseMap();
+                        
+                                CreateMap&lt;Category, CreatedCategoryCommand&gt;().ReverseMap();
+                        
+                                CreateMap&lt;Webinar, WebinarsByDateViewModel&gt;().ReverseMap();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/51.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedWebinarCommand :
+                        IRequest&lt;CreatedWebinarCommandResponse&gt;
+                        {
+                            public int Id { get; set; }
+                        
+                            public string Title { get; set; }
+                        
+                            public string Description { get; set; }
+                        
+                            public string ImageUrl { get; set; }
+                        
+                            public string FacebookEventUrl { get; set; }
+                        
+                            public string SlidesUrl { get; set; }
+                        
+                            public string WatchFacebookLink { get; set; }
+                        
+                            public string WatchYoutubeLink { get; set; }
+                        
+                            public DateTime Date { get; set; }
+                        
+                            public bool AlreadyHappend { get; set; }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedWebinarCommandResponse : BaseResponse
+                        {
+                            public int? Id { get; set; }
+                        
+                            public CreatedWebinarCommandResponse() : base()
+                            { }
+                        
+                            public CreatedWebinarCommandResponse(ValidationResult validationResult)
+                                : base(validationResult)
+                            { }
+                        
+                            public CreatedWebinarCommandResponse(string message)
+                            : base(message)
+                            { }
+                        
+                            public CreatedWebinarCommandResponse(string message, bool success)
+                                : base(message, success)
+                            { }
+                        
+                            public CreatedWebinarCommandResponse(int webinarId)
+                            {
+                                Id = webinarId;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedWebinarCommandValidator :
+                        AbstractValidator&lt;CreatedWebinarCommand&gt;
+                        {
+                            public CreatedWebinarCommandValidator()
+                            {
+                                RuleFor(w =&gt; w.ImageUrl).NotEmpty().NotNull();
+                                RuleFor(w =&gt; w.Title).NotEmpty().NotNull()
+                                    .MinimumLength(5).MaximumLength(80);
+                                RuleFor(w =&gt; w.FacebookEventUrl).NotEmpty().NotNull();
+                        
+                                RuleFor(w =&gt; w.Date).
+                                    GreaterThan
+                                    (DateTime.Now.AddYears(-1));
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatedWebinarCommandHandler
+                        : IRequestHandler&lt;CreatedWebinarCommand, CreatedWebinarCommandResponse&gt;
+                        {
+                            public async Task&lt;CreatedWebinarCommandResponse&gt;
+                            Handle(CreatedWebinarCommand request,
+                            CancellationToken cancellationToken)
+                            {
+                                var validator = new CreatedWebinarCommandValidator();
+                                var validatorResult = await validator.ValidateAsync(request);
+                        
+                                if (!validatorResult.IsValid)
+                                    return new CreatedWebinarCommandResponse(validatorResult);
+                        
+                                var webinar = _mapper.Map&lt;Webinar&gt;(request);
+                        
+                                webinar = await _webinaryRepository.AddAsync(webinar);
+                        
+                                return new CreatedWebinarCommandResponse(webinar.Id);
+                            }
+                        
+                            public CreatedWebinarCommandHandler(IWebinaryRepository webinaryRepository,
+                                IMapper mapper)
+                            {
+                                _webinaryRepository = webinaryRepository;
+                                _mapper = mapper;
+                            }
+                        
+                            private readonly IWebinaryRepository _webinaryRepository;
+                            private readonly IMapper _mapper;
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class MappingProfile : Profile
+                        {
+                            public MappingProfile()
+                            {
+                                CreateMap&lt;Post, PostInListViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Post, PostDetailViewModel&gt;()
+                                    .ReverseMap();
+                                CreateMap&lt;Category, CategoryDto&gt;();
+                        
+                                CreateMap&lt;Category, CategoryInListViewModel&gt;();
+                                CreateMap&lt;Category, CategoryPostDto&gt;();
+                                CreateMap&lt;Category, CategoryPostListViewModel&gt;();
+                        
+                                CreateMap&lt;Post, CreatedPostCommand&gt;().ReverseMap();
+                                CreateMap&lt;Post, UpdatePostCommand&gt;().ReverseMap();
+                        
+                                CreateMap&lt;Category, CreatedCategoryCommand&gt;().ReverseMap();
+                        
+                                CreateMap&lt;Webinar, WebinarsByDateViewModel&gt;().ReverseMap();
+                                CreateMap&lt;Webinar, CreatedWebinarCommand&gt;().ReverseMap();
+
+                                
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide cream">
+        <span class="shout colors" ><span>Przechodzimy do <BR /> 😲 Testów 😲
+        </span></span>
+    </section>
+    <section class="slide blue">
+        <span class="shout colors" ><span>Czy stworzyliśmy na tym etapie testowalny kod?
+        </span></span>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/02.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/03.png" /></div>
+            <div class="Image4"><img src="pictures/iconsFr/04.png" /></div>
+            <div class="TitleMain"><h3>Typy Testów</h3></div>
+            <div class="Title1"><h3>Integracyjne<br />Integration Test</h3></div>
+            <div class="Title2"><h3>Funkcjonalne<br />Functional Test</h3></div>
+            <div class="Title3"><h3>Wydajnościowe<br />Performance Test</h3></div>
+            <div class="Title4"><h3>Jednostkowe<br />Unit Test</h3></div>
+          </div>
+    </section>
+    <section class="slide blue">
+        <span class="shout colors" ><span>Testy jednostkowy jest to zautomatyzowany sposób wywołania kodu.
+            <br />Sprawdź czy dane założenie jest spełnione
+        </span></span>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/02.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/03.png" /></div>
+            <div class="Image4"><img src="pictures/iconsFr/04.png" /></div>
+            <div class="TitleMain"><h3>Testy jednostkowe</h3></div>
+            <div class="Title1"><h3>Uruchamiane w izolacji</h3></div>
+            <div class="Title2"><h3>Stałe rezultaty</h3></div>
+            <div class="Title3"><h3>Zautomatyzowane</h3></div>
+            <div class="Title4"><h3>Szybkie</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/02.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/03.png" /></div>
+            <div class="Image4"><img src="pictures/iconsFr/04.png" /></div>
+            <div class="TitleMain"><h3>Dlaczego potrzebujemy testów jednostkowych</h3></div>
+            <div class="Title1"><h3>Aby znaleźć błędy</h3></div>
+            <div class="Title2"><h3>Dokonywać zmiań bez strachu</h3></div>
+            <div class="Title3"><h3>Dokumentowanie kodu</h3></div>
+            <div class="Title4"><h3>Sprawdzanie kodu w każdym momencie</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-containerOnlyThree ">
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/depedencyInjection.png" /></div>
+            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/mediator.png" /></div>
+            <div class="ImageOnlyThree "> <img src="pictures/iconsFr/mediator.png" /></div>
+            <div class="TitleOnlyTwo"><h3>Jak stworzyć test jednostkowy</h3></div>
+            <div class="TextOnlyTwo1 "><h3>Projekt xUnit</h3></div>
+            <div class="TextOnlyTwo2 "><h3>Mock</h3></div>
+            <div class="TextOnlyThree "><h3>Wstrzykiwanie zależnosci</h3></div>
+          </div>
+    </section> 
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/01.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/02.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/03.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/04.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/05.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/06.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/07.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/08.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/08-1.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/09.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/10.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/11.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/12.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/13.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/t/14.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Mock ICategoryRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public static Mock&lt;ICategoryRepository&gt; GetCategoryRepository()
+                        {
+                            var categories = GetCategories();
+                        
+                            var mockCategoryRepository = new Mock&lt;ICategoryRepository&gt;();
+                            mockCategoryRepository.Setup(repo =&gt; repo.GetAllAsync()).ReturnsAsync(categories);
+                        
+                            mockCategoryRepository.Setup(repo =&gt; repo.GetByIdAsync(It.IsAny&lt;int&gt;())).ReturnsAsync(
+                            (int id) =&gt;
+                            {
+                                var cat = categories.FirstOrDefault(c =&gt; c.CategoryId == id);
+                                return cat;
+                            });
+                        
+                            mockCategoryRepository.Setup(repo =&gt; repo.AddAsync(It.IsAny&lt;Category&gt;())).ReturnsAsync(
+                                (Category category) =&gt;
+                                {
+                                    categories.Add(category);
+                                    return category;
+                                });
+                        
+                            mockCategoryRepository.Setup(repo =&gt; repo.DeleteAsync(It.IsAny&lt;Category&gt;())).Callback
+                                &lt;Category&gt;((entity) =&gt; categories.Remove(entity));
+                        
+                            mockCategoryRepository.Setup(repo =&gt; repo.UpdateAsync(It.IsAny&lt;Category&gt;())).Callback
+                                &lt;Category&gt;((entity) =&gt; { categories.Remove(entity); categories.Add(entity); });
+                        
+                            var categorieswithpost = GetCategoriesWithPosts();
+                            mockCategoryRepository.Setup(repo =&gt; repo.GetCategoriesWithPost
+                                (It.IsAny&lt;SearchCategoryOptions&gt;()))
+                                .ReturnsAsync(categorieswithpost);
+                        
+                            return mockCategoryRepository;
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Mock IPostRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public static Mock&lt;IPostRepository&gt; GetPostRepository()
+                        {
+                            var posts = GetPosts();
+                            var mockpostRepository = new Mock&lt;IPostRepository&gt;();
+                        
+                            mockpostRepository.Setup(repo =&gt; repo.GetAllAsync()).ReturnsAsync(posts);
+                        
+                            mockpostRepository.Setup(repo =&gt; repo.GetByIdAsync(It.IsAny&lt;int&gt;())).ReturnsAsync(
+                            (int id) =&gt;
+                            {
+                                var pos = posts.FirstOrDefault(c =&gt; c.PostId == id);
+                                return pos;
+                            });
+                        
+                            mockpostRepository.Setup(repo =&gt; repo.AddAsync(It.IsAny&lt;Post&gt;())).ReturnsAsync(
+                            (Post post) =&gt;
+                            {
+                                posts.Add(post);
+                                return post;
+                            });
+                        
+                            mockpostRepository.Setup(repo =&gt; repo.DeleteAsync(It.IsAny&lt;Post&gt;())).Callback
+                                &lt;Post&gt;((entity) =&gt; posts.Remove(entity));
+                        
+                            mockpostRepository.Setup(repo =&gt; repo.UpdateAsync(It.IsAny&lt;Post&gt;())).Callback
+                                &lt;Post&gt;((entity) =&gt; { posts.Remove(entity); posts.Add(entity); });
+                        
+                            mockpostRepository.Setup(repo =&gt; repo.IsNameAndAuthorAlreadyExist
+                                (It.IsAny&lt;string&gt;(), It.IsAny&lt;string&gt;()))
+                                .ReturnsAsync((string title, string author) =&gt;
+                                {
+                                    var matches = posts.
+                                    Any(a =&gt; a.Title.Equals(title) &amp;&amp; a.Author.Equals(author));
+                                    return matches;
+                                });
+                        
+                            return mockpostRepository;
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Mock Webinary</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public static Mock&lt;IWebinaryRepository&gt; GetWebinarRepository()
+                        {
+                            var webinars = GetWebinars();
+                            var mockWebinarRepository = new Mock&lt;IWebinaryRepository&gt;();
+                        
+                            mockWebinarRepository.Setup(repo =&gt; repo.GetAllAsync()).ReturnsAsync(webinars);
+                        
+                            mockWebinarRepository.Setup(repo =&gt; repo.GetByIdAsync(It.IsAny&lt;int&gt;())).ReturnsAsync(
+                            (int id) =&gt;
+                            {
+                                var pos = webinars.FirstOrDefault(c =&gt; c.Id == id);
+                                return pos;
+                            });
+                        
+                            mockWebinarRepository.Setup(repo =&gt; repo.AddAsync(It.IsAny&lt;Webinar&gt;())).ReturnsAsync(
+                            (Webinar webinar) =&gt;
+                            {
+                                webinars.Add(webinar);
+                                return webinar;
+                            });
+                        
+                            mockWebinarRepository.Setup(repo =&gt; repo.DeleteAsync(It.IsAny&lt;Webinar&gt;())).Callback
+                                &lt;Webinar&gt;((entity) =&gt; webinars.Remove(entity));
+                        
+                            mockWebinarRepository.Setup(repo =&gt; repo.UpdateAsync(It.IsAny&lt;Webinar&gt;())).Callback
+                                &lt;Webinar&gt;((entity) =&gt; { webinars.Remove(entity); webinars.Add(entity); });
+                        
+                            mockWebinarRepository.Setup(repo =&gt; repo.GetPagedWebinarsForDate
+                            (It.IsAny&lt;DateTime&gt;(), It.IsAny&lt;int&gt;(), It.IsAny&lt;int&gt;()))
+                            .ReturnsAsync((DateTime date, int page, int pageSize) =&gt;
+                            {
+                                var matches = webinars.Where(x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year)
+                                .Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                        
+                                return matches;
+                            });
+                        
+                            mockWebinarRepository.Setup(repo =&gt; repo.GetTotalCountOfWebinarsForDate
+                            (It.IsAny&lt;DateTime&gt;()))
+                            .ReturnsAsync((DateTime date) =&gt;
+                            {
+                                var matches = webinars.Count
+                                (x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year);
+                        
+                                return matches;
+                            });
+                        
+                            return mockWebinarRepository;
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CreatePostTest</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreatePostTest
+                        {
+                            private readonly IMapper _mapper;
+                            private readonly Mock&lt;IPostRepository&gt; _mockPostRepository;
+                        
+                            public CreatePostTest()
+                            {
+                                _mockPostRepository = RepositoryMocks.GetPostRepository();
+                        
+                                var configurationProvider = new MapperConfiguration(cfg =&gt;
+                                    {
+                                        cfg.AddProfile&lt;MappingProfile&gt;();
+                                    }
+                                );
+                        
+                                _mapper = configurationProvider.CreateMapper();
+                            }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Handle_ValidPost_AddedToPostRepo()</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        [Fact]
+                        public async Task Handle_ValidPost_AddedToPostRepo()
+                        {
+                            var handler = new CreatedPostCommandHandler
+                                (_mockPostRepository.Object, _mapper);
+                        
+                            var allPostsBeforeCount = (await _mockPostRepository.Object.GetAllAsync()).Count;
+                        
+                            var command = new CreatedPostCommand()
+                            {
+                                Title = &quot;TestTest&quot;,
+                                Date = DateTime.Now.AddDays(-14),
+                                Rate = 9,
+                                Author = &quot;AAAA&quot;
+                            };
+                        
+                            var response = await handler.Handle(command, CancellationToken.None);
+                        
+                            var allPosts = await _mockPostRepository.Object.GetAllAsync();
+                        
+                            response.Success.ShouldBe(true);
+                            response.ValidationErrors.Count.ShouldBe(0);
+                            allPosts.Count.ShouldBe(allPostsBeforeCount + 1);
+                            response.PostId.ShouldNotBeNull();
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Handle_Not_ValidPost_TooLongTitle_81Characters_NotAddedToPostRepo</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        [Fact]
+                        public async Task Handle_Not_ValidPost_TooLongTitle_81Characters_NotAddedToPostRepo()
+                        {
+                            var handler = new CreatedPostCommandHandler
+                                (_mockPostRepository.Object, _mapper);
+                        
+                            var allPostsBeforeCount = (await _mockPostRepository.Object.GetAllAsync()).Count;
+                        
+                            var command = new CreatedPostCommand()
+                            {
+                                Title = new string(&#39;*&#39;, 81),
+                                Date = DateTime.Now.AddDays(-14),
+                                Rate = 9,
+                                Author = &quot;AAAA&quot;
+                            };
+                        
+                            var response = await handler.Handle(command, CancellationToken.None);
+                        
+                            var allPosts = await _mockPostRepository.Object.GetAllAsync();
+                        
+                            response.Success.ShouldBe(false);
+                            response.ValidationErrors.Count.ShouldBe(1);
+                            allPosts.Count.ShouldBe(allPostsBeforeCount);
+                            response.PostId.ShouldBeNull();
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Handle_Not_ValidPost_FutureDate_2DayIntoTheFuture_NotAddedToPostRepo()</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        [Fact]
+                        public async Task Handle_Not_ValidPost_FutureDate_2DayIntoTheFuture_NotAddedToPostRepo()
+                        {
+                            var handler = new CreatedPostCommandHandler
+                                (_mockPostRepository.Object, _mapper);
+                        
+                            var allPostsBeforeCount = (await _mockPostRepository.Object.GetAllAsync()).Count;
+                        
+                            var command = new CreatedPostCommand()
+                            {
+                                Title = new string(&#39;*&#39;, 80),
+                                Date = DateTime.Now.AddDays(2),
+                                Rate = 9,
+                                Author = &quot;AAAA&quot;
+                            };
+                        
+                            var response = await handler.Handle(command, CancellationToken.None);
+                        
+                            var allPosts = await _mockPostRepository.Object.GetAllAsync();
+                        
+                            response.Success.ShouldBe(false);
+                            response.ValidationErrors.Count.ShouldBe(1);
+                            allPosts.Count.ShouldBe(allPostsBeforeCount);
+                            response.PostId.ShouldBeNull();
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Handle_Not_ValidPost_RateToBig_NotAddedToPostRepo()</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        [Fact]
+                        public async Task Handle_Not_ValidPost_RateToBig_NotAddedToPostRepo()
+                        {
+                            var handler = new CreatedPostCommandHandler
+                                (_mockPostRepository.Object, _mapper);
+                        
+                            var allPostsBeforeCount = (await _mockPostRepository.Object.GetAllAsync()).Count;
+                        
+                            var command = new CreatedPostCommand()
+                            {
+                                Title = new string(&#39;*&#39;, 80),
+                                Date = DateTime.Now.AddDays(-12),
+                                Rate = 101,
+                                Author = &quot;AAAA&quot;
+                            };
+                        
+                            var response = await handler.Handle(command, CancellationToken.None);
+                        
+                            var allPosts = await _mockPostRepository.Object.GetAllAsync();
+                        
+                            response.Success.ShouldBe(false);
+                            response.ValidationErrors.Count.ShouldBe(1);
+                            allPosts.Count.ShouldBe(allPostsBeforeCount);
+                            response.PostId.ShouldBeNull();
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreateWebinarTest
+                        {
+                            private readonly IMapper _mapper;
+                            private readonly Mock&lt;IWebinaryRepository&gt; _mockWebinarRepository;
+                        
+                            public CreateWebinarTest()
+                            {
+                                _mockWebinarRepository = RepositoryMocks.GetWebinarRepository();
+                        
+                                var configurationProvider = new MapperConfiguration(cfg =&gt;
+                                {
+                                    cfg.AddProfile&lt;MappingProfile&gt;();
+                                }
+                                );
+                        
+                                _mapper = configurationProvider.CreateMapper();
+                            }
+                        
+                            [Fact]
+                            public async Task Handle_ValidWebinar_AddedToWebinarRepo()
+                            {
+                                var handler = new CreatedWebinarCommandHandler
+                                    (_mockWebinarRepository.Object, _mapper);
+                        
+                                var allWebinarsBeforeCount = (await _mockWebinarRepository.Object.GetAllAsync()).Count;
+                        
+                                var command = new CreatedWebinarCommand()
+                                {
+                                    ImageUrl = &quot;TestTest&quot;,
+                                    Title = new string(&#39;*&#39;, 80),
+                                    FacebookEventUrl = &quot;TestTest&quot;,
+                                    Date = DateTime.Now.AddDays(-14),
+                                };
+                        
+                                var response = await handler.Handle(command, CancellationToken.None);
+                        
+                                var allWebinars = await _mockWebinarRepository.Object.GetAllAsync();
+                        
+                                response.Success.ShouldBe(true);
+                                response.ValidationErrors.Count.ShouldBe(0);
+                                allWebinars.Count.ShouldBe(allWebinarsBeforeCount + 1);
+                                response.Id.ShouldNotBeNull();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CreateCategoryTests</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CreateCategoryTests
+                        {
+                            private readonly IMapper _mapper;
+                            private readonly Mock&lt;ICategoryRepository&gt; _mockCategoryRepository;
+                        
+                            public CreateCategoryTests()
+                            {
+                                _mockCategoryRepository = RepositoryMocks.GetCategoryRepository();
+                                var configurationProvider = new MapperConfiguration(cfg =&gt;
+                                {
+                                    cfg.AddProfile&lt;MappingProfile&gt;();
+                                });
+                        
+                                _mapper = configurationProvider.CreateMapper();
+                            }
+                        
+                            [Fact]
+                            public async Task Handle_ValidCategory_AddedToCategoriesRepo()
+                            {
+                                var handler = new CreatedCategoryCommandHandler(_mockCategoryRepository.Object, _mapper);
+                        
+                                var allCategoriesBeforeCount = (await _mockCategoryRepository.Object.GetAllAsync()).Count;
+                        
+                                var response = await handler.Handle(new CreatedCategoryCommand()
+                                { Name = &quot;Test&quot;, DisplayName = &quot;Test&quot; }
+                                , CancellationToken.None);
+                        
+                                var allCategories = await _mockCategoryRepository.Object.GetAllAsync();
+                        
+                                response.Success.ShouldBe(true);
+                                response.ValidationErrors.Count.ShouldBe(0);
+                                allCategories.Count.ShouldBe(allCategoriesBeforeCount + 1);
+                                response.CategoryId.ShouldNotBeNull();
+                        
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide cream">
+        <span class="shout colors" ><span>Przechodzimy do <BR /> 😲 Infrastruktury 😲
+        </span></span>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors" ><span>Na razie wszystko było interfejsem
+        </span></span>
+    </section>
+    <section class="slide creamPP" >
+        <figure>
+            <img class="cover" src="pictures/circular/circular desing-01-t.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamPP fullscreen smaller">
+        <div class="grid-container-slidepoint">
+            <div class="SlidePointImage">
+                <img  src="pictures/circular/circular desing-03-t.png" />
+            </div>
+            <div class="SlidePointText">
+                <ol class="nonumbers">
+                    <li class="next bold">Co idzie do Infrastructure?</li>
+                    <ol class="nonumbers">
+                        <li class="next">Dostęp do danych (EF Core)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                        <li class="next">Odczytywanie plików</li>
+                        <li class="next">Loggowanie</li>
+                        <li class="next">Autoryzacja</li>
+                        <li class="next">API Klienckie z innych instytucji</li>
+                    </ol>
+                </ol>
+            </div>
+          </div>
+    </section>  
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/52.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/53.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/54.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/55.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/56.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/57.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">ValidationException</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-xml">
+                    <code style="line-height: 19px !important;">
+                        &lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+
+                        &lt;PropertyGroup&gt;
+                          &lt;TargetFramework&gt;netstandard2.0&lt;/TargetFramework&gt;
+                          &lt;AssemblyName&gt;EduZbieracz.Persistence.EF&lt;/AssemblyName&gt;
+                          &lt;RootNamespace&gt;EduZbieracz.Persistence.EF&lt;/RootNamespace&gt;
+                        &lt;/PropertyGroup&gt;
+                      
+                      
+                        &lt;ItemGroup&gt;
+                          &lt;ProjectReference Include=&quot;..\EduZbieracz.Application\EduZbieracz.Application.csproj&quot; /&gt;
+                        &lt;/ItemGroup&gt;
+                      
+                        &lt;ItemGroup&gt;
+                          &lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.SqlServer&quot; Version=&quot;3.1.11&quot; /&gt;
+                          &lt;PackageReference Include=&quot;Microsoft.Extensions.Options.ConfigurationExtensions&quot; Version=&quot;5.0.0&quot; /&gt;
+                        &lt;/ItemGroup&gt;
+                      
+                      &lt;/Project&gt;
+                      
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/58.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">EduZbieraczContext</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class EduZbieraczContext : DbContext
+                        {
+                            public EduZbieraczContext(DbContextOptions&lt;EduZbieraczContext&gt; options)
+                                : base(options)
+                            {
+                            }
+                        
+                            public DbSet&lt;Post&gt; Posts { get; set; }
+                            public DbSet&lt;Category&gt; Categories { get; set; }
+                            public DbSet&lt;Webinar&gt; Webinars { get; set; }
+                        
+                            public override Task&lt;int&gt; SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+                            {
+                                foreach (var entry in ChangeTracker.Entries&lt;AuditableEntity&gt;())
+                                {
+                                    switch (entry.State)
+                                    {
+                                        case EntityState.Added:
+                                            entry.Entity.CreatedDate = DateTime.Now;
+                                            break;
+                                        case EntityState.Modified:
+                                            entry.Entity.LastModifiedDate = DateTime.Now;
+                                            break;
+                                    }
+                                }
+                                return base.SaveChangesAsync(cancellationToken);
+                            }
+                        
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">OnModelCreating</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        protected override void OnModelCreating(ModelBuilder modelBuilder)
+                        {
+                            modelBuilder.
+                                ApplyConfigurationsFromAssembly
+                                (typeof(EduZbieraczContext).Assembly);
+                        
+                            foreach (var item in DummyCategories.Get())
+                            {
+                                modelBuilder.Entity&lt;Category&gt;().HasData(item);
+                            }
+                        
+                            foreach (var item in DummyPosts.Get())
+                            {
+                                modelBuilder.Entity&lt;Post&gt;().HasData(item);
+                            }
+                        
+                            foreach (var item in DummyWebinars.Get())
+                            {
+                                modelBuilder.Entity&lt;Webinar&gt;().HasData(item);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/59.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">PostConfiguration</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class PostConfiguration : IEntityTypeConfiguration&lt;Post&gt;
+                        {
+                            public void Configure(EntityTypeBuilder&lt;Post&gt; builder)
+                            {
+                                builder.Property(e =&gt; e.Title)
+                                    .IsRequired()
+                                    .HasMaxLength(80);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">OnModelCreating PostConfiguration</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        protected override void OnModelCreating(ModelBuilder modelBuilder)
+                        {
+                            modelBuilder.
+                                ApplyConfigurationsFromAssembly
+                                (typeof(EduZbieraczContext).Assembly);
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">BaseRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class BaseRepository&lt;T&gt; : IAsyncRepository&lt;T&gt; where T : class
+                        {
+                            protected readonly EduZbieraczContext _dbContext;
+                        
+                            public BaseRepository(EduZbieraczContext dbContext)
+                            {
+                                _dbContext = dbContext;
+                            }
+                        
+                            public async Task&lt;T&gt; AddAsync(T entity)
+                            {
+                                await _dbContext.Set&lt;T&gt;().AddAsync(entity);
+                                await _dbContext.SaveChangesAsync();
+                        
+                                return entity;
+                            }
+                        
+                            public async Task DeleteAsync(T entity)
+                            {
+                                _dbContext.Set&lt;T&gt;().Remove(entity);
+                                await _dbContext.SaveChangesAsync();
+                            }
+                        
+                            public async Task&lt;IReadOnlyList&lt;T&gt;&gt; GetAllAsync()
+                            {
+                                return await _dbContext.Set&lt;T&gt;().ToListAsync();
+                        
+                            }
+                        
+                            public async Task&lt;T&gt; GetByIdAsync(int id)
+                            {
+                                return await _dbContext.Set&lt;T&gt;().FindAsync(id);
+                            }
+                        
+                            public async Task UpdateAsync(T entity)
+                            {
+                                _dbContext.Entry(entity).State = EntityState.Modified;
+                                await _dbContext.SaveChangesAsync();
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">PostRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class PostRepository : BaseRepository&lt;Post&gt;, IPostRepository
+                        {
+                            public PostRepository(EduZbieraczContext dbContext) : base(dbContext)
+                            { }
+                        
+                            public Task&lt;bool&gt; IsNameAndAuthorAlreadyExist(string title, string author)
+                            {
+                                var matches = _dbContext.Posts.
+                                    Any(a =&gt; a.Title.Equals(title) &amp;&amp; a.Author.Equals(author));
+                        
+                                return Task.FromResult(matches);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">CategoryRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class CategoryRepository : BaseRepository&lt;Category&gt;, ICategoryRepository
+                        {
+                            public CategoryRepository(EduZbieraczContext dbContext) : base(dbContext)
+                            { }
+                        
+                            public async Task&lt;List&lt;Category&gt;&gt; GetCategoriesWithPost(SearchCategoryOptions searchCategory)
+                            {
+                                var allCategories = await _dbContext.Categories.Include(p =&gt; p.Posts).ToListAsync();
+                        
+                                if (searchCategory == SearchCategoryOptions.FirstBestAllTheTime)
+                                {
+                                    allCategories.ForEach(p =&gt; p.Posts.Max(m =&gt; m.Rate));
+                                    return allCategories;
+                                }
+                                else if (searchCategory == SearchCategoryOptions.FirstBestThisMonth)
+                                {
+                                    DateTime d = DateTime.Now;
+                        
+                                    allCategories = allCategories.Where(c =&gt;
+                                    c.Posts.Any(p =&gt; (p.Date.Month == d.Month &amp;&amp; d.Year == p.Date.Year)))
+                                        .ToList();
+                        
+                                    allCategories.ForEach(p =&gt; p.Posts.Max(m =&gt; m.Rate));
+                                    return allCategories;
+                                }
+                        
+                                return allCategories;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">WebinaryRepository</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public class WebinaryRepository : BaseRepository&lt;Webinar&gt;, IWebinaryRepository
+                        {
+                            public WebinaryRepository(EduZbieraczContext dbContext) : base(dbContext)
+                            { }
+                        
+                            public async Task&lt;List&lt;Webinar&gt;&gt; GetPagedWebinarsForDate(DateTime date, int page, int pageSize)
+                            {
+                                return await _dbContext.Webinars.Where(x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year)
+                                    .Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
+                            }
+                        
+                            public async Task&lt;int&gt; GetTotalCountOfWebinarsForDate(DateTime date)
+                            {
+                                return await _dbContext.Webinars.CountAsync
+                                    (x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/60.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/61.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/62.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">PersistenceWithEFRegistration</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+                        public static class PersistenceWithEFRegistration
+                        {
+                            public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
+                            {
+                                services.AddDbContext&lt;EduZbieraczContext&gt;(options =&gt;
+                                    options.UseSqlServer(configuration.
+                                    GetConnectionString(&quot;EduZbieraczConnectionString&quot;)));
+                        
+                                services.AddScoped(typeof(IAsyncRepository&lt;&gt;), typeof(BaseRepository&lt;&gt;));
+                        
+                                services.AddScoped&lt;ICategoryRepository, CategoryRepository&gt;();
+                                services.AddScoped&lt;IWebinaryRepository, WebinaryRepository&gt;();
+                                services.AddScoped&lt;IPostRepository, IPostRepository&gt;();
+                        
+                                return services;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide cream">
+        <span class="shout colors" ><span>Przechodzimy do <BR /> 😲 API 😲
+        </span></span>
+    </section>
+    
+    <section class="slide cream">
+        <span class="shout colors" ><span>Przechodzimy do <BR /> 😲 Testów 😲
+        </span></span>
+    </section>
+    <section class="slide cream">
+        <span class="shout colors" ><span>Przechodzimy do <BR /> 😲 UI 😲
+        </span></span>
+    </section>
+    <section class="slide cream">
+        <span class="shout colors" ><span>Co jeszcze można dodać <BR /> 😲 dodać 😲
+        </span></span>
     </section>
 
     <section class="slide creamG">
