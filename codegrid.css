@@ -9,7 +9,8 @@
 
     --color-b :#525252 ;
     /* --border-color-css:#8de6b0; */
-    --border-color-css:#8de6b0;
+    --border-color-css:#8dbee6;
+    
 }
 
 .module-grid-container {
@@ -142,7 +143,7 @@ display: flex;
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 10% 90% 0% ;
+    grid-template-rows: 5% 95% 0% ;
 
     grid-template-areas: "HeaderTitle" "PlaceCodeHere" "AnswerCode" ;
   }
@@ -157,6 +158,7 @@ display: flex;
 
   .HeaderTitle { 
     padding-left: 10px;
+   
     grid-area: HeaderTitle;
     background-color: #505363;
     background-color: var(--color-b);
@@ -173,8 +175,8 @@ display: flex;
 
 
 .HeaderTitle  h2 {
-    font-size: 28px !important;;
-    padding-top: 14px !important;
+    font-size: 14px !important;;
+    padding-top: 7px !important;
     color: var(--border-color-css) !important;
     background-color: transparent;
     border: none;
@@ -190,6 +192,10 @@ display: flex;
 .PlaceCodeHere pre{
 padding-top: 1em !important;
 
+}
+
+.canscroll {
+  overflow-y: scroll !important;
 }
 
 .AnswerCode {

@@ -515,4 +515,9 @@ code[class*="language-"], pre[class*="language-"] {
       color: white;
   }
 
+  .smallerfont2 {
+    font-size: 140% !important;;
+    line-height: 0.8px important;
+  }
+
 
