@@ -293,7 +293,7 @@
                         <li class="next">Swagger UI</li>
                         <li class="next">NSwag</li>
                         <li class="next">xUnit,Moq,Shouldly </li>
-                        <li class="next">Serilog lub NLog</li>
+                        <!-- <li class="next">Serilog lub NLog</li> -->
                     </ol>
                 </ol>
             </div>
@@ -4131,9 +4131,10 @@
                         public class GetWebinarsByDateQuery 
                         : IRequest&lt;PageWebinarByDateViewModel&gt;
                         {
-                            public DateTime Date { get; set; }
+                            public DateTime? Date { get; set; }
                             public int Page { get; set; }
                             public int PageSize { get; set; }
+                            public SearchOptionsWebinars Options { get; set; }
                         }
                     </code>
                 </pre>
@@ -4147,6 +4148,40 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">SearchOptionsWebinars</h2>
+            </div>
+            <div class="PlaceCodeHere">
+                <pre style="font-size: 39px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 39px !important;">
+                        public enum SearchOptionsWebinars
+                        {
+                            Ignore = 0,
+                            Month = 1,
+                            Year = 2,
+                            MonthAndYear = 3
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/adobe/Webinary.gif" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
     </section>
     <section class="slide prism over bhgry">
         <div class="grid-container">
@@ -4211,8 +4246,6 @@
                         public class GetWebinarsByDateQueryHandler :
                         IRequestHandler&lt;GetWebinarsByDateQuery, PageWebinarByDateViewModel&gt;
                         {
-
-
                             private readonly IWebinaryRepository _webinarRepository;
                             private readonly IMapper _mapper;
                         
@@ -4226,16 +4259,13 @@
                             }
                         
 
-
-                            public async Task&lt;PageWebinarByDateViewModel&gt; Handle(GetWebinarsByDateQuery request, 
-                            CancellationToken cancellationToken)
+                            
+                            public async Task&lt;PageWebinarByDateViewModel&gt; Handle(GetWebinarsByDateQuery request, CancellationToken cancellationToken)
                             {
-                                var list = await _webinarRepository.GetPagedWebinarsForDate
-                                (request.Date, request.Page, request.PageSize);
-                                
+                                var list = await _webinarRepository.GetPagedWebinarsForDate(request.Options, request.Page, request.PageSize, request.Date);
                                 var webinars = _mapper.Map&lt;List&lt;WebinarsByDateViewModel&gt;&gt;(list);
                         
-                                var count = await _webinarRepository.GetTotalCountOfWebinarsForDate(request.Date);
+                                var count = await _webinarRepository.GetTotalCountOfWebinarsForDate(request.Options, request.Date);
                                 return new PageWebinarByDateViewModel()
                                 {
                                     AllCount = count,
@@ -4268,10 +4298,12 @@
                     <code style="line-height: 23px !important;">
                         public interface IWebinaryRepository : IAsyncRepository&lt;Webinar&gt;
                         {
-                            Task&lt;int&gt; GetTotalCountOfWebinarsForDate(DateTime date);
-                            Task&lt;List&lt;Webinar&gt;&gt;
+                            Task&lt;int&gt; GetTotalCountOfWebinarsForDate
+                            (SearchOptionsWebinars options, DateTime? date);
 
-                            GetPagedWebinarsForDate(DateTime date, int page, int pageSize);
+                            Task&lt;List&lt;Webinar&gt;&gt; GetPagedWebinarsForDate
+                            (SearchOptionsWebinars options, int page, int pageSize, 
+                            DateTime? date);
                         }
                     </code>
                 </pre>
@@ -4600,10 +4632,37 @@
     </section>
     <section class="slide creamPP fullscreen">
         <div class="grid-container-IconsText">
-            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
-            <div class="Image2"> <img src="pictures/iconsFr/02.png" /></div>
-            <div class="Image3"><img src="pictures/iconsFr/03.png" /></div>
-            <div class="Image4"><img src="pictures/iconsFr/04.png" /></div>
+            <div class="Image1"><img  src="pictures/iconsFr/test1.png" /></div>
+            <div class="TitleMain"><h3>Typy Testów</h3></div>
+            <div class="Title1"><h3>Integracyjne<br />Integration Test</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/test1.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/test2.png" /></div>
+            <div class="TitleMain"><h3>Typy Testów</h3></div>
+            <div class="Title1"><h3>Integracyjne<br />Integration Test</h3></div>
+            <div class="Title2"><h3>Funkcjonalne<br />Functional Test</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/test1.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/test2.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/test3-1.png" /></div>
+            <div class="TitleMain"><h3>Typy Testów</h3></div>
+            <div class="Title1"><h3>Integracyjne<br />Integration Test</h3></div>
+            <div class="Title2"><h3>Funkcjonalne<br />Functional Test</h3></div>
+            <div class="Title3"><h3>Wydajnościowe<br />Performance Test</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/test1.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/test2.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/test3-1.png" /></div>
+            <div class="Image4"><img src="pictures/iconsFr/test4.png" /></div>
             <div class="TitleMain"><h3>Typy Testów</h3></div>
             <div class="Title1"><h3>Integracyjne<br />Integration Test</h3></div>
             <div class="Title2"><h3>Funkcjonalne<br />Functional Test</h3></div>
@@ -4611,19 +4670,47 @@
             <div class="Title4"><h3>Jednostkowe<br />Unit Test</h3></div>
           </div>
     </section>
-    <section class="slide blue">
-        <span class="shout colors" ><span>Testy jednostkowy jest to zautomatyzowany sposób wywołania kodu.
-            <br />Sprawdź czy dane założenie jest spełnione
+    
+    <section class="slide creamGG">
+        <span class="shout colors smallerfont2" ><span>Testy jednostkowy jest to zautomatyzowany sposób wywołania kodu.
+            <br /><br />Sprawdź czy dane założenie jest spełnione
         </span></span>
     </section>
     <section class="slide creamPP fullscreen">
         <div class="grid-container-IconsText">
-            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
-            <div class="Image2"> <img src="pictures/iconsFr/02.png" /></div>
-            <div class="Image3"><img src="pictures/iconsFr/03.png" /></div>
-            <div class="Image4"><img src="pictures/iconsFr/04.png" /></div>
+            <div class="Image1"><img  src="pictures/iconsFr/u1.png" /></div>
             <div class="TitleMain"><h3>Testy jednostkowe</h3></div>
-            <div class="Title1"><h3>Uruchamiane w izolacji</h3></div>
+            <div class="Title1"><h3>Uruchamianie <br />w izolacji</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/u1.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/u2.png" /></div>
+            <div class="TitleMain"><h3>Testy jednostkowe</h3></div>
+            <div class="Title1"><h3>Uruchamianie <br />w izolacji</h3></div>
+            <div class="Title2"><h3>Stałe rezultaty</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/u1.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/u2.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/u3.png" /></div>
+            <div class="TitleMain"><h3>Testy jednostkowe</h3></div>
+            <div class="Title1"><h3>Uruchamianie <br />w izolacji</h3></div>
+            <div class="Title2"><h3>Stałe rezultaty</h3></div>
+            <div class="Title3"><h3>Zautomatyzowane</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/u1.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/u2.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/u3.png" /></div>
+            <div class="Image4"><img src="pictures/iconsFr/u4.png" /></div>
+            <div class="TitleMain"><h3>Testy jednostkowe</h3></div>
+            <div class="Title1"><h3>Uruchamianie <br />w izolacji</h3></div>
             <div class="Title2"><h3>Stałe rezultaty</h3></div>
             <div class="Title3"><h3>Zautomatyzowane</h3></div>
             <div class="Title4"><h3>Szybkie</h3></div>
@@ -4631,28 +4718,78 @@
     </section>
     <section class="slide creamPP fullscreen">
         <div class="grid-container-IconsText">
-            <div class="Image1"><img  src="pictures/iconsFr/01.png" /></div>
-            <div class="Image2"> <img src="pictures/iconsFr/02.png" /></div>
-            <div class="Image3"><img src="pictures/iconsFr/03.png" /></div>
-            <div class="Image4"><img src="pictures/iconsFr/04.png" /></div>
-            <div class="TitleMain"><h3>Dlaczego potrzebujemy testów jednostkowych</h3></div>
-            <div class="Title1"><h3>Aby znaleźć błędy</h3></div>
-            <div class="Title2"><h3>Dokonywać zmiań bez strachu</h3></div>
-            <div class="Title3"><h3>Dokumentowanie kodu</h3></div>
-            <div class="Title4"><h3>Sprawdzanie kodu w każdym momencie</h3></div>
+            <div class="Image1"><img  src="pictures/iconsFr/d1.png" /></div>
+            <div class="TitleMain"><h3>Potrzebujemy testów jednostkowych?</h3></div>
+            <div class="Title1"><h3>Aby znaleźć <br />błędy</h3></div>
           </div>
     </section>
-    <section class="slide creamPP  fullscreen">
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/d1.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/d2.png" /></div>
+            <div class="TitleMain"><h3>Potrzebujemy testów jednostkowych?</h3></div>
+            <div class="Title1"><h3>Aby znaleźć <br />błędy</h3></div>
+            <div class="Title2"><h3>Dokonywać zmiań<br /> bez strachu</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/d1.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/d2.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/d3.png" /></div>
+            <div class="TitleMain"><h3>Potrzebujemy testów jednostkowych?</h3></div>
+            <div class="Title1"><h3>Aby znaleźć <br />błędy</h3></div>
+            <div class="Title2"><h3>Dokonywać zmiań<br /> bez strachu</h3></div>
+            <div class="Title3"><h3>Dokumentowanie <br />kodu</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP fullscreen">
+        <div class="grid-container-IconsText">
+            <div class="Image1"><img  src="pictures/iconsFr/d1.png" /></div>
+            <div class="Image2"> <img src="pictures/iconsFr/d2.png" /></div>
+            <div class="Image3"><img src="pictures/iconsFr/d3.png" /></div>
+            <div class="Image4"><img src="pictures/iconsFr/d4.png" /></div>
+            <div class="TitleMain"><h3>Potrzebujemy testów jednostkowych?</h3></div>
+            <div class="Title1"><h3>Aby znaleźć <br />błędy</h3></div>
+            <div class="Title2"><h3>Dokonywać zmiań<br /> bez strachu</h3></div>
+            <div class="Title3"><h3>Dokumentowanie <br />kodu</h3></div>
+            <div class="Title4"><h3>Sprawdzanie kodu<br /> w każdym momencie</h3></div>
+          </div>
+    </section>
+    <section class="slide creamGG  fullscreen">
         <div class="grid-containerOnlyThree ">
-            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/depedencyInjection.png" /></div>
-            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/mediator.png" /></div>
-            <div class="ImageOnlyThree "> <img src="pictures/iconsFr/mediator.png" /></div>
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/j1.png" /></div>
+            <div class="TitleOnlyTwo"><h3>Jak stworzyć test jednostkowy</h3></div>
+            <div class="TextOnlyTwo1 "><h3>Projekt xUnit</h3></div>
+          </div>
+    </section>
+    <section class="slide creamBlack" style="background-color:black ;" >
+        <figure>
+            <img class="cover" src="pictures/blog-01.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamGG  fullscreen">
+        <div class="grid-containerOnlyThree ">
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/j1.png" /></div>
+            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/j2.png" /></div>
+            <div class="TitleOnlyTwo"><h3>Jak stworzyć test jednostkowy</h3></div>
+            <div class="TextOnlyTwo1 "><h3>Projekt xUnit</h3></div>
+            <div class="TextOnlyTwo2 "><h3>Mock</h3></div>
+          </div>
+    </section> 
+    <section class="slide creamGG  fullscreen">
+        <div class="grid-containerOnlyThree ">
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/j1.png" /></div>
+            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/j2.png" /></div>
+            <div class="ImageOnlyThree "> <img src="pictures/iconsFr/j3.png" /></div>
             <div class="TitleOnlyTwo"><h3>Jak stworzyć test jednostkowy</h3></div>
             <div class="TextOnlyTwo1 "><h3>Projekt xUnit</h3></div>
             <div class="TextOnlyTwo2 "><h3>Mock</h3></div>
             <div class="TextOnlyThree "><h3>Wstrzykiwanie zależnosci</h3></div>
           </div>
-    </section> 
+    </section>
+
     <section class="slide creamBlack" style="background-color:black ;" >
         <figure>
             <img class="cover" src="pictures/t/01.png" alt="blog">
@@ -4695,6 +4832,11 @@
             <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
         </figure>
     </section>
+    <section class="slide creamPPP">
+        <span class="shout colors " ><span>
+Jak testy pomogły mi znaleźć błędy<br /><br />😬
+        </span></span>
+    </section>
     <section class="slide creamBlack" >
         <figure>
             <img class="cover" src="pictures/t/08.PNG" alt="blog">
@@ -4718,6 +4860,11 @@
             <img class="cover" src="pictures/t/10.png" alt="blog">
             <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
         </figure>
+    </section>
+    <section class="slide creamPPP">
+        <span class="shout colors " ><span>
+            Przecież &quot;&lt;&quot; czy &quot;&gt;&quot; to bez r&#243;źnicy <br /><br />😅
+        </span></span>
     </section>
     <section class="slide creamBlack" >
         <figure>
@@ -4743,41 +4890,98 @@
             <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
         </figure>
     </section>
+    <section class="slide creamPPP">
+        <span class="shout colors " ><span>
+Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
+        </span></span>
+    </section>
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">Mock ICategoryRepository</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         public static Mock&lt;ICategoryRepository&gt; GetCategoryRepository()
                         {
                             var categories = GetCategories();
                         
                             var mockCategoryRepository = new Mock&lt;ICategoryRepository&gt;();
-                            mockCategoryRepository.Setup(repo =&gt; repo.GetAllAsync()).ReturnsAsync(categories);
+                            mockCategoryRepository.
+                            Setup(repo =&gt; repo.GetAllAsync()).ReturnsAsync(categories);
                         
-                            mockCategoryRepository.Setup(repo =&gt; repo.GetByIdAsync(It.IsAny&lt;int&gt;())).ReturnsAsync(
+
+
+
+                            mockCategoryRepository.
+                            Setup(repo =&gt; repo.GetByIdAsync(It.IsAny&lt;int&gt;())).ReturnsAsync(
                             (int id) =&gt;
                             {
                                 var cat = categories.FirstOrDefault(c =&gt; c.CategoryId == id);
                                 return cat;
                             });
                         
-                            mockCategoryRepository.Setup(repo =&gt; repo.AddAsync(It.IsAny&lt;Category&gt;())).ReturnsAsync(
+
+
+
+
+                            mockCategoryRepository.
+                            Setup(repo =&gt; repo.AddAsync(It.IsAny&lt;Category&gt;())).ReturnsAsync(
                                 (Category category) =&gt;
                                 {
                                     categories.Add(category);
                                     return category;
                                 });
+
                         
-                            mockCategoryRepository.Setup(repo =&gt; repo.DeleteAsync(It.IsAny&lt;Category&gt;())).Callback
+
+
+
+                            mockCategoryRepository.
+                            Setup(repo =&gt; repo.DeleteAsync(It.IsAny&lt;Category&gt;())).Callback
                                 &lt;Category&gt;((entity) =&gt; categories.Remove(entity));
                         
-                            mockCategoryRepository.Setup(repo =&gt; repo.UpdateAsync(It.IsAny&lt;Category&gt;())).Callback
+
+
+
+                            mockCategoryRepository.
+                            Setup(repo =&gt; repo.UpdateAsync(It.IsAny&lt;Category&gt;())).Callback
                                 &lt;Category&gt;((entity) =&gt; { categories.Remove(entity); categories.Add(entity); });
                         
+
+
+
                             var categorieswithpost = GetCategoriesWithPosts();
                             mockCategoryRepository.Setup(repo =&gt; repo.GetCategoriesWithPost
                                 (It.IsAny&lt;SearchCategoryOptions&gt;()))
@@ -4803,9 +5007,39 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">Mock IPostRepository</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+                        
+
+
+
+
+
+
+
+
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         public static Mock&lt;IPostRepository&gt; GetPostRepository()
                         {
                             var posts = GetPosts();
@@ -4813,6 +5047,9 @@
                         
                             mockpostRepository.Setup(repo =&gt; repo.GetAllAsync()).ReturnsAsync(posts);
                         
+
+
+
                             mockpostRepository.Setup(repo =&gt; repo.GetByIdAsync(It.IsAny&lt;int&gt;())).ReturnsAsync(
                             (int id) =&gt;
                             {
@@ -4820,6 +5057,9 @@
                                 return pos;
                             });
                         
+
+
+
                             mockpostRepository.Setup(repo =&gt; repo.AddAsync(It.IsAny&lt;Post&gt;())).ReturnsAsync(
                             (Post post) =&gt;
                             {
@@ -4827,12 +5067,21 @@
                                 return post;
                             });
                         
+
+
+
                             mockpostRepository.Setup(repo =&gt; repo.DeleteAsync(It.IsAny&lt;Post&gt;())).Callback
                                 &lt;Post&gt;((entity) =&gt; posts.Remove(entity));
                         
+
+
+
                             mockpostRepository.Setup(repo =&gt; repo.UpdateAsync(It.IsAny&lt;Post&gt;())).Callback
                                 &lt;Post&gt;((entity) =&gt; { posts.Remove(entity); posts.Add(entity); });
                         
+
+
+
                             mockpostRepository.Setup(repo =&gt; repo.IsNameAndAuthorAlreadyExist
                                 (It.IsAny&lt;string&gt;(), It.IsAny&lt;string&gt;()))
                                 .ReturnsAsync((string title, string author) =&gt;
@@ -4842,6 +5091,7 @@
                                     return matches;
                                 });
                         
+
                             return mockpostRepository;
                         }
                     </code>
@@ -4862,9 +5112,53 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">Mock Webinary</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+                                                
+
+
+
+
+
+
+
+
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         public static Mock&lt;IWebinaryRepository&gt; GetWebinarRepository()
                         {
                             var webinars = GetWebinars();
@@ -4872,6 +5166,9 @@
                         
                             mockWebinarRepository.Setup(repo =&gt; repo.GetAllAsync()).ReturnsAsync(webinars);
                         
+
+
+
                             mockWebinarRepository.Setup(repo =&gt; repo.GetByIdAsync(It.IsAny&lt;int&gt;())).ReturnsAsync(
                             (int id) =&gt;
                             {
@@ -4879,6 +5176,9 @@
                                 return pos;
                             });
                         
+
+
+
                             mockWebinarRepository.Setup(repo =&gt; repo.AddAsync(It.IsAny&lt;Webinar&gt;())).ReturnsAsync(
                             (Webinar webinar) =&gt;
                             {
@@ -4886,24 +5186,39 @@
                                 return webinar;
                             });
                         
+
+
+                            
                             mockWebinarRepository.Setup(repo =&gt; repo.DeleteAsync(It.IsAny&lt;Webinar&gt;())).Callback
                                 &lt;Webinar&gt;((entity) =&gt; webinars.Remove(entity));
                         
+
+
+
                             mockWebinarRepository.Setup(repo =&gt; repo.UpdateAsync(It.IsAny&lt;Webinar&gt;())).Callback
                                 &lt;Webinar&gt;((entity) =&gt; { webinars.Remove(entity); webinars.Add(entity); });
                         
+
+
+
                             mockWebinarRepository.Setup(repo =&gt; repo.GetPagedWebinarsForDate
-                            (It.IsAny&lt;DateTime&gt;(), It.IsAny&lt;int&gt;(), It.IsAny&lt;int&gt;()))
+                            (It.IsAny&lt;SearchOptionsWebinars&gt;(), 
+                            It.IsAny&lt;int&gt;(), It.IsAny&lt;int&gt;(), 
+                            It.IsAny&lt;DateTime?&gt;()))
                             .ReturnsAsync((DateTime date, int page, int pageSize) =&gt;
                             {
-                                var matches = webinars.Where(x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year)
+                                var matches = webinars.Where(x =&gt; x.Date.Month == date.Month 
+                                &amp;&amp; x.Date.Year == date.Year)
                                 .Skip((page - 1) * pageSize).Take(pageSize).ToList();
                         
                                 return matches;
                             });
                         
+
+
+
                             mockWebinarRepository.Setup(repo =&gt; repo.GetTotalCountOfWebinarsForDate
-                            (It.IsAny&lt;DateTime&gt;()))
+                            (It.IsAny&lt;SearchOptionsWebinars&gt;(), It.IsAny&lt;DateTime?&gt;()))
                             .ReturnsAsync((DateTime date) =&gt;
                             {
                                 var matches = webinars.Count
@@ -4927,14 +5242,20 @@
             </div>
         </div>
     </section>
+    <section class="slide creamBlack" >
+        <figure>
+            <img class="cover" src="pictures/t/15.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">CreatePostTest</h2>
             </div>
             <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 19px !important;">
+                <pre style="font-size: 24;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 24px !important;">
                         public class CreatePostTest
                         {
                             private readonly IMapper _mapper;
@@ -5152,16 +5473,42 @@
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
-                <h2 class="headerCODE PP PP">ValidationException</h2>
+                <h2 class="headerCODE PP PP">CreateWebinarTest</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         public class CreateWebinarTest
                         {
                             private readonly IMapper _mapper;
                             private readonly Mock&lt;IWebinaryRepository&gt; _mockWebinarRepository;
                         
+
+
                             public CreateWebinarTest()
                             {
                                 _mockWebinarRepository = RepositoryMocks.GetWebinarRepository();
@@ -5175,6 +5522,9 @@
                                 _mapper = configurationProvider.CreateMapper();
                             }
                         
+
+
+
                             [Fact]
                             public async Task Handle_ValidWebinar_AddedToWebinarRepo()
                             {
@@ -5219,14 +5569,35 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">CreateCategoryTests</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         public class CreateCategoryTests
                         {
                             private readonly IMapper _mapper;
                             private readonly Mock&lt;ICategoryRepository&gt; _mockCategoryRepository;
                         
+
+
+
                             public CreateCategoryTests()
                             {
                                 _mockCategoryRepository = RepositoryMocks.GetCategoryRepository();
@@ -5237,13 +5608,18 @@
                         
                                 _mapper = configurationProvider.CreateMapper();
                             }
+
+
+
                         
                             [Fact]
                             public async Task Handle_ValidCategory_AddedToCategoriesRepo()
                             {
-                                var handler = new CreatedCategoryCommandHandler(_mockCategoryRepository.Object, _mapper);
+                                var handler = new CreatedCategoryCommandHandler
+                                (_mockCategoryRepository.Object, _mapper);
                         
-                                var allCategoriesBeforeCount = (await _mockCategoryRepository.Object.GetAllAsync()).Count;
+                                var allCategoriesBeforeCount = 
+                                (await _mockCategoryRepository.Object.GetAllAsync()).Count;
                         
                                 var response = await handler.Handle(new CreatedCategoryCommand()
                                 { Name = &quot;Test&quot;, DisplayName = &quot;Test&quot; }
@@ -5271,9 +5647,20 @@
             </div>
         </div>
     </section>
-
-    <section class="slide cream">
-        <span class="shout colors" ><span>Przechodzimy do <BR /> 😲 Infrastruktury 😲
+    <section class="slide creamBlack" >
+        <figure>
+            <img class="cover" src="pictures/t/16.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamBlack" >
+        <figure>
+            <img class="cover" src="pictures/t/13.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Onion Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Przechodzimy do <BR /> 🏗️ Infrastruktury 🏗️
         </span></span>
     </section>
     <section class="slide creamPP">
@@ -5344,7 +5731,7 @@
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
-                <h2 class="headerCODE PP PP">ValidationException</h2>
+                <h2 class="headerCODE PP PP">EduZbieracz.Persistence.EF</h2>
             </div>
             <div class="PlaceCodeHere">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-xml">
@@ -5393,9 +5780,11 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">EduZbieraczContext</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+
+
                         public class EduZbieraczContext : DbContext
                         {
                             public EduZbieraczContext(DbContextOptions&lt;EduZbieraczContext&gt; options)
@@ -5407,7 +5796,8 @@
                             public DbSet&lt;Category&gt; Categories { get; set; }
                             public DbSet&lt;Webinar&gt; Webinars { get; set; }
                         
-                            public override Task&lt;int&gt; SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+                            public override Task&lt;int&gt; SaveChangesAsync
+                            (CancellationToken cancellationToken = new CancellationToken())
                             {
                                 foreach (var entry in ChangeTracker.Entries&lt;AuditableEntity&gt;())
                                 {
@@ -5440,7 +5830,7 @@
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
-                <h2 class="headerCODE PP PP">OnModelCreating</h2>
+                <h2 class="headerCODE PP PP">OnModelCreating w EduZbieraczContext</h2>
             </div>
             <div class="PlaceCodeHere">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
@@ -5451,6 +5841,7 @@
                                 ApplyConfigurationsFromAssembly
                                 (typeof(EduZbieraczContext).Assembly);
                         
+                        
                             foreach (var item in DummyCategories.Get())
                             {
                                 modelBuilder.Entity&lt;Category&gt;().HasData(item);
@@ -5458,7 +5849,11 @@
                         
                             foreach (var item in DummyPosts.Get())
                             {
-                                modelBuilder.Entity&lt;Post&gt;().HasData(item);
+                                modelBuilder.Entity&lt;Post&gt;(b =&gt;
+                                {
+                                    b.HasData(item);
+                                });
+                        
                             }
                         
                             foreach (var item in DummyWebinars.Get())
@@ -5479,21 +5874,27 @@
             </div>
         </div>
     </section>
+    <section class="slide creamPP">
+        <span class="shout colors" ><span>Gdzie dodać walidacje po stronie EF?
+        </span></span>
+    </section>
     <section class="slide" style="background-color:black">
         <figure>
             <img class="cover" src="pictures/d/59.PNG" alt="blog">
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
     </section>
+
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">PostConfiguration</h2>
             </div>
             <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 19px !important;">
-                        public class PostConfiguration : IEntityTypeConfiguration&lt;Post&gt;
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class PostConfiguration 
+                            : IEntityTypeConfiguration&lt;Post&gt;
                         {
                             public void Configure(EntityTypeBuilder&lt;Post&gt; builder)
                             {
@@ -5521,8 +5922,8 @@
                 <h2 class="headerCODE PP PP">OnModelCreating PostConfiguration</h2>
             </div>
             <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 19px !important;">
+                <pre style="font-size: 25px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 25px !important;">
                         protected override void OnModelCreating(ModelBuilder modelBuilder)
                         {
                             modelBuilder.
@@ -5541,14 +5942,38 @@
             </div>
         </div>
     </section>
+    <section class="slide creamPP">
+        <span class="shout colors" ><span>Pora stworzyć repozytoria
+        </span></span>
+    </section>
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">BaseRepository</h2>
             </div>
-            <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 19px !important;">
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 23px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 23px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         public class BaseRepository&lt;T&gt; : IAsyncRepository&lt;T&gt; where T : class
                         {
                             protected readonly EduZbieraczContext _dbContext;
@@ -5607,9 +6032,9 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">PostRepository</h2>
             </div>
-            <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 19px !important;">
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 22px !important;">
                         public class PostRepository : BaseRepository&lt;Post&gt;, IPostRepository
                         {
                             public PostRepository(EduZbieraczContext dbContext) : base(dbContext)
@@ -5641,22 +6066,49 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">CategoryRepository</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         public class CategoryRepository : BaseRepository&lt;Category&gt;, ICategoryRepository
                         {
                             public CategoryRepository(EduZbieraczContext dbContext) : base(dbContext)
                             { }
                         
-                            public async Task&lt;List&lt;Category&gt;&gt; GetCategoriesWithPost(SearchCategoryOptions searchCategory)
+                            public async Task&lt;List&lt;Category&gt;&gt; GetCategoriesWithPost
+                            (SearchCategoryOptions searchCategory)
                             {
                                 var allCategories = await _dbContext.Categories.Include(p =&gt; p.Posts).ToListAsync();
                         
                                 if (searchCategory == SearchCategoryOptions.FirstBestAllTheTime)
                                 {
-                                    allCategories.ForEach(p =&gt; p.Posts.Max(m =&gt; m.Rate));
-                                    return allCategories;
+                                    return GetOneMaxPost(allCategories);
                                 }
                                 else if (searchCategory == SearchCategoryOptions.FirstBestThisMonth)
                                 {
@@ -5666,8 +6118,32 @@
                                     c.Posts.Any(p =&gt; (p.Date.Month == d.Month &amp;&amp; d.Year == p.Date.Year)))
                                         .ToList();
                         
-                                    allCategories.ForEach(p =&gt; p.Posts.Max(m =&gt; m.Rate));
-                                    return allCategories;
+                                    return GetOneMaxPost(allCategories);
+                                }
+                        
+                                return allCategories;
+                            }
+                        
+                            private List&lt;Category&gt; GetOneMaxPost(List&lt;Category&gt; allCategories)
+                            {
+                                foreach (var c in allCategories)
+                                {
+                                    Post max = null;
+                                    foreach (var p in c.Posts)
+                                    {
+                                        if (max == null)
+                                        {
+                                            max = p;
+                                            break;
+                                        }
+                        
+                                        if (max.Rate &lt; p.Rate)
+                                            max = p;
+                        
+                                    }
+                                    c.Posts = new List&lt;Post&gt;();
+                                    if (max != null)
+                                        c.Posts.Add(max);
                                 }
                         
                                 return allCategories;
@@ -5691,24 +6167,102 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">WebinaryRepository</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         public class WebinaryRepository : BaseRepository&lt;Webinar&gt;, IWebinaryRepository
                         {
                             public WebinaryRepository(EduZbieraczContext dbContext) : base(dbContext)
                             { }
                         
-                            public async Task&lt;List&lt;Webinar&gt;&gt; GetPagedWebinarsForDate(DateTime date, int page, int pageSize)
+                            public async Task&lt;List&lt;Webinar&gt;&gt; GetPagedWebinarsForDate(SearchOptionsWebinars options,
+                             int page, int pageSize, DateTime? date)
                             {
-                                return await _dbContext.Webinars.Where(x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year)
-                                    .Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
-                            }
+
+
+                                if (options == SearchOptionsWebinars.MonthAndYear &amp;&amp; date.HasValue)
+                                {
+                                    return await _dbContext.Webinars.Where(x =&gt; x.Date.Month == date.Value.Month 
+                                    &amp;&amp; x.Date.Year == date.Value.Year)
+                                        .Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
+                                }
+                                if (options == SearchOptionsWebinars.Year &amp;&amp; date.HasValue)
+                                {
+                                    return await _dbContext.Webinars.Where(x =&gt; x.Date.Year == date.Value.Year)
+                                        .Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
+                                }
+                                if (options == SearchOptionsWebinars.Month &amp;&amp; date.HasValue)
+                                {
+                                    return await _dbContext.Webinars.Where(x =&gt; x.Date.Month == date.Value.Month)
+                                        .Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
+                                }
                         
-                            public async Task&lt;int&gt; GetTotalCountOfWebinarsForDate(DateTime date)
+                        
+                                return await _dbContext.Webinars
+                                    .Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
+                        
+                        
+                            }
+
+
+
+                            public async Task&lt;int&gt; GetTotalCountOfWebinarsForDate(SearchOptionsWebinars options,
+                             DateTime? date)
                             {
-                                return await _dbContext.Webinars.CountAsync
-                                    (x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year);
+                                if (options == SearchOptionsWebinars.MonthAndYear &amp;&amp; date.HasValue)
+                                {
+                                    return await _dbContext.Webinars.CountAsync
+                                                    (x =&gt; x.Date.Month == date.Value.Month 
+                                                    &amp;&amp; x.Date.Year == date.Value.Year);
+                                }
+                                if (options == SearchOptionsWebinars.Year &amp;&amp; date.HasValue)
+                                {
+                                    return await _dbContext.Webinars.CountAsync
+                                       (x =&gt; x.Date.Year == date.Value.Year);
+                                }
+                                if (options == SearchOptionsWebinars.Month &amp;&amp; date.HasValue)
+                                {
+                                    return await _dbContext.Webinars.CountAsync
+                                      (x =&gt; x.Date.Year == date.Value.Year);
+                                }
+
+                                return await _dbContext.Webinars.CountAsync();
+
                             }
                         }
                     </code>
@@ -5736,6 +6290,10 @@
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
     </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Pora napisać instalator dla tej warstwy
+        </span></span>
+    </section>
     <section class="slide" style="background-color:black">
         <figure>
             <img class="cover" src="pictures/d/62.PNG" alt="blog">
@@ -5752,7 +6310,8 @@
                     <code style="line-height: 19px !important;">
                         public static class PersistenceWithEFRegistration
                         {
-                            public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
+                            public static IServiceCollection AddPersistenceServices(this IServiceCollection services,
+                             IConfiguration configuration)
                             {
                                 services.AddDbContext&lt;EduZbieraczContext&gt;(options =&gt;
                                     options.UseSqlServer(configuration.
@@ -5781,12 +6340,12 @@
         </div>
     </section>
 
-    <section class="slide cream">
-        <span class="shout colors" ><span>Przechodzimy do <BR /> 😲 API 😲
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Przechodzimy do <BR /> 🗣️ API 🗣️
         </span></span>
     </section>
-    <section class="slide cream">
-        <span class="shout colors" ><span>To ta część w której w końcu tworzenia aplikacje <BR /> 😲 ASP.NET CORE 😲
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>To ta część w której w końcu tworzenia aplikacje <BR /> 🐱‍👤 ASP.NET CORE 🐱‍👤
         </span></span>
     </section>
     <section class="slide" style="background-color:black">
@@ -5819,7 +6378,17 @@
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
     </section>
-    Dodajmy Swagger UI
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Zajrzmi do serca ASP.NET CORE<BR /> 
+             czyli klasy Startup 🔍
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/a/f.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
 
 
     <section class="slide prism over bhgry">
@@ -5828,8 +6397,8 @@
                 <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
             </div>
             <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 19px !important;">
+                <pre style="font-size: 23px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 23px !important;">
                         public class Startup
                         {
                             public IConfiguration Configuration { get; }
@@ -5863,8 +6432,8 @@
                 <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
             </div>
             <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 19px !important;">
+                <pre style="font-size: 23px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 23px !important;">
                         public void ConfigureServices(IServiceCollection services)
                         {
                             services.AddEduZbieraczApplication();
@@ -5875,7 +6444,8 @@
                             services.AddCors(options =&gt;
                             {
                                 options.AddPolicy(&quot;Open&quot;,
-                                    builder =&gt; builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+                                    builder =&gt; builder.AllowAnyOrigin()
+                                    .AllowAnyHeader().AllowAnyMethod());
                             });
                         }
                     </code>
@@ -5928,6 +6498,11 @@
             </div>
         </div>
     </section>
+    <section class="slide creamPPP">
+        <span class="shout colors" ><span>Zajrzmi do konfiguracji<BR /> 
+             Gdzie mają być ConnectionStringi 🔍
+        </span></span>
+    </section>
     <section class="slide" style="background-color:black">
         <figure>
             <img class="cover" src="pictures/a/08.PNG" alt="blog">
@@ -5939,12 +6514,13 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">GetPostsListQueryHandler</h2>
             </div>
-            <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-json">
-                    <code style="line-height: 19px !important;">
+            <div class="PlaceCodeHere canscrollX">
+                <pre style="font-size: 22px;overflow: hidden;  " class="language-json">
+                    <code style="line-height: 22px !important;">
                         {
                             "ConnectionStrings": {
-                              "EduZbieraczConnectionString": "Data Source=CEZMSI\SQLEXPRESS;Initial Catalog=EduZbieracz;Integrated Security=True;Pooling=False"
+                              "EduZbieraczConnectionString": "Data Source=CEZMSI\SQLEXPRESS;
+                              Initial Catalog=EduZbieracz;Integrated Security=True;Pooling=False"
                             }
                         }
                     </code>
@@ -5959,6 +6535,12 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Pora utworzyć baze danych<BR /> 
+             Przy pomocy EntityFrrameworkCore.Tools
+             <br />😎
+        </span></span>
     </section>
     <section class="slide" style="background-color:black">
         <figure>
@@ -5992,9 +6574,1269 @@
     </section>
     <section class="slide" style="background-color:black">
         <figure>
+            <img class="cover" src="pictures/a/f2.png" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+
+    <section class="slide" style="background-color:black">
+        <figure>
             <img class="cover" src="pictures/a/21.PNG" alt="blog">
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">Init Migration</h2>
+            </div>
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        public partial class Init : Migration
+                        {
+                            protected override void Up(MigrationBuilder migrationBuilder)
+                            {
+                                migrationBuilder.CreateTable(
+                                    name: &quot;Categories&quot;,
+                                    columns: table =&gt; new
+                                    {
+                                        CategoryId = table.Column&lt;int&gt;(nullable: false)
+                                            .Annotation(&quot;SqlServer:Identity&quot;, &quot;1, 1&quot;),
+                                        CreatedBy = table.Column&lt;string&gt;(nullable: true),
+                                        CreatedDate = table.Column&lt;DateTime&gt;(nullable: false),
+                                        LastModifiedBy = table.Column&lt;string&gt;(nullable: true),
+                                        LastModifiedDate = table.Column&lt;DateTime&gt;(nullable: true),
+                                        Name = table.Column&lt;string&gt;(nullable: true),
+                                        DisplayName = table.Column&lt;string&gt;(nullable: true)
+                                    },
+                                    constraints: table =&gt;
+                                    {
+                                        table.PrimaryKey(&quot;PK_Categories&quot;, x =&gt; x.CategoryId);
+                                    });
+                        
+                                migrationBuilder.CreateTable(
+                                    name: &quot;Webinars&quot;,
+                                    columns: table =&gt; new
+                                    {
+                                        Id = table.Column&lt;int&gt;(nullable: false)
+                                            .Annotation(&quot;SqlServer:Identity&quot;, &quot;1, 1&quot;),
+                                        Title = table.Column&lt;string&gt;(nullable: true),
+                                        Description = table.Column&lt;string&gt;(nullable: true),
+                                        ImageUrl = table.Column&lt;string&gt;(nullable: true),
+                                        FacebookEventUrl = table.Column&lt;string&gt;(nullable: true),
+                                        SlidesUrl = table.Column&lt;string&gt;(nullable: true),
+                                        WatchFacebookLink = table.Column&lt;string&gt;(nullable: true),
+                                        WatchYoutubeLink = table.Column&lt;string&gt;(nullable: true),
+                                        Date = table.Column&lt;DateTime&gt;(nullable: false),
+                                        AlreadyHappend = table.Column&lt;bool&gt;(nullable: false)
+                                    },
+                                    constraints: table =&gt;
+                                    {
+                                        table.PrimaryKey(&quot;PK_Webinars&quot;, x =&gt; x.Id);
+                                    });
+                        
+                                migrationBuilder.CreateTable(
+                                    name: &quot;Posts&quot;,
+                                    columns: table =&gt; new
+                                    {
+                                        PostId = table.Column&lt;int&gt;(nullable: false)
+                                            .Annotation(&quot;SqlServer:Identity&quot;, &quot;1, 1&quot;),
+                                        Title = table.Column&lt;string&gt;(maxLength: 80, nullable: false),
+                                        Author = table.Column&lt;string&gt;(nullable: true),
+                                        Date = table.Column&lt;DateTime&gt;(nullable: false),
+                                        Description = table.Column&lt;string&gt;(nullable: true),
+                                        CategoryId = table.Column&lt;int&gt;(nullable: false),
+                                        ImageUrl = table.Column&lt;string&gt;(nullable: true),
+                                        Url = table.Column&lt;string&gt;(nullable: true),
+                                        Rate = table.Column&lt;int&gt;(nullable: false)
+                                    },
+                                    constraints: table =&gt;
+                                    {
+                                        table.PrimaryKey(&quot;PK_Posts&quot;, x =&gt; x.PostId);
+                                        table.ForeignKey(
+                                            name: &quot;FK_Posts_Categories_CategoryId&quot;,
+                                            column: x =&gt; x.CategoryId,
+                                            principalTable: &quot;Categories&quot;,
+                                            principalColumn: &quot;CategoryId&quot;,
+                                            onDelete: ReferentialAction.Cascade);
+                                    });
+                        
+                                migrationBuilder.InsertData(
+                                    table: &quot;Categories&quot;,
+                                    columns: new[] { &quot;CategoryId&quot;, &quot;CreatedBy&quot;, &quot;CreatedDate&quot;, &quot;DisplayName&quot;, &quot;LastModifiedBy&quot;, &quot;LastModifiedDate&quot;, &quot;Name&quot; },
+                                    values: new object[,]
+                                    {
+                                        { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), &quot;C#&quot;, null, null, &quot;CSharp&quot; },
+                                        { 3, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), &quot;Triki z Windows&quot;, null, null, &quot;triki-z-windows&quot; },
+                                        { 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), &quot;ASP.NET&quot;, null, null, &quot;aspnet&quot; },
+                                        { 4, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), &quot;Docker&quot;, null, null, &quot;docker&quot; },
+                                        { 5, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), &quot;Filozofia&quot;, null, null, &quot;filozofia&quot; }
+                                    });
+                        
+                                migrationBuilder.InsertData(
+                                    table: &quot;Webinars&quot;,
+                                    columns: new[] { &quot;Id&quot;, &quot;AlreadyHappend&quot;, &quot;Date&quot;, &quot;Description&quot;, &quot;FacebookEventUrl&quot;, &quot;ImageUrl&quot;, &quot;SlidesUrl&quot;, &quot;Title&quot;, &quot;WatchFacebookLink&quot;, &quot;WatchYoutubeLink&quot; },
+                                    values: new object[,]
+                                    {
+                                        { 1, false, new DateTime(2021, 1, 28, 10, 3, 58, 620, DateTimeKind.Local).AddTicks(5513), &quot;Ustalenie architektury nie jest prostym zadaniem. Każda decyzja może mieć wielkie komplikacje potem.&quot;, &quot;https://www.facebook.com/events/407358067213893/&quot;, &quot;https://cezarywalenciuk.pl/posts/fileswebinars/17_apliacjacsharpodzeraarchitekturacqrs.jpg&quot;, &quot;&quot;, &quot;Aplikacja C# od Zera Architektura, CQRS, Dobre praktyki&quot;, &quot;&quot;, &quot;&quot; },
+                                        { 2, false, new DateTime(2020, 12, 9, 10, 3, 58, 621, DateTimeKind.Local).AddTicks(7359), &quot;Kontenery są tutaj. Kubernetes jest de facto platformą do ich uruchamiania i zarządzania.&quot;, &quot;https://www.facebook.com/events/407358067213893/&quot;, &quot;https://cezarywalenciuk.pl/posts/fileswebinars/17_apliacjacsharpodzeraarchitekturacqrs.jpg&quot;, &quot;https://panniebieski.github.io/webinar-Kubernetes-Docker-Wytlumacz-mi-i-pokaz/&quot;, &quot;Kubernetes i Docker : Wytłumacz mi i pokaż&quot;, &quot;https://www.facebook.com/watch/live/?v=2775230679405348&amp;ref=watch_permalink&quot;, &quot;https://www.youtube.com/watch?v=7g00wOg9Jto&quot; },
+                                        { 3, false, new DateTime(2020, 11, 19, 10, 3, 58, 621, DateTimeKind.Local).AddTicks(7537), &quot;Jak utworzyć projekt w .NET 5?&quot;, &quot;https://www.facebook.com/events/407358067213893/&quot;, &quot;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&quot;, &quot;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&quot;, &quot;C# 9, Rekordy i duże zmiany w .NET 5&quot;, &quot;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&quot;, &quot;https://www.youtube.com/watch?v=ATbLEyd_1Kg&quot; },
+                                        { 4, false, new DateTime(2020, 11, 9, 10, 3, 58, 621, DateTimeKind.Local).AddTicks(7547), &quot;Czasami jedyne czego potrzebujemy to dobrego przykładu.&quot;, &quot;https://www.facebook.com/events/407358067213893/&quot;, &quot;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&quot;, &quot;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&quot;, &quot;Szybki Trening Sql Server 2&quot;, &quot;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&quot;, &quot;https://www.youtube.com/watch?v=ATbLEyd_1Kg&quot; },
+                                        { 5, false, new DateTime(2020, 10, 20, 10, 3, 58, 621, DateTimeKind.Local).AddTicks(7554), &quot;Jak wygląda szukanie pracy jako programista w 2020 roku? Czy jest lepiej, czy jest gorzej?&quot;, &quot;https://www.facebook.com/events/407358067213893/&quot;, &quot;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&quot;, &quot;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&quot;, &quot;Pytania rekrutacyjne czyli dalsza kariera&quot;, &quot;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&quot;, &quot;https://www.youtube.com/watch?v=ATbLEyd_1Kg&quot; }
+                                    });
+                        
+                                migrationBuilder.InsertData(
+                                    table: &quot;Posts&quot;,
+                                    columns: new[] { &quot;PostId&quot;, &quot;Author&quot;, &quot;CategoryId&quot;, &quot;Date&quot;, &quot;Description&quot;, &quot;ImageUrl&quot;, &quot;Rate&quot;, &quot;Title&quot;, &quot;Url&quot; },
+                                    values: new object[,]
+                                    {
+                                        { 8, &quot;Adrian&quot;, 3, new DateTime(2019, 10, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7507), @&quot;Jak jeszcze lepiej ulepszyć system operacyjny Windows.
+                        
+                                    Czy być może programy tobie, kt&#243;re za chwilę to śmieci, kt&#243;re nie będą ci potrzebne?
+                        
+                                    Zazwyczaj w tym cyklu pokazuje programy, z kt&#243;re moim bardzo zmieniają przepływ mojej pracy.&quot;, &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;, 5, &quot;QuickLook, TeraCopy, ProcessExplorer czy to potrzebne jest ?&quot;, &quot;https://cezarywalenciuk.pl/blog/programing/sharex-lepszy-printscreen-oraz-robienie-gif-ow&quot; },
+                                        { 7, &quot;Adrian&quot;, 3, new DateTime(2019, 11, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7503), &quot;Nagrywanie Gif - &#243;w ? Robienie obrazk&#243;w na bloga ? Jak to robić jeszcze szybciej ? &quot;, &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;, 4, &quot;ShareX : Lepszy PrintScreen oraz robienie Gif-&#243;w twojego pulpitu?&quot;, &quot;https://cezarywalenciuk.pl/blog/programing/sharex-lepszy-printscreen-oraz-robienie-gif-ow&quot; },
+                                        { 1, &quot;Damian&quot;, 2, new DateTime(2020, 7, 18, 10, 3, 58, 614, DateTimeKind.Local).AddTicks(6597), @&quot;Nasze aplikacje ASP.NET CORE coraz częściej są tylko aplikacją REST. To oczywiście wymaga Walidacji po stronie klienta i po stronie serwera
+                                    Jak taką walidację jak najszybciej zrobić.Może przecież sam napisać takie warunki,
+                                                    ale przy dużej ilości klas,
+                                                    kt&#243;re występują jako parametry mija się to z celem.
+                        
+                                    Możesz też skorzystać z atrybut&#243;w i oznaczyć reguły do każdej właściwości.&quot;, &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;, 8, &quot;Walidacja z FluentValidation w ASP.NET Core + Swagger&quot;, &quot;https://cezarywalenciuk.pl/blog/programing/walidacja-z-fluentvalidation-waspnet-core--swagger&quot; },
+                                        { 2, &quot;Damian&quot;, 2, new DateTime(2020, 7, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7347), &quot;Programiści codziennie tworzą jakąś aplikację sieciową typu REST. Teraz nastaje pytanie, jak najlepiej zrozumieć jak dane API działa. Do tego mamy dokumentacje, ale jeśli pracujesz w szybkich, zamkniętych projektach to takiej dokumentacji może nie być.&quot;, &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;, 7, &quot;Swagger UI : Dokumentowanie API w ASP.NET CORE&quot;, &quot;https://cezarywalenciuk.pl/blog/programing/swagger-ui--dokumentowanie-api-w-aspnet-core&quot; },
+                                        { 4, &quot;Damian&quot;, 2, new DateTime(2020, 1, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7491), &quot;Logowanie działania aplikacji. Jak wiedzieć w końcu, gdy coś nie działa. M&#243;j blog jest napisany w C# i działa po ASP.NET CORE. Jak to jednak bywa z napisaną przez siebie aplikacją pojawiają się błędy więc do bloga dodałem mechanizm logowania błęd&#243;w. W taki spos&#243;b znalazłem wiele dziwnych przypadk&#243;w uszkodzonych wpis&#243;w w formacie XML, kt&#243;re rozwalały Parser. Znalazłem też złe zbudowane przez ze mnie lista kurs&#243;w. &quot;, &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;, 5, &quot;NLog z ASP.NET Core : Logowanie błęd&#243;w w aplikacji&quot;, &quot;https://cezarywalenciuk.pl/blog/programing/nlog-z-aspnet-core--logowanie-b%C5%82edow-w-aplikacji&quot; },
+                                        { 5, &quot;Damian&quot;, 2, new DateTime(2020, 1, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7495), &quot;Logowanie działania aplikacji. Jak wiedzieć w końcu, gdy coś nie działa. M&#243;j blog jest napisany w C# i działa po ASP.NET CORE. Jak to jednak bywa z napisaną przez siebie aplikacją pojawiają się błędy więc do bloga dodałem mechanizm logowania błęd&#243;w. W taki spos&#243;b znalazłem wiele dziwnych przypadk&#243;w uszkodzonych wpis&#243;w w formacie XML, kt&#243;re rozwalały Parser. Znalazłem też złe zbudowane przez ze mnie lista kurs&#243;w. &quot;, &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;, 5, &quot;NLog z ASP.NET Core : Logowanie błęd&#243;w w aplikacji&quot;, &quot;https://cezarywalenciuk.pl/blog/programing/nlog-z-aspnet-core--logowanie-b%C5%82edow-w-aplikacji&quot; },
+                                        { 6, &quot;Damian&quot;, 2, new DateTime(2020, 5, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7499), &quot;W tym  artykule zobaczymy jak zintegrować AutoMapper  z ASP.NET CORE dla .NET 5, chociaż bądźmy szczerzy możesz skorzystać z tej biblioteki w każdym projekcie w C#.&quot;, &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;, 9, &quot;AutoMapper z ASP.NET CORE czyli mapowanie klas&quot;, &quot;https://cezarywalenciuk.pl/blog/programing/automapper-z-aspnet-core&quot; },
+                                        { 9, &quot;Adrian&quot;, 4, new DateTime(2019, 10, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7512), @&quot;Jak jeszcze lepiej ulepszyć system operacyjny Windows.
+                        
+                                    Czy być może programy tobie, kt&#243;re za chwilę to śmieci, kt&#243;re nie będą ci potrzebne?
+                        
+                                    Zazwyczaj w tym cyklu pokazuje programy, z kt&#243;re moim bardzo zmieniają przepływ mojej pracy.&quot;, &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;, 9, &quot;Docker File dla Go, ASP.NET Core, .NET 5, Java Spring, NodeJS, Python&quot;, &quot;https://cezarywalenciuk.pl/blog/programing/docker-file-dla-go-aspnet-core-net-5-java-spring-nodejs-python&quot; },
+                                        { 3, &quot;Stefan&quot;, 5, new DateTime(2020, 1, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7480), @&quot;W pod koniec roku 2017 zacząłem ćwiczyć. Proste ćwiczenia rzeczywiście robią r&#243;żnice, gdy masz siedzący tryb życia. A co z bieganiem ?
+                                    Pamiętam jak pierwszy raz na bieżni nie byłem w stanie wytrzymać 5 minut normalnego spaceru. Powoli z tygodnia na dzień zacząłem sobie stawiać wyższe progi i tak odkryłem, że o ile jest to na początku bolesne to jak twoje ciało da Ci te endorfiny to już...aż chce się biegać więcej. &quot;, &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;, 5, &quot;Bieganie jak się do tego zmotywować : Zdrowie Programisty&quot;, &quot;https://cezarywalenciuk.pl/blog/programing/bieganie-jak-sie-do-tego-zmotywowac--zdrowie-programisty&quot; }
+                                    });
+                        
+                                migrationBuilder.CreateIndex(
+                                    name: &quot;IX_Posts_CategoryId&quot;,
+                                    table: &quot;Posts&quot;,
+                                    column: &quot;CategoryId&quot;);
+                            }
+                        
+                            protected override void Down(MigrationBuilder migrationBuilder)
+                            {
+                                migrationBuilder.DropTable(
+                                    name: &quot;Posts&quot;);
+                        
+                                migrationBuilder.DropTable(
+                                    name: &quot;Webinars&quot;);
+                        
+                                migrationBuilder.DropTable(
+                                    name: &quot;Categories&quot;);
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">EduZbieraczContextModelSnapshot : ModelSnapshot
+                    {</h2>
+            </div>
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 14px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 14px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        // &lt;auto-generated /&gt;
+                        using System;
+                        using EduZbieracz.Persistence;
+                        using Microsoft.EntityFrameworkCore;
+                        using Microsoft.EntityFrameworkCore.Infrastructure;
+                        using Microsoft.EntityFrameworkCore.Metadata;
+                        using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+                        
+                        namespace EduZbieracz.Persistence.EF.Migrations
+                        {
+                            [DbContext(typeof(EduZbieraczContext))]
+                            partial class EduZbieraczContextModelSnapshot : ModelSnapshot
+                            {
+                                protected override void BuildModel(ModelBuilder modelBuilder)
+                                {
+                        #pragma warning disable 612, 618
+                                    modelBuilder
+                                        .HasAnnotation(&quot;ProductVersion&quot;, &quot;3.1.11&quot;)
+                                        .HasAnnotation(&quot;Relational:MaxIdentifierLength&quot;, 128)
+                                        .HasAnnotation(&quot;SqlServer:ValueGenerationStrategy&quot;, SqlServerValueGenerationStrategy.IdentityColumn);
+                        
+                                    modelBuilder.Entity(&quot;EduZbieracz.Domain.Entities.Category&quot;, b =&gt;
+                                        {
+                                            b.Property&lt;int&gt;(&quot;CategoryId&quot;)
+                                                .ValueGeneratedOnAdd()
+                                                .HasColumnType(&quot;int&quot;)
+                                                .HasAnnotation(&quot;SqlServer:ValueGenerationStrategy&quot;, SqlServerValueGenerationStrategy.IdentityColumn);
+                        
+                                            b.Property&lt;string&gt;(&quot;CreatedBy&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;DateTime&gt;(&quot;CreatedDate&quot;)
+                                                .HasColumnType(&quot;datetime2&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;DisplayName&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;LastModifiedBy&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;DateTime?&gt;(&quot;LastModifiedDate&quot;)
+                                                .HasColumnType(&quot;datetime2&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;Name&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.HasKey(&quot;CategoryId&quot;);
+                        
+                                            b.ToTable(&quot;Categories&quot;);
+                        
+                                            b.HasData(
+                                                new
+                                                {
+                                                    CategoryId = 1,
+                                                    CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                                    DisplayName = &quot;C#&quot;,
+                                                    Name = &quot;CSharp&quot;
+                                                },
+                                                new
+                                                {
+                                                    CategoryId = 3,
+                                                    CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                                    DisplayName = &quot;Triki z Windows&quot;,
+                                                    Name = &quot;triki-z-windows&quot;
+                                                },
+                                                new
+                                                {
+                                                    CategoryId = 2,
+                                                    CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                                    DisplayName = &quot;ASP.NET&quot;,
+                                                    Name = &quot;aspnet&quot;
+                                                },
+                                                new
+                                                {
+                                                    CategoryId = 4,
+                                                    CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                                    DisplayName = &quot;Docker&quot;,
+                                                    Name = &quot;docker&quot;
+                                                },
+                                                new
+                                                {
+                                                    CategoryId = 5,
+                                                    CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                                    DisplayName = &quot;Filozofia&quot;,
+                                                    Name = &quot;filozofia&quot;
+                                                });
+                                        });
+                        
+                                    modelBuilder.Entity(&quot;EduZbieracz.Domain.Entities.Post&quot;, b =&gt;
+                                        {
+                                            b.Property&lt;int&gt;(&quot;PostId&quot;)
+                                                .ValueGeneratedOnAdd()
+                                                .HasColumnType(&quot;int&quot;)
+                                                .HasAnnotation(&quot;SqlServer:ValueGenerationStrategy&quot;, SqlServerValueGenerationStrategy.IdentityColumn);
+                        
+                                            b.Property&lt;string&gt;(&quot;Author&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;int&gt;(&quot;CategoryId&quot;)
+                                                .HasColumnType(&quot;int&quot;);
+                        
+                                            b.Property&lt;DateTime&gt;(&quot;Date&quot;)
+                                                .HasColumnType(&quot;datetime2&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;Description&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;ImageUrl&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;int&gt;(&quot;Rate&quot;)
+                                                .HasColumnType(&quot;int&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;Title&quot;)
+                                                .IsRequired()
+                                                .HasColumnType(&quot;nvarchar(80)&quot;)
+                                                .HasMaxLength(80);
+                        
+                                            b.Property&lt;string&gt;(&quot;Url&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.HasKey(&quot;PostId&quot;);
+                        
+                                            b.HasIndex(&quot;CategoryId&quot;);
+                        
+                                            b.ToTable(&quot;Posts&quot;);
+                        
+                                            b.HasData(
+                                                new
+                                                {
+                                                    PostId = 1,
+                                                    Author = &quot;Damian&quot;,
+                                                    CategoryId = 2,
+                                                    Date = new DateTime(2020, 7, 18, 10, 3, 58, 614, DateTimeKind.Local).AddTicks(6597),
+                                                    Description = @&quot;Nasze aplikacje ASP.NET CORE coraz częściej są tylko aplikacją REST. To oczywiście wymaga Walidacji po stronie klienta i po stronie serwera
+                        Jak taką walidację jak najszybciej zrobić.Może przecież sam napisać takie warunki,
+                                        ale przy dużej ilości klas,
+                                        kt&#243;re występują jako parametry mija się to z celem.
+                        
+                        Możesz też skorzystać z atrybut&#243;w i oznaczyć reguły do każdej właściwości.&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                                    Rate = 8,
+                                                    Title = &quot;Walidacja z FluentValidation w ASP.NET Core + Swagger&quot;,
+                                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/walidacja-z-fluentvalidation-waspnet-core--swagger&quot;
+                                                },
+                                                new
+                                                {
+                                                    PostId = 3,
+                                                    Author = &quot;Stefan&quot;,
+                                                    CategoryId = 5,
+                                                    Date = new DateTime(2020, 1, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7480),
+                                                    Description = @&quot;W pod koniec roku 2017 zacząłem ćwiczyć. Proste ćwiczenia rzeczywiście robią r&#243;żnice, gdy masz siedzący tryb życia. A co z bieganiem ?
+                        Pamiętam jak pierwszy raz na bieżni nie byłem w stanie wytrzymać 5 minut normalnego spaceru. Powoli z tygodnia na dzień zacząłem sobie stawiać wyższe progi i tak odkryłem, że o ile jest to na początku bolesne to jak twoje ciało da Ci te endorfiny to już...aż chce się biegać więcej. &quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                                    Rate = 5,
+                                                    Title = &quot;Bieganie jak się do tego zmotywować : Zdrowie Programisty&quot;,
+                                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/bieganie-jak-sie-do-tego-zmotywowac--zdrowie-programisty&quot;
+                                                },
+                                                new
+                                                {
+                                                    PostId = 2,
+                                                    Author = &quot;Damian&quot;,
+                                                    CategoryId = 2,
+                                                    Date = new DateTime(2020, 7, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7347),
+                                                    Description = &quot;Programiści codziennie tworzą jakąś aplikację sieciową typu REST. Teraz nastaje pytanie, jak najlepiej zrozumieć jak dane API działa. Do tego mamy dokumentacje, ale jeśli pracujesz w szybkich, zamkniętych projektach to takiej dokumentacji może nie być.&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                                    Rate = 7,
+                                                    Title = &quot;Swagger UI : Dokumentowanie API w ASP.NET CORE&quot;,
+                                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/swagger-ui--dokumentowanie-api-w-aspnet-core&quot;
+                                                },
+                                                new
+                                                {
+                                                    PostId = 4,
+                                                    Author = &quot;Damian&quot;,
+                                                    CategoryId = 2,
+                                                    Date = new DateTime(2020, 1, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7491),
+                                                    Description = &quot;Logowanie działania aplikacji. Jak wiedzieć w końcu, gdy coś nie działa. M&#243;j blog jest napisany w C# i działa po ASP.NET CORE. Jak to jednak bywa z napisaną przez siebie aplikacją pojawiają się błędy więc do bloga dodałem mechanizm logowania błęd&#243;w. W taki spos&#243;b znalazłem wiele dziwnych przypadk&#243;w uszkodzonych wpis&#243;w w formacie XML, kt&#243;re rozwalały Parser. Znalazłem też złe zbudowane przez ze mnie lista kurs&#243;w. &quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                                    Rate = 5,
+                                                    Title = &quot;NLog z ASP.NET Core : Logowanie błęd&#243;w w aplikacji&quot;,
+                                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/nlog-z-aspnet-core--logowanie-b%C5%82edow-w-aplikacji&quot;
+                                                },
+                                                new
+                                                {
+                                                    PostId = 5,
+                                                    Author = &quot;Damian&quot;,
+                                                    CategoryId = 2,
+                                                    Date = new DateTime(2020, 1, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7495),
+                                                    Description = &quot;Logowanie działania aplikacji. Jak wiedzieć w końcu, gdy coś nie działa. M&#243;j blog jest napisany w C# i działa po ASP.NET CORE. Jak to jednak bywa z napisaną przez siebie aplikacją pojawiają się błędy więc do bloga dodałem mechanizm logowania błęd&#243;w. W taki spos&#243;b znalazłem wiele dziwnych przypadk&#243;w uszkodzonych wpis&#243;w w formacie XML, kt&#243;re rozwalały Parser. Znalazłem też złe zbudowane przez ze mnie lista kurs&#243;w. &quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                                    Rate = 5,
+                                                    Title = &quot;NLog z ASP.NET Core : Logowanie błęd&#243;w w aplikacji&quot;,
+                                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/nlog-z-aspnet-core--logowanie-b%C5%82edow-w-aplikacji&quot;
+                                                },
+                                                new
+                                                {
+                                                    PostId = 6,
+                                                    Author = &quot;Damian&quot;,
+                                                    CategoryId = 2,
+                                                    Date = new DateTime(2020, 5, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7499),
+                                                    Description = &quot;W tym  artykule zobaczymy jak zintegrować AutoMapper  z ASP.NET CORE dla .NET 5, chociaż bądźmy szczerzy możesz skorzystać z tej biblioteki w każdym projekcie w C#.&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                                    Rate = 9,
+                                                    Title = &quot;AutoMapper z ASP.NET CORE czyli mapowanie klas&quot;,
+                                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/automapper-z-aspnet-core&quot;
+                                                },
+                                                new
+                                                {
+                                                    PostId = 8,
+                                                    Author = &quot;Adrian&quot;,
+                                                    CategoryId = 3,
+                                                    Date = new DateTime(2019, 10, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7507),
+                                                    Description = @&quot;Jak jeszcze lepiej ulepszyć system operacyjny Windows.
+                        
+                        Czy być może programy tobie, kt&#243;re za chwilę to śmieci, kt&#243;re nie będą ci potrzebne?
+                        
+                        Zazwyczaj w tym cyklu pokazuje programy, z kt&#243;re moim bardzo zmieniają przepływ mojej pracy.&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                                    Rate = 5,
+                                                    Title = &quot;QuickLook, TeraCopy, ProcessExplorer czy to potrzebne jest ?&quot;,
+                                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/sharex-lepszy-printscreen-oraz-robienie-gif-ow&quot;
+                                                },
+                                                new
+                                                {
+                                                    PostId = 7,
+                                                    Author = &quot;Adrian&quot;,
+                                                    CategoryId = 3,
+                                                    Date = new DateTime(2019, 11, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7503),
+                                                    Description = &quot;Nagrywanie Gif - &#243;w ? Robienie obrazk&#243;w na bloga ? Jak to robić jeszcze szybciej ? &quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                                    Rate = 4,
+                                                    Title = &quot;ShareX : Lepszy PrintScreen oraz robienie Gif-&#243;w twojego pulpitu?&quot;,
+                                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/sharex-lepszy-printscreen-oraz-robienie-gif-ow&quot;
+                                                },
+                                                new
+                                                {
+                                                    PostId = 9,
+                                                    Author = &quot;Adrian&quot;,
+                                                    CategoryId = 4,
+                                                    Date = new DateTime(2019, 10, 18, 10, 3, 58, 617, DateTimeKind.Local).AddTicks(7512),
+                                                    Description = @&quot;Jak jeszcze lepiej ulepszyć system operacyjny Windows.
+                        
+                        Czy być może programy tobie, kt&#243;re za chwilę to śmieci, kt&#243;re nie będą ci potrzebne?
+                        
+                        Zazwyczaj w tym cyklu pokazuje programy, z kt&#243;re moim bardzo zmieniają przepływ mojej pracy.&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                                    Rate = 9,
+                                                    Title = &quot;Docker File dla Go, ASP.NET Core, .NET 5, Java Spring, NodeJS, Python&quot;,
+                                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/docker-file-dla-go-aspnet-core-net-5-java-spring-nodejs-python&quot;
+                                                });
+                                        });
+                        
+                                    modelBuilder.Entity(&quot;EduZbieracz.Domain.Entities.Webinar&quot;, b =&gt;
+                                        {
+                                            b.Property&lt;int&gt;(&quot;Id&quot;)
+                                                .ValueGeneratedOnAdd()
+                                                .HasColumnType(&quot;int&quot;)
+                                                .HasAnnotation(&quot;SqlServer:ValueGenerationStrategy&quot;, SqlServerValueGenerationStrategy.IdentityColumn);
+                        
+                                            b.Property&lt;bool&gt;(&quot;AlreadyHappend&quot;)
+                                                .HasColumnType(&quot;bit&quot;);
+                        
+                                            b.Property&lt;DateTime&gt;(&quot;Date&quot;)
+                                                .HasColumnType(&quot;datetime2&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;Description&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;FacebookEventUrl&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;ImageUrl&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;SlidesUrl&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;Title&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;WatchFacebookLink&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.Property&lt;string&gt;(&quot;WatchYoutubeLink&quot;)
+                                                .HasColumnType(&quot;nvarchar(max)&quot;);
+                        
+                                            b.HasKey(&quot;Id&quot;);
+                        
+                                            b.ToTable(&quot;Webinars&quot;);
+                        
+                                            b.HasData(
+                                                new
+                                                {
+                                                    Id = 1,
+                                                    AlreadyHappend = false,
+                                                    Date = new DateTime(2021, 1, 28, 10, 3, 58, 620, DateTimeKind.Local).AddTicks(5513),
+                                                    Description = &quot;Ustalenie architektury nie jest prostym zadaniem. Każda decyzja może mieć wielkie komplikacje potem.&quot;,
+                                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/17_apliacjacsharpodzeraarchitekturacqrs.jpg&quot;,
+                                                    SlidesUrl = &quot;&quot;,
+                                                    Title = &quot;Aplikacja C# od Zera Architektura, CQRS, Dobre praktyki&quot;,
+                                                    WatchFacebookLink = &quot;&quot;,
+                                                    WatchYoutubeLink = &quot;&quot;
+                                                },
+                                                new
+                                                {
+                                                    Id = 2,
+                                                    AlreadyHappend = false,
+                                                    Date = new DateTime(2020, 12, 9, 10, 3, 58, 621, DateTimeKind.Local).AddTicks(7359),
+                                                    Description = &quot;Kontenery są tutaj. Kubernetes jest de facto platformą do ich uruchamiania i zarządzania.&quot;,
+                                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/17_apliacjacsharpodzeraarchitekturacqrs.jpg&quot;,
+                                                    SlidesUrl = &quot;https://panniebieski.github.io/webinar-Kubernetes-Docker-Wytlumacz-mi-i-pokaz/&quot;,
+                                                    Title = &quot;Kubernetes i Docker : Wytłumacz mi i pokaż&quot;,
+                                                    WatchFacebookLink = &quot;https://www.facebook.com/watch/live/?v=2775230679405348&amp;ref=watch_permalink&quot;,
+                                                    WatchYoutubeLink = &quot;https://www.youtube.com/watch?v=7g00wOg9Jto&quot;
+                                                },
+                                                new
+                                                {
+                                                    Id = 3,
+                                                    AlreadyHappend = false,
+                                                    Date = new DateTime(2020, 11, 19, 10, 3, 58, 621, DateTimeKind.Local).AddTicks(7537),
+                                                    Description = &quot;Jak utworzyć projekt w .NET 5?&quot;,
+                                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&quot;,
+                                                    SlidesUrl = &quot;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&quot;,
+                                                    Title = &quot;C# 9, Rekordy i duże zmiany w .NET 5&quot;,
+                                                    WatchFacebookLink = &quot;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&quot;,
+                                                    WatchYoutubeLink = &quot;https://www.youtube.com/watch?v=ATbLEyd_1Kg&quot;
+                                                },
+                                                new
+                                                {
+                                                    Id = 4,
+                                                    AlreadyHappend = false,
+                                                    Date = new DateTime(2020, 11, 9, 10, 3, 58, 621, DateTimeKind.Local).AddTicks(7547),
+                                                    Description = &quot;Czasami jedyne czego potrzebujemy to dobrego przykładu.&quot;,
+                                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&quot;,
+                                                    SlidesUrl = &quot;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&quot;,
+                                                    Title = &quot;Szybki Trening Sql Server 2&quot;,
+                                                    WatchFacebookLink = &quot;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&quot;,
+                                                    WatchYoutubeLink = &quot;https://www.youtube.com/watch?v=ATbLEyd_1Kg&quot;
+                                                },
+                                                new
+                                                {
+                                                    Id = 5,
+                                                    AlreadyHappend = false,
+                                                    Date = new DateTime(2020, 10, 20, 10, 3, 58, 621, DateTimeKind.Local).AddTicks(7554),
+                                                    Description = &quot;Jak wygląda szukanie pracy jako programista w 2020 roku? Czy jest lepiej, czy jest gorzej?&quot;,
+                                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&quot;,
+                                                    SlidesUrl = &quot;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&quot;,
+                                                    Title = &quot;Pytania rekrutacyjne czyli dalsza kariera&quot;,
+                                                    WatchFacebookLink = &quot;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&quot;,
+                                                    WatchYoutubeLink = &quot;https://www.youtube.com/watch?v=ATbLEyd_1Kg&quot;
+                                                });
+                                        });
+                        
+                                    modelBuilder.Entity(&quot;EduZbieracz.Domain.Entities.Post&quot;, b =&gt;
+                                        {
+                                            b.HasOne(&quot;EduZbieracz.Domain.Entities.Category&quot;, &quot;Category&quot;)
+                                                .WithMany(&quot;Posts&quot;)
+                                                .HasForeignKey(&quot;CategoryId&quot;)
+                                                .OnDelete(DeleteBehavior.Cascade)
+                                                .IsRequired();
+                                        });
+                        #pragma warning restore 612, 618
+                                }
+                            }
+                        }
+                        
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/a/21.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/a/f3.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
+        </figure>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">  CREATE TABLE </h2>
+            </div>
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 14px;overflow: hidden;  " class="language-sql">
+                    <code style="line-height: 14px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        IF OBJECT_ID(N&#39;[__EFMigrationsHistory]&#39;) IS NULL
+                        BEGIN
+                            CREATE TABLE [__EFMigrationsHistory] (
+                                [MigrationId] nvarchar(150) NOT NULL,
+                                [ProductVersion] nvarchar(32) NOT NULL,
+                                CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+                            );
+                        END;
+                        
+                        GO
+                        
+                        CREATE TABLE [Categories] (
+                            [CategoryId] int NOT NULL IDENTITY,
+                            [CreatedBy] nvarchar(max) NULL,
+                            [CreatedDate] datetime2 NOT NULL,
+                            [LastModifiedBy] nvarchar(max) NULL,
+                            [LastModifiedDate] datetime2 NULL,
+                            [Name] nvarchar(max) NULL,
+                            [DisplayName] nvarchar(max) NULL,
+                            CONSTRAINT [PK_Categories] PRIMARY KEY ([CategoryId])
+                        );
+                        
+                        GO
+                        
+                        CREATE TABLE [Webinars] (
+                            [Id] int NOT NULL IDENTITY,
+                            [Title] nvarchar(max) NULL,
+                            [Description] nvarchar(max) NULL,
+                            [ImageUrl] nvarchar(max) NULL,
+                            [FacebookEventUrl] nvarchar(max) NULL,
+                            [SlidesUrl] nvarchar(max) NULL,
+                            [WatchFacebookLink] nvarchar(max) NULL,
+                            [WatchYoutubeLink] nvarchar(max) NULL,
+                            [Date] datetime2 NOT NULL,
+                            [AlreadyHappend] bit NOT NULL,
+                            CONSTRAINT [PK_Webinars] PRIMARY KEY ([Id])
+                        );
+                        
+                        GO
+                        
+                        CREATE TABLE [Posts] (
+                            [PostId] int NOT NULL IDENTITY,
+                            [Title] nvarchar(80) NOT NULL,
+                            [Author] nvarchar(max) NULL,
+                            [Date] datetime2 NOT NULL,
+                            [Description] nvarchar(max) NULL,
+                            [CategoryId] int NOT NULL,
+                            [ImageUrl] nvarchar(max) NULL,
+                            [Url] nvarchar(max) NULL,
+                            [Rate] int NOT NULL,
+                            CONSTRAINT [PK_Posts] PRIMARY KEY ([PostId]),
+                            CONSTRAINT [FK_Posts_Categories_CategoryId] FOREIGN KEY ([CategoryId]) REFERENCES [Categories] ([CategoryId]) ON DELETE CASCADE
+                        );
+                        
+                        GO
+                        
+                        IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N&#39;CategoryId&#39;, N&#39;CreatedBy&#39;, N&#39;CreatedDate&#39;, N&#39;DisplayName&#39;, N&#39;LastModifiedBy&#39;, N&#39;LastModifiedDate&#39;, N&#39;Name&#39;) AND [object_id] = OBJECT_ID(N&#39;[Categories]&#39;))
+                            SET IDENTITY_INSERT [Categories] ON;
+                        INSERT INTO [Categories] ([CategoryId], [CreatedBy], [CreatedDate], [DisplayName], [LastModifiedBy], [LastModifiedDate], [Name])
+                        VALUES (1, NULL, &#39;0001-01-01T00:00:00.0000000&#39;, N&#39;C#&#39;, NULL, NULL, N&#39;CSharp&#39;),
+                        (3, NULL, &#39;0001-01-01T00:00:00.0000000&#39;, N&#39;Triki z Windows&#39;, NULL, NULL, N&#39;triki-z-windows&#39;),
+                        (2, NULL, &#39;0001-01-01T00:00:00.0000000&#39;, N&#39;ASP.NET&#39;, NULL, NULL, N&#39;aspnet&#39;),
+                        (4, NULL, &#39;0001-01-01T00:00:00.0000000&#39;, N&#39;Docker&#39;, NULL, NULL, N&#39;docker&#39;),
+                        (5, NULL, &#39;0001-01-01T00:00:00.0000000&#39;, N&#39;Filozofia&#39;, NULL, NULL, N&#39;filozofia&#39;);
+                        IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N&#39;CategoryId&#39;, N&#39;CreatedBy&#39;, N&#39;CreatedDate&#39;, N&#39;DisplayName&#39;, N&#39;LastModifiedBy&#39;, N&#39;LastModifiedDate&#39;, N&#39;Name&#39;) AND [object_id] = OBJECT_ID(N&#39;[Categories]&#39;))
+                            SET IDENTITY_INSERT [Categories] OFF;
+                        
+                        GO
+                        
+                        IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N&#39;Id&#39;, N&#39;AlreadyHappend&#39;, N&#39;Date&#39;, N&#39;Description&#39;, N&#39;FacebookEventUrl&#39;, N&#39;ImageUrl&#39;, N&#39;SlidesUrl&#39;, N&#39;Title&#39;, N&#39;WatchFacebookLink&#39;, N&#39;WatchYoutubeLink&#39;) AND [object_id] = OBJECT_ID(N&#39;[Webinars]&#39;))
+                            SET IDENTITY_INSERT [Webinars] ON;
+                        INSERT INTO [Webinars] ([Id], [AlreadyHappend], [Date], [Description], [FacebookEventUrl], [ImageUrl], [SlidesUrl], [Title], [WatchFacebookLink], [WatchYoutubeLink])
+                        VALUES (1, CAST(0 AS bit), &#39;2021-01-28T10:03:58.6205513+01:00&#39;, N&#39;Ustalenie architektury nie jest prostym zadaniem. Każda decyzja może mieć wielkie komplikacje potem.&#39;, N&#39;https://www.facebook.com/events/407358067213893/&#39;, N&#39;https://cezarywalenciuk.pl/posts/fileswebinars/17_apliacjacsharpodzeraarchitekturacqrs.jpg&#39;, N&#39;&#39;, N&#39;Aplikacja C# od Zera Architektura, CQRS, Dobre praktyki&#39;, N&#39;&#39;, N&#39;&#39;),
+                        (2, CAST(0 AS bit), &#39;2020-12-09T10:03:58.6217359+01:00&#39;, N&#39;Kontenery są tutaj. Kubernetes jest de facto platformą do ich uruchamiania i zarządzania.&#39;, N&#39;https://www.facebook.com/events/407358067213893/&#39;, N&#39;https://cezarywalenciuk.pl/posts/fileswebinars/17_apliacjacsharpodzeraarchitekturacqrs.jpg&#39;, N&#39;https://panniebieski.github.io/webinar-Kubernetes-Docker-Wytlumacz-mi-i-pokaz/&#39;, N&#39;Kubernetes i Docker : Wytłumacz mi i pokaż&#39;, N&#39;https://www.facebook.com/watch/live/?v=2775230679405348&amp;ref=watch_permalink&#39;, N&#39;https://www.youtube.com/watch?v=7g00wOg9Jto&#39;),
+                        (3, CAST(0 AS bit), &#39;2020-11-19T10:03:58.6217537+01:00&#39;, N&#39;Jak utworzyć projekt w .NET 5?&#39;, N&#39;https://www.facebook.com/events/407358067213893/&#39;, N&#39;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&#39;, N&#39;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&#39;, N&#39;C# 9, Rekordy i duże zmiany w .NET 5&#39;, N&#39;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&#39;, N&#39;https://www.youtube.com/watch?v=ATbLEyd_1Kg&#39;),
+                        (4, CAST(0 AS bit), &#39;2020-11-09T10:03:58.6217547+01:00&#39;, N&#39;Czasami jedyne czego potrzebujemy to dobrego przykładu.&#39;, N&#39;https://www.facebook.com/events/407358067213893/&#39;, N&#39;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&#39;, N&#39;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&#39;, N&#39;Szybki Trening Sql Server 2&#39;, N&#39;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&#39;, N&#39;https://www.youtube.com/watch?v=ATbLEyd_1Kg&#39;),
+                        (5, CAST(0 AS bit), &#39;2020-10-20T10:03:58.6217554+01:00&#39;, N&#39;Jak wygląda szukanie pracy jako programista w 2020 roku? Czy jest lepiej, czy jest gorzej?&#39;, N&#39;https://www.facebook.com/events/407358067213893/&#39;, N&#39;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&#39;, N&#39;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&#39;, N&#39;Pytania rekrutacyjne czyli dalsza kariera&#39;, N&#39;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&#39;, N&#39;https://www.youtube.com/watch?v=ATbLEyd_1Kg&#39;);
+                        IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N&#39;Id&#39;, N&#39;AlreadyHappend&#39;, N&#39;Date&#39;, N&#39;Description&#39;, N&#39;FacebookEventUrl&#39;, N&#39;ImageUrl&#39;, N&#39;SlidesUrl&#39;, N&#39;Title&#39;, N&#39;WatchFacebookLink&#39;, N&#39;WatchYoutubeLink&#39;) AND [object_id] = OBJECT_ID(N&#39;[Webinars]&#39;))
+                            SET IDENTITY_INSERT [Webinars] OFF;
+                        
+                        GO
+                        
+                        IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N&#39;PostId&#39;, N&#39;Author&#39;, N&#39;CategoryId&#39;, N&#39;Date&#39;, N&#39;Description&#39;, N&#39;ImageUrl&#39;, N&#39;Rate&#39;, N&#39;Title&#39;, N&#39;Url&#39;) AND [object_id] = OBJECT_ID(N&#39;[Posts]&#39;))
+                            SET IDENTITY_INSERT [Posts] ON;
+                        INSERT INTO [Posts] ([PostId], [Author], [CategoryId], [Date], [Description], [ImageUrl], [Rate], [Title], [Url])
+                        VALUES (8, N&#39;Adrian&#39;, 3, &#39;2019-10-18T10:03:58.6177507+01:00&#39;, N&#39;Jak jeszcze lepiej ulepszyć system operacyjny Windows.
+                        
+                                        Czy być może programy tobie, kt&#243;re za chwilę to śmieci, kt&#243;re nie będą ci potrzebne?
+                        
+                                        Zazwyczaj w tym cyklu pokazuje programy, z kt&#243;re moim bardzo zmieniają przepływ mojej pracy.&#39;, N&#39;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&#39;, 5, N&#39;QuickLook, TeraCopy, ProcessExplorer czy to potrzebne jest ?&#39;, N&#39;https://cezarywalenciuk.pl/blog/programing/sharex-lepszy-printscreen-oraz-robienie-gif-ow&#39;),
+                        (7, N&#39;Adrian&#39;, 3, &#39;2019-11-18T10:03:58.6177503+01:00&#39;, N&#39;Nagrywanie Gif - &#243;w ? Robienie obrazk&#243;w na bloga ? Jak to robić jeszcze szybciej ? &#39;, N&#39;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&#39;, 4, N&#39;ShareX : Lepszy PrintScreen oraz robienie Gif-&#243;w twojego pulpitu?&#39;, N&#39;https://cezarywalenciuk.pl/blog/programing/sharex-lepszy-printscreen-oraz-robienie-gif-ow&#39;),
+                        (1, N&#39;Damian&#39;, 2, &#39;2020-07-18T10:03:58.6146597+01:00&#39;, N&#39;Nasze aplikacje ASP.NET CORE coraz częściej są tylko aplikacją REST. To oczywiście wymaga Walidacji po stronie klienta i po stronie serwera
+                                        Jak taką walidację jak najszybciej zrobić.Może przecież sam napisać takie warunki,
+                                                        ale przy dużej ilości klas,
+                                                        kt&#243;re występują jako parametry mija się to z celem.
+                        
+                                        Możesz też skorzystać z atrybut&#243;w i oznaczyć reguły do każdej właściwości.&#39;, N&#39;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&#39;, 8, N&#39;Walidacja z FluentValidation w ASP.NET Core + Swagger&#39;, N&#39;https://cezarywalenciuk.pl/blog/programing/walidacja-z-fluentvalidation-waspnet-core--swagger&#39;),
+                        (2, N&#39;Damian&#39;, 2, &#39;2020-07-18T10:03:58.6177347+01:00&#39;, N&#39;Programiści codziennie tworzą jakąś aplikację sieciową typu REST. Teraz nastaje pytanie, jak najlepiej zrozumieć jak dane API działa. Do tego mamy dokumentacje, ale jeśli pracujesz w szybkich, zamkniętych projektach to takiej dokumentacji może nie być.&#39;, N&#39;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&#39;, 7, N&#39;Swagger UI : Dokumentowanie API w ASP.NET CORE&#39;, N&#39;https://cezarywalenciuk.pl/blog/programing/swagger-ui--dokumentowanie-api-w-aspnet-core&#39;),
+                        (4, N&#39;Damian&#39;, 2, &#39;2020-01-18T10:03:58.6177491+01:00&#39;, N&#39;Logowanie działania aplikacji. Jak wiedzieć w końcu, gdy coś nie działa. M&#243;j blog jest napisany w C# i działa po ASP.NET CORE. Jak to jednak bywa z napisaną przez siebie aplikacją pojawiają się błędy więc do bloga dodałem mechanizm logowania błęd&#243;w. W taki spos&#243;b znalazłem wiele dziwnych przypadk&#243;w uszkodzonych wpis&#243;w w formacie XML, kt&#243;re rozwalały Parser. Znalazłem też złe zbudowane przez ze mnie lista kurs&#243;w. &#39;, N&#39;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&#39;, 5, N&#39;NLog z ASP.NET Core : Logowanie błęd&#243;w w aplikacji&#39;, N&#39;https://cezarywalenciuk.pl/blog/programing/nlog-z-aspnet-core--logowanie-b%C5%82edow-w-aplikacji&#39;),
+                        (5, N&#39;Damian&#39;, 2, &#39;2020-01-18T10:03:58.6177495+01:00&#39;, N&#39;Logowanie działania aplikacji. Jak wiedzieć w końcu, gdy coś nie działa. M&#243;j blog jest napisany w C# i działa po ASP.NET CORE. Jak to jednak bywa z napisaną przez siebie aplikacją pojawiają się błędy więc do bloga dodałem mechanizm logowania błęd&#243;w. W taki spos&#243;b znalazłem wiele dziwnych przypadk&#243;w uszkodzonych wpis&#243;w w formacie XML, kt&#243;re rozwalały Parser. Znalazłem też złe zbudowane przez ze mnie lista kurs&#243;w. &#39;, N&#39;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&#39;, 5, N&#39;NLog z ASP.NET Core : Logowanie błęd&#243;w w aplikacji&#39;, N&#39;https://cezarywalenciuk.pl/blog/programing/nlog-z-aspnet-core--logowanie-b%C5%82edow-w-aplikacji&#39;),
+                        (6, N&#39;Damian&#39;, 2, &#39;2020-05-18T10:03:58.6177499+01:00&#39;, N&#39;W tym  artykule zobaczymy jak zintegrować AutoMapper  z ASP.NET CORE dla .NET 5, chociaż bądźmy szczerzy możesz skorzystać z tej biblioteki w każdym projekcie w C#.&#39;, N&#39;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&#39;, 9, N&#39;AutoMapper z ASP.NET CORE czyli mapowanie klas&#39;, N&#39;https://cezarywalenciuk.pl/blog/programing/automapper-z-aspnet-core&#39;),
+                        (9, N&#39;Adrian&#39;, 4, &#39;2019-10-18T10:03:58.6177512+01:00&#39;, N&#39;Jak jeszcze lepiej ulepszyć system operacyjny Windows.
+                        
+                                        Czy być może programy tobie, kt&#243;re za chwilę to śmieci, kt&#243;re nie będą ci potrzebne?
+                        
+                                        Zazwyczaj w tym cyklu pokazuje programy, z kt&#243;re moim bardzo zmieniają przepływ mojej pracy.&#39;, N&#39;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&#39;, 9, N&#39;Docker File dla Go, ASP.NET Core, .NET 5, Java Spring, NodeJS, Python&#39;, N&#39;https://cezarywalenciuk.pl/blog/programing/docker-file-dla-go-aspnet-core-net-5-java-spring-nodejs-python&#39;),
+                        (3, N&#39;Stefan&#39;, 5, &#39;2020-01-18T10:03:58.6177480+01:00&#39;, N&#39;W pod koniec roku 2017 zacząłem ćwiczyć. Proste ćwiczenia rzeczywiście robią r&#243;żnice, gdy masz siedzący tryb życia. A co z bieganiem ?
+                                        Pamiętam jak pierwszy raz na bieżni nie byłem w stanie wytrzymać 5 minut normalnego spaceru. Powoli z tygodnia na dzień zacząłem sobie stawiać wyższe progi i tak odkryłem, że o ile jest to na początku bolesne to jak twoje ciało da Ci te endorfiny to już...aż chce się biegać więcej. &#39;, N&#39;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&#39;, 5, N&#39;Bieganie jak się do tego zmotywować : Zdrowie Programisty&#39;, N&#39;https://cezarywalenciuk.pl/blog/programing/bieganie-jak-sie-do-tego-zmotywowac--zdrowie-programisty&#39;);
+                        IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N&#39;PostId&#39;, N&#39;Author&#39;, N&#39;CategoryId&#39;, N&#39;Date&#39;, N&#39;Description&#39;, N&#39;ImageUrl&#39;, N&#39;Rate&#39;, N&#39;Title&#39;, N&#39;Url&#39;) AND [object_id] = OBJECT_ID(N&#39;[Posts]&#39;))
+                            SET IDENTITY_INSERT [Posts] OFF;
+                        
+                        GO
+                        
+                        CREATE INDEX [IX_Posts_CategoryId] ON [Posts] ([CategoryId]);
+                        
+                        GO
+                        
+                        INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+                        VALUES (N&#39;20210118090359_Init&#39;, N&#39;3.1.11&#39;);
+                        
+                        GO
+                        
+                        
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
     </section>
     <section class="slide" style="background-color:black">
         <figure>
@@ -6015,7 +7857,7 @@
     <section class="slide creamPP fullscreen smaller">
         <div class="grid-container-slidepoint">
             <div class="SlidePointImage">
-                <img  src="pictures/circular/circular desing-04-t.png" />
+                <img  src="pictures/circular/circular desing-03-t.png" />
             </div>
             <div class="SlidePointText">
                 <ol class="nonumbers">
@@ -6028,20 +7870,20 @@
                         <li class="next">Walidacja danych przez Model Binding</li>
                         <li class="next">Logika w kontrolerze</li>
                         <li class="next">Odwołanie do repozytorium i mapowanie</li>
-                        <li class="next">Tworzy swój typ zwracany</li>
+                        <li class="next">Twórzy w nim swój typ zwracany</li>
                     </ol>
                 </ol>
             </div>
           </div>
     </section>
     <section class="slide creamPPP">
-        <span class="shout colors" ><span>To co tworzymy klasy Service i wydzielamy to?
+        <span class="shout colors" ><span>To co tworzymy klasy "Service" i wydzielamy to?
         </span></span>
     </section>
     <section class="slide creamPP fullscreen smaller">
         <div class="grid-container-slidepoint">
             <div class="SlidePointImage">
-                <img  src="pictures/circular/circular desing-04-t.png" />
+                <img  src="pictures/circular/circular desing-03-t.png" />
             </div>
             <div class="SlidePointText">
                 <ol class="nonumbers">
@@ -6196,9 +8038,16 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">WebinarController</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+
+
+
+
+
+                        
+
                         [Route(&quot;api/[controller]&quot;)]
                         [ApiController]
                         public class WebinarController : Controller
@@ -6213,7 +8062,8 @@
                             [HttpGet(&quot;/getpagedordersformonth&quot;, Name = &quot;GetPagedOrdersForMonth&quot;)]
                             [ProducesResponseType(StatusCodes.Status200OK)]
                             [ProducesDefaultResponseType]
-                            public async Task&lt;ActionResult&lt;PageWebinarByDateViewModel&gt;&gt; GetPagedOrdersForMonth(DateTime date, int page, int pagesize)
+                            public async Task&lt;ActionResult&lt;PageWebinarByDateViewModel&gt;&gt; 
+                            GetPagedOrdersForMonth(DateTime date, int page, int pagesize)
                             {
                                 var getWebinarForMonthQuery = new GetWebinarsByDateQuery() 
                                 { Date = date, Page = page, PageSize = pagesize };
@@ -6224,7 +8074,8 @@
                         
                         
                             [HttpPost(Name = &quot;AddWebinar&quot;)]
-                            public async Task&lt;ActionResult&lt;int&gt;&gt; Create([FromBody] CreatedWebinarCommand createWebinarCommand)
+                            public async Task&lt;ActionResult&lt;int&gt;&gt; 
+                            Create([FromBody] CreatedWebinarCommand createWebinarCommand)
                             {
                                 var result = await _mediator.Send(createWebinarCommand);
                                 return Ok(result.Id);
@@ -6248,9 +8099,28 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">CategoriesController</h2>
             </div>
-            <div class="PlaceCodeHere">
-                <pre style="font-size: 12px;overflow: hidden;  " class="language-csharp">
-                    <code style="line-height: 12px !important;">
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         [Route(&quot;api/[controller]&quot;)]
                         [ApiController]
                         public class CategoriesController : Controller
@@ -6262,6 +8132,8 @@
                                 _mediator = mediator;
                             }
                         
+
+
                             [HttpGet(&quot;all&quot;, Name = &quot;GetAllCategories&quot;)]
                             [ProducesResponseType(StatusCodes.Status200OK)]
                             public async Task&lt;ActionResult&lt;List&lt;CategoryInListViewModel&gt;&gt;&gt; GetAllCategories()
@@ -6270,16 +8142,19 @@
                                 return Ok(categoryInListViewModel);
                             }
                         
-                            [HttpGet(&quot;allwithposts&quot;, Name = &quot;GetCategoriesWithEvents&quot;)]
+
+
+
+                            [HttpGet(&quot;allwithposts&quot;, Name = &quot;GetCategoriesWithPosts&quot;)]
                             [ProducesDefaultResponseType]
                             [ProducesResponseType(StatusCodes.Status200OK)]
                             public async Task&lt;ActionResult&lt;List&lt;CategoryPostListViewModel&gt;&gt;&gt; GetCategoriesWithPosts
                                 (SearchCategoryOptions searchOptions)
                             {
-                                GetCategoriesWithPostListQuery getCategoriesListWithEventsQuery =
+                                GetCategoriesWithPostListQuery getCategoriesListWithPostsQuery =
                                     new GetCategoriesWithPostListQuery() { searchCategory = searchOptions };
                         
-                                var dtos = await _mediator.Send(getCategoriesListWithEventsQuery);
+                                var dtos = await _mediator.Send(getCategoriesListWithPostsQuery);
                                 return Ok(dtos);
                             }
                         
@@ -6310,8 +8185,12 @@
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
     </section>
-    <section class="slide cream">
-        <span class="shout colors" ><span>Dodajmy Swagger UI
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Już prawie mamy wszystko 😎
+        </span></span>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Dodajmy Swagger UI 😎
         </span></span>
     </section>
     <section class="slide" style="background-color:black">
@@ -6323,11 +8202,11 @@
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
-                <h2 class="headerCODE PP PP">CategoriesController</h2>
+                <h2 class="headerCODE PP PP">Projekt API</h2>
             </div>
             <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-xml">
-                    <code style="line-height: 19px !important;">
+                <pre style="font-size: 17px;overflow: hidden;  " class="language-xml">
+                    <code style="line-height: 17px !important;">
                         &lt;Project Sdk=&quot;Microsoft.NET.Sdk.Web&quot;&gt;
 
                         &lt;PropertyGroup&gt;
@@ -6366,7 +8245,7 @@
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
-                <h2 class="headerCODE PP PP">CategoriesController</h2>
+                <h2 class="headerCODE PP PP">ConfigureServices</h2>
             </div>
             <div class="PlaceCodeHere">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
@@ -6410,7 +8289,7 @@
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
-                <h2 class="headerCODE PP PP">CategoriesController</h2>
+                <h2 class="headerCODE PP PP">Configure</h2>
             </div>
             <div class="PlaceCodeHere">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
@@ -6476,11 +8355,11 @@
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
     </section>
-    <section class="slide cream">
-        <span class="shout colors" ><span>Przechodzimy do <BR /> 😲 UI 😲
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Przechodzimy do <BR /> 📊 UI 📊
         </span></span>
     </section>
-    <section class="slide creamP">
+    <section class="slide creamGG">
         <span class="shout colors" ><span>Blazor pozwala stworzyć Tobie aplikację SPA w C#.<br />
             WebAssembly
         </span></span>
@@ -6504,6 +8383,11 @@
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
     </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Jak wygląda projekt na start?<br />
+       
+        </span></span>
+    </section>
     <section class="slide" style="background-color:black">
         <figure>
             <img class="cover" src="pictures/blazor/04.PNG" alt="blog">
@@ -6515,6 +8399,11 @@
             <img class="cover" src="pictures/blazor/05.PNG" alt="blog">
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Jakie paczki NuGet?<br />
+       
+        </span></span>
     </section>
     <section class="slide" style="background-color:black">
         <figure>
@@ -6534,11 +8423,21 @@
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
     </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Czy pisać swój kod?<br />
+       
+        </span></span>
+    </section>
     <section class="slide" style="background-color:black">
         <figure>
             <img class="cover" src="pictures/blazor/20.PNG" alt="blog">
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Inny problem to mozolne tworzenie nowych stron<br />
+       
+        </span></span>
     </section>
     <section class="slide" style="background-color:black">
         <figure>
@@ -6558,12 +8457,7 @@
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
     </section>
-    <section class="slide" style="background-color:black">
-        <figure>
-            <img class="cover" src="pictures/blazor/25.PNG" alt="blog">
-            <figcaption class="white">Copyright © 2020 Diagram</figcaption>
-        </figure>
-    </section>
+
     <section class="slide creamPP " >
         <span class="shout colors smallerfont2" ><span>
             Nie mam ochoty pisać kodu HTTPClinet do mojego API w ASP.NET Core
@@ -6573,13 +8467,29 @@
     </section>
     <section class="slide creamPP  fullscreen">
         <div class="grid-containerOnlyThree ">
-            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/depedencyInjection.png" /></div>
-            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/mediator.png" /></div>
-            <div class="ImageOnlyThree "> <img src="pictures/iconsFr/mediator.png" /></div>
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/nswag1.png" /></div>
+            <div class="TitleOnlyTwo"><h3>NSwag</h3></div>
+            <div class="TextOnlyTwo1 "><h3>Generator kodu dla API</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-containerOnlyThree ">
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/nswag1.png" /></div>
+            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/nswag2.png" /></div>
             <div class="TitleOnlyTwo"><h3>NSwag</h3></div>
             <div class="TextOnlyTwo1 "><h3>Generator kodu dla API</h3></div>
             <div class="TextOnlyTwo2 "><h3>Bazuje on na specyfikacji OpenAPI</h3></div>
-            <div class="TextOnlyThree "><h3>Działa dla TypeScript i .NET CORE</h3></div>
+          </div>
+    </section>
+    <section class="slide creamPP  fullscreen">
+        <div class="grid-containerOnlyThree ">
+            <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/nswag1.png" /></div>
+            <div class="ImageOnlyTwo2 "> <img src="pictures/iconsFr/nswag2.png" /></div>
+            <div class="ImageOnlyThree "> <img src="pictures/iconsFr/nswag3.png" /></div>
+            <div class="TitleOnlyTwo"><h3>NSwag</h3></div>
+            <div class="TextOnlyTwo1 "><h3>Generator kodu dla API</h3></div>
+            <div class="TextOnlyTwo2 "><h3>Bazuje on na specyfikacji OpenAPI</h3></div>
+            <div class="TextOnlyThree "><h3>Działa dla TypeScript<br /> i .NET CORE</h3></div>
           </div>
     </section>
     <section class="slide" style="background-color:black">
@@ -6658,7 +8568,7 @@
                             builder.RootComponents.Add&lt;App&gt;(&quot;#app&quot;);
                         
                             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-                            builder.Services.AddBlazoredLocalStorage();
+                            //builder.Services.AddBlazoredLocalStorage();
                         
                             string a = &quot;https://localhost:5001/&quot;;
                             builder.Services.AddSingleton(new HttpClient
@@ -6689,6 +8599,13 @@
             </div>
         </div>
     </section>
+    <section class="slide creamPP " >
+        <span class="shout colors " ><span>
+            Skąd te 
+            <br /><br />&quot;https://localhost:5001&quot
+            
+        </span></span>
+    </section>
     <section class="slide" style="background-color:black">
         <figure>
             <img class="cover" src="pictures/blazor/31.PNG" alt="blog">
@@ -6700,9 +8617,20 @@
             <div class="HeaderTitle PP PP"> 
                 <h2 class="headerCODE PP PP">launchSettings.json</h2>
             </div>
-            <div class="PlaceCodeHere">
+            <div class="PlaceCodeHere  canscroll">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-json">
                     <code style="line-height: 19px !important;">
+
+
+
+
+
+
+
+
+
+
+
                         {
                             "iisSettings": {
                               "windowsAuthentication": false,
@@ -6753,39 +8681,7 @@
         </div>
     </section>
 
-    <section class="slide prism over bhgry">
-        <div class="grid-container">
-            <div class="HeaderTitle PP PP"> 
-                <h2 class="headerCODE PP PP">launchSettings.json</h2>
-            </div>
-            <div class="PlaceCodeHere">
-                <pre style="font-size: 19px;overflow: hidden;  " class="language-json">
-                    <code style="line-height: 19px !important;">
-                            "profiles": {
-                              },
-                              "EduZbieracz.Api": {
-                                "commandName": "Project",
-                                "launchBrowser": true,
-                                "launchUrl": "swagger",
-                                "environmentVariables": {
-                                  "ASPNETCORE_ENVIRONMENT": "Development"
-                                },
-                                "applicationUrl": "https://localhost:5001;http://localhost:5000"
-                              },
-                            }
-                    </code>
-                </pre>
-            </div>
-            <div class="AnswerCode">
-                <div class="pytanie">
-                    <h3></h3>
-                </div>
-                <div class="odpowiedz">
-                    
-                </div>
-            </div>
-        </div>
-    </section>
+
     <section class="slide" style="background-color:black">
         <figure>
             <img class="cover" src="pictures/blazor/32.png" alt="blog">
@@ -6798,7 +8694,7 @@
             <figcaption class="white">Copyright © 2020 Diagram</figcaption>
         </figure>
     </section>
-    <section class="slide cream">
+    <section class="slide creamGG">
         <span class="shout colors" ><span>Jak nazwać ViewModele w projekcie Blazor
         </span></span>
     </section>
@@ -6811,11 +8707,12 @@
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
-                <h2 class="headerCODE PP PP">Klasa Main</h2>
+                <h2 class="headerCODE PP PP">MappingProfile W Blazor</h2>
             </div>
             <div class="PlaceCodeHere">
                 <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
                     <code style="line-height: 19px !important;">
+
                         public class MappingProfile : Profile
                         {
                             public MappingProfile()
@@ -6862,9 +8759,25 @@
         </span></span>
     </section>
 
-    <section class="slide cream">
-        <span class="shout colors" ><span>Co jeszcze można dodać <BR /> 😲 dodać 😲
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Co jeszcze można dodać <BR /> 🤯 dodać 🤯
         </span></span>
+    </section>
+    <section class="slide creamPPP   compact ">
+        <h2>Co jeszcze można dodać</h2>
+        <ol class="nonumbers">
+            <li class="next">Authorize poprzez JSONWebToken</li>
+            <li class="next">Logowanie, Rejestracje użytkowników</li>
+            <li class="next">Połączyć to z Swagger UI i aplikacją Blazor</li>
+        </ol>
+    </section>
+    <section class="slide creamPPP   compact ">
+        <h2>Co jeszcze można dodać</h2>
+        <ol class="nonumbers">
+            <li class="next">Dodanie wyłapywanie błędów : Serilog i NLog</li>
+            <li class="next">Export wpisów/webinarów do Excela</li>
+            <li class="next">Export wpisów/webinarów do PDF</li>
+        </ol>
     </section>
 
     <section class="slide creamG">

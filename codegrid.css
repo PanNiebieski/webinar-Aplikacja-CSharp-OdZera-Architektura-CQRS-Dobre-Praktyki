@@ -196,6 +196,13 @@ padding-top: 1em !important;
 
 .canscroll {
   overflow-y: scroll !important;
+
+}
+
+
+
+.canscrollX {
+  overflow-x: scroll !important;
 }
 
 .AnswerCode {
