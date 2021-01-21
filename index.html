@@ -186,6 +186,14 @@
         <span class="shout colors" ><span>Jak to napisać ?
         </span></span>
     </section>
+    <section class="slide creamPPP   compact ">
+        <h2>Czy dla mnie są te "dobre praktyki" ?</h2>
+        <ol class="nonumbers">
+            <li class="next">Inny programista rozumie co chcesz osiągnąć</li>
+            <li class="next">Łatwo znaleźć cokolwiek w kodzie używając CTRL+F</li>
+            <li class="next">Łatwo wprowadzać zmiany</li>
+        </ol>
+    </section>
 
     <section class="slide creamGG">
         <span class="shout colors" ><span>ASP.NET CORE w pigułce
@@ -236,7 +244,7 @@
                     <li class="next bold">REST API</li>
                     <ol class="nonumbers">
                         <li class="next">Zbudujemy używając ASP.NET CORE</li>
-                        <li class="next">Dostęp do danych : EF Core</li>
+                        
                         <li class="next">Przed tem jednak dodamy architekturę</li>
                     </ol>
                 </ol>
@@ -368,7 +376,7 @@
             <li class="next">Listę wpisów po kategoriach</li>
             <li class="next">Listę webinarów</li>
             <li class="next">Edycje wpisów</li>
-            <li class="next">Edycje kategori</li>
+            <li class="next">Tworzenie kategori</li>
             <li class="next">Edycje Webinarów</li>
         </ol>
     </section>
@@ -503,7 +511,7 @@
           </div>
     </section>
 
-    <section class="slide cream">
+    <section class="slide creamGG">
         <span class="shout colors" ><span>🧐 Typy architektury 🧐
         </span></span>
     </section>
@@ -516,7 +524,7 @@
     <section class="slide creamPPP   compact ">
         <h2>Typy architektury</h2>
         <ol class="nonumbers">
-            <li class="next">All-in-on Architecture</li>
+            <li class="next">Wszystko w jednym</li>
             <li class="next">"Warsztwy" z 3 albo 5</li>
         </ol>
     </section>
@@ -602,7 +610,7 @@
     <section class="slide creamPPP   compact ">
         <h2>Typy architektury</h2>
         <ol class="nonumbers">
-            <li >All-in-on Architecture</li>
+            <li >Wszystko w jednym</li>
             <li >"Warsztwy" z 3 albo 5</li>
             <li class="next"><span class="green">Clean Architecture</span></li>
         </ol>
@@ -764,11 +772,7 @@
             </div>
           </div>
     </section>  
-    <section class="slide creamPP  fullscreen">
-        <div class="grid-containerOnlyTwo ">
-            <div class="TitleOnlyTwo"><h3>Dwie najważnieszje techniki które nam pomogą</h3></div>
-          </div>
-    </section>
+
     <section class="slide creamPP  fullscreen">
         <div class="grid-containerOnlyTwo ">
             <div class="ImageOnlyTwo1 "><img  src="pictures/iconsFr/depedencyInjection.png" /></div>
@@ -4243,6 +4247,8 @@
 
 
 
+
+
                         public class GetWebinarsByDateQueryHandler :
                         IRequestHandler&lt;GetWebinarsByDateQuery, PageWebinarByDateViewModel&gt;
                         {
@@ -4260,9 +4266,12 @@
                         
 
                             
-                            public async Task&lt;PageWebinarByDateViewModel&gt; Handle(GetWebinarsByDateQuery request, CancellationToken cancellationToken)
+                            public async Task&lt;PageWebinarByDateViewModel&gt; Handle
+                            (GetWebinarsByDateQuery request, CancellationToken cancellationToken)
                             {
-                                var list = await _webinarRepository.GetPagedWebinarsForDate(request.Options, request.Page, request.PageSize, request.Date);
+                                var list = await _webinarRepository.GetPagedWebinarsForDate
+                                (request.Options, request.Page, request.PageSize, request.Date);
+
                                 var webinars = _mapper.Map&lt;List&lt;WebinarsByDateViewModel&gt;&gt;(list);
                         
                                 var count = await _webinarRepository.GetTotalCountOfWebinarsForDate(request.Options, request.Date);
@@ -4555,6 +4564,10 @@
             </div>
         </div>
     </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Oto ostatnia forma MappingProfile
+        </span></span>
+    </section>
     <section class="slide prism over bhgry">
         <div class="grid-container">
             <div class="HeaderTitle PP PP"> 
@@ -4609,6 +4622,10 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Analogicznie dodałem tak mnóstwo klas w stylu CQRS
+        </span></span>
     </section>
     <section class="slide" style="background-color:black">
         <figure>
@@ -4892,7 +4909,7 @@ Jak testy pomogły mi znaleźć błędy<br /><br />😬
     </section>
     <section class="slide creamPPP">
         <span class="shout colors " ><span>
-Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
+Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />👺
         </span></span>
     </section>
     <section class="slide prism over bhgry">
@@ -5774,6 +5791,582 @@ Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
             <img class="cover" src="pictures/d/58.PNG" alt="blog">
             <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
         </figure>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/d/F.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
+    
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">DummySeed</h2>
+            </div>
+            <div class="PlaceCodeHere ">
+                <pre style="font-size: 29px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 29px !important;">
+                        public class DummySeed
+                        {
+                            public static int Csharp = 1;
+                            public static int Aspnet = 2;
+                            public static int TrikiZWindows = 3;
+                            public static int Docker = 4;
+                            public static int Filzofia = 5;
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">DummyCategories</h2>
+            </div>
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 19px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 19px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        public class DummyCategories
+                        {
+                            public static List&lt;Category&gt; Get()
+                            {
+                                Category c1 = new Category()
+                                {
+                                    CategoryId = DummySeed.Csharp,
+                                    Name = &quot;CSharp&quot;,
+                                    DisplayName = &quot;C#&quot;
+                                };
+                        
+                                Category c2 = new Category()
+                                {
+                                    CategoryId = DummySeed.Aspnet,
+                                    Name = &quot;aspnet&quot;,
+                                    DisplayName = &quot;ASP.NET&quot;
+                                };
+                        
+                                Category c3 = new Category()
+                                {
+                                    CategoryId = DummySeed.TrikiZWindows,
+                                    Name = &quot;triki-z-windows&quot;,
+                                    DisplayName = &quot;Triki z Windows&quot;
+                                };
+                        
+                                Category c4 = new Category()
+                                {
+                                    CategoryId = DummySeed.Docker,
+                                    Name = &quot;docker&quot;,
+                                    DisplayName = &quot;Docker&quot;
+                                };
+                        
+                                Category c5 = new Category()
+                                {
+                                    CategoryId = DummySeed.Filzofia,
+                                    Name = &quot;filozofia&quot;,
+                                    DisplayName = &quot;Filozofia&quot;
+                                };
+                        
+                        
+                                List&lt;Category&gt; p = new List&lt;Category&gt;();
+                                p.Add(c1); p.Add(c3);
+                                p.Add(c2); p.Add(c4);
+                                p.Add(c5);
+                        
+                                return p;
+                        
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">DummyCategories</h2>
+            </div>
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 14px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 15px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        public static class DummyPosts
+                        {
+                            public static List&lt;Post&gt; Get()
+                            {
+                                var cat = DummyCategories.Get();
+                        
+                                Post p1 = new Post()
+                                {
+                                    Author = &quot;Damian&quot;,
+                                    Date = DateTime.Now.AddMonths(-6),
+                                    Description = @&quot;Nasze aplikacje ASP.NET CORE coraz częściej są tylko aplikacją REST. To oczywiście wymaga Walidacji po stronie klienta i po stronie serwera
+                        Jak taką walidację jak najszybciej zrobić.Może przecież sam napisać takie warunki,
+                                    ale przy dużej ilości klas,
+                                    kt&#243;re występują jako parametry mija się to z celem.
+                        
+                        Możesz też skorzystać z atrybut&#243;w i oznaczyć reguły do każdej właściwości.&quot;,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                    PostId = 1,
+                                    Rate = 8,
+                                    CategoryId = DummySeed.Aspnet,
+                                    Title = &quot;Walidacja z FluentValidation w ASP.NET Core + Swagger&quot;,
+                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/walidacja-z-fluentvalidation-waspnet-core--swagger&quot;
+                                };
+                        
+                                Post p2 = new Post()
+                                {
+                                    Author = &quot;Damian&quot;,
+                                    Date = DateTime.Now.AddMonths(-6),
+                                    Description = @&quot;Programiści codziennie tworzą jakąś aplikację sieciową typu REST. Teraz nastaje pytanie, jak najlepiej zrozumieć jak dane API działa. Do tego mamy dokumentacje, ale jeśli pracujesz w szybkich, zamkniętych projektach to takiej dokumentacji może nie być.&quot;,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                    PostId = 2,
+                        
+                                    CategoryId = DummySeed.Aspnet,
+                                    Rate = 7,
+                                    Title = &quot;Swagger UI : Dokumentowanie API w ASP.NET CORE&quot;,
+                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/swagger-ui--dokumentowanie-api-w-aspnet-core&quot;
+                                };
+                        
+                                Post p3 = new Post()
+                                {
+                                    Author = &quot;Stefan&quot;,
+                                    Date = DateTime.Now.AddMonths(-12),
+                                    Description = @&quot;W pod koniec roku 2017 zacząłem ćwiczyć. Proste ćwiczenia rzeczywiście robią r&#243;żnice, gdy masz siedzący tryb życia. A co z bieganiem ?
+                        Pamiętam jak pierwszy raz na bieżni nie byłem w stanie wytrzymać 5 minut normalnego spaceru. Powoli z tygodnia na dzień zacząłem sobie stawiać wyższe progi i tak odkryłem, że o ile jest to na początku bolesne to jak twoje ciało da Ci te endorfiny to już...aż chce się biegać więcej. &quot;,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                    PostId = 3,
+                                    CategoryId = DummySeed.Filzofia,
+                                    Rate = 5,
+                                    Title = &quot;Bieganie jak się do tego zmotywować : Zdrowie Programisty&quot;,
+                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/bieganie-jak-sie-do-tego-zmotywowac--zdrowie-programisty&quot;
+                                };
+                        
+                                Post p4 = new Post()
+                                {
+                                    Author = &quot;Damian&quot;,
+                                    Date = DateTime.Now.AddMonths(-12),
+                                    Description = @&quot;Logowanie działania aplikacji. Jak wiedzieć w końcu, gdy coś nie działa. M&#243;j blog jest napisany w C# i działa po ASP.NET CORE. Jak to jednak bywa z napisaną przez siebie aplikacją pojawiają się błędy więc do bloga dodałem mechanizm logowania błęd&#243;w. W taki spos&#243;b znalazłem wiele dziwnych przypadk&#243;w uszkodzonych wpis&#243;w w formacie XML, kt&#243;re rozwalały Parser. Znalazłem też złe zbudowane przez ze mnie lista kurs&#243;w. &quot;,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                    PostId = 4,
+                                    CategoryId = DummySeed.Aspnet,
+                                    Rate = 5,
+                                    Title = &quot;NLog z ASP.NET Core : Logowanie błęd&#243;w w aplikacji&quot;,
+                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/nlog-z-aspnet-core--logowanie-b%C5%82edow-w-aplikacji&quot;
+                                };
+                        
+                                Post p5 = new Post()
+                                {
+                                    Author = &quot;Damian&quot;,
+                                    Date = DateTime.Now.AddMonths(-12),
+                                    Description = @&quot;Logowanie działania aplikacji. Jak wiedzieć w końcu, gdy coś nie działa. M&#243;j blog jest napisany w C# i działa po ASP.NET CORE. Jak to jednak bywa z napisaną przez siebie aplikacją pojawiają się błędy więc do bloga dodałem mechanizm logowania błęd&#243;w. W taki spos&#243;b znalazłem wiele dziwnych przypadk&#243;w uszkodzonych wpis&#243;w w formacie XML, kt&#243;re rozwalały Parser. Znalazłem też złe zbudowane przez ze mnie lista kurs&#243;w. &quot;,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                    PostId = 5,
+                                    CategoryId = DummySeed.Aspnet,
+                                    Rate = 5,
+                                    Title = &quot;NLog z ASP.NET Core : Logowanie błęd&#243;w w aplikacji&quot;,
+                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/nlog-z-aspnet-core--logowanie-b%C5%82edow-w-aplikacji&quot;
+                                };
+                        
+                                Post p6 = new Post()
+                                {
+                                    Author = &quot;Damian&quot;,
+                                    Date = DateTime.Now.AddMonths(-8),
+                                    Description = @&quot;W tym  artykule zobaczymy jak zintegrować AutoMapper  z ASP.NET CORE dla .NET 5, chociaż bądźmy szczerzy możesz skorzystać z tej biblioteki w każdym projekcie w C#.&quot;,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                    PostId = 6,
+                                    CategoryId = DummySeed.Aspnet,
+                                    Rate = 9,
+                                    Title = &quot;AutoMapper z ASP.NET CORE czyli mapowanie klas&quot;,
+                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/automapper-z-aspnet-core&quot;
+                                };
+                        
+                                Post p7 = new Post()
+                                {
+                                    Author = &quot;Adrian&quot;,
+                                    Date = DateTime.Now.AddMonths(-14),
+                                    Description = @&quot;Nagrywanie Gif - &#243;w ? Robienie obrazk&#243;w na bloga ? Jak to robić jeszcze szybciej ? &quot;,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                    PostId = 7,
+                                    CategoryId = DummySeed.TrikiZWindows,
+                                    Rate = 4,
+                                    Title = &quot;ShareX : Lepszy PrintScreen oraz robienie Gif-&#243;w twojego pulpitu?&quot;,
+                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/sharex-lepszy-printscreen-oraz-robienie-gif-ow&quot;
+                                };
+                        
+                                Post p8 = new Post()
+                                {
+                                    Author = &quot;Adrian&quot;,
+                                    Date = DateTime.Now.AddMonths(-15),
+                                    Description = @&quot;Jak jeszcze lepiej ulepszyć system operacyjny Windows.
+                        
+                        Czy być może programy tobie, kt&#243;re za chwilę to śmieci, kt&#243;re nie będą ci potrzebne?
+                        
+                        Zazwyczaj w tym cyklu pokazuje programy, z kt&#243;re moim bardzo zmieniają przepływ mojej pracy.&quot;,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                    PostId = 8,
+                                    CategoryId = DummySeed.TrikiZWindows,
+                                    Rate = 5,
+                                    Title = &quot;QuickLook, TeraCopy, ProcessExplorer czy to potrzebne jest ?&quot;,
+                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/sharex-lepszy-printscreen-oraz-robienie-gif-ow&quot;
+                                };
+                        
+                                Post p9 = new Post()
+                                {
+                                    Author = &quot;Adrian&quot;,
+                                    Date = DateTime.Now.AddMonths(-15),
+                                    Description = @&quot;Jak jeszcze lepiej ulepszyć system operacyjny Windows.
+                        
+                        Czy być może programy tobie, kt&#243;re za chwilę to śmieci, kt&#243;re nie będą ci potrzebne?
+                        
+                        Zazwyczaj w tym cyklu pokazuje programy, z kt&#243;re moim bardzo zmieniają przepływ mojej pracy.&quot;,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/Posts/programing/icons/_withbackground/R2/656_walidacja-z-fluentvalidation-waspnet-core--swagger.png&quot;,
+                                    PostId = 9,
+                                    CategoryId = DummySeed.Docker,
+                                    Rate = 9,
+                                    Title = &quot;Docker File dla Go, ASP.NET Core, .NET 5, Java Spring, NodeJS, Python&quot;,
+                                    Url = &quot;https://cezarywalenciuk.pl/blog/programing/docker-file-dla-go-aspnet-core-net-5-java-spring-nodejs-python&quot;
+                                };
+                        
+                                List&lt;Post&gt; p = new List&lt;Post&gt;();
+                                p.Add(p1); p.Add(p3);
+                                p.Add(p2); p.Add(p4);
+                                p.Add(p5); p.Add(p6);
+                                p.Add(p8); p.Add(p7);
+                                p.Add(p9);
+                        
+                                return p;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide prism over bhgry">
+        <div class="grid-container">
+            <div class="HeaderTitle PP PP"> 
+                <h2 class="headerCODE PP PP">DummyWebinars</h2>
+            </div>
+            <div class="PlaceCodeHere canscroll">
+                <pre style="font-size: 14px;overflow: hidden;  " class="language-csharp">
+                    <code style="line-height: 14px !important;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        public class DummyWebinars
+                        {
+                            public static List&lt;Webinar&gt; Get()
+                            {
+                                List&lt;Webinar&gt; w = new List&lt;Webinar&gt;();
+                        
+                                var w1 = new Webinar()
+                                {
+                                    Title = &quot;Aplikacja C# od Zera Architektura, CQRS, Dobre praktyki&quot;,
+                                    AlreadyHappend = false,
+                                    Date = DateTime.Now.AddDays(10),
+                                    Description = @&quot;Ustalenie architektury nie jest prostym zadaniem. Każda decyzja może mieć wielkie komplikacje potem.&quot;,
+                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                    Id = 1,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/17_apliacjacsharpodzeraarchitekturacqrs.jpg&quot;,
+                                    SlidesUrl = &quot;&quot;,
+                                    WatchFacebookLink = &quot;&quot;,
+                                    WatchYoutubeLink = &quot;&quot;,
+                                };
+                                w.Add(w1);
+                        
+                                var w2 = new Webinar()
+                                {
+                                    Title = &quot;Kubernetes i Docker : Wytłumacz mi i pokaż&quot;,
+                                    AlreadyHappend = false,
+                                    Date = DateTime.Now.AddDays(-40),
+                                    Description = @&quot;Kontenery są tutaj. Kubernetes jest de facto platformą do ich uruchamiania i zarządzania.&quot;,
+                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                    Id = 2,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/17_apliacjacsharpodzeraarchitekturacqrs.jpg&quot;,
+                                    SlidesUrl = &quot;https://panniebieski.github.io/webinar-Kubernetes-Docker-Wytlumacz-mi-i-pokaz/&quot;,
+                                    WatchFacebookLink = &quot;https://www.facebook.com/watch/live/?v=2775230679405348&amp;ref=watch_permalink&quot;,
+                                    WatchYoutubeLink = &quot;https://www.youtube.com/watch?v=7g00wOg9Jto&quot;,
+                                };
+                                w.Add(w2);
+                        
+                        
+                                var w3 = new Webinar()
+                                {
+                                    Title = &quot;C# 9, Rekordy i duże zmiany w .NET 5&quot;,
+                                    AlreadyHappend = false,
+                                    Date = DateTime.Now.AddDays(-60),
+                                    Description = @&quot;Jak utworzyć projekt w .NET 5?&quot;,
+                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                    Id = 3,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&quot;,
+                                    SlidesUrl = &quot;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&quot;,
+                                    WatchFacebookLink = &quot;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&quot;,
+                                    WatchYoutubeLink = &quot;https://www.youtube.com/watch?v=ATbLEyd_1Kg&quot;,
+                                };
+                                w.Add(w3);
+                        
+                                var w4 = new Webinar()
+                                {
+                                    Title = &quot;Szybki Trening Sql Server 2&quot;,
+                                    AlreadyHappend = false,
+                                    Date = DateTime.Now.AddDays(-70),
+                                    Description = @&quot;Czasami jedyne czego potrzebujemy to dobrego przykładu.&quot;,
+                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                    Id = 4,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&quot;,
+                                    SlidesUrl = &quot;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&quot;,
+                                    WatchFacebookLink = &quot;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&quot;,
+                                    WatchYoutubeLink = &quot;https://www.youtube.com/watch?v=ATbLEyd_1Kg&quot;,
+                                };
+                                w.Add(w4);
+                        
+                                var w5 = new Webinar()
+                                {
+                                    Title = &quot;Pytania rekrutacyjne czyli dalsza kariera&quot;,
+                                    AlreadyHappend = false,
+                                    Date = DateTime.Now.AddDays(-90),
+                                    Description = @&quot;Jak wygląda szukanie pracy jako programista w 2020 roku? Czy jest lepiej, czy jest gorzej?&quot;,
+                                    FacebookEventUrl = &quot;https://www.facebook.com/events/407358067213893/&quot;,
+                                    Id = 5,
+                                    ImageUrl = &quot;https://cezarywalenciuk.pl/posts/fileswebinars/15_csharpirekordy.jpg&quot;,
+                                    SlidesUrl = &quot;https://panniebieski.github.io/webinar_CSharp9-Rekordy-i-duze-zamiany-w-net-5/&quot;,
+                                    WatchFacebookLink = &quot;https://www.facebook.com/watch/live/?v=2835303250091399&amp;ref=watch_permalink&quot;,
+                                    WatchYoutubeLink = &quot;https://www.youtube.com/watch?v=ATbLEyd_1Kg&quot;,
+                                };
+                                w.Add(w5);
+                        
+                                return w;
+                            }
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div class="AnswerCode">
+                <div class="pytanie">
+                    <h3></h3>
+                </div>
+                <div class="odpowiedz">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slide creamPP">
+        <span class="shout colors" ><span>EduZbieraczContext
+        </span></span>
     </section>
     <section class="slide prism over bhgry">
         <div class="grid-container">
@@ -8046,8 +8639,43 @@ Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         
 
+
+                        
                         [Route(&quot;api/[controller]&quot;)]
                         [ApiController]
                         public class WebinarController : Controller
@@ -8059,14 +8687,13 @@ Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
                                 _mediator = mediator;
                             }
                         
-                            [HttpGet(&quot;/getpagedordersformonth&quot;, Name = &quot;GetPagedOrdersForMonth&quot;)]
+                            [HttpGet(&quot;/getwebinarfordate&quot;, Name = &quot;GetPagedWebinarsForDate&quot;)]
                             [ProducesResponseType(StatusCodes.Status200OK)]
                             [ProducesDefaultResponseType]
-                            public async Task&lt;ActionResult&lt;PageWebinarByDateViewModel&gt;&gt; 
-                            GetPagedOrdersForMonth(DateTime date, int page, int pagesize)
+                            public async Task&lt;ActionResult&lt;PageWebinarByDateViewModel&gt;&gt; GetPagedWebinarsForMonth(SearchOptionsWebinars searchOptionsWebinars, int page, int pagesize, DateTime? date)
                             {
-                                var getWebinarForMonthQuery = new GetWebinarsByDateQuery() 
-                                { Date = date, Page = page, PageSize = pagesize };
+                                var getWebinarForMonthQuery = new GetWebinarsByDateQuery()
+                                { Date = date, Page = page, PageSize = pagesize, Options = searchOptionsWebinars };
                                 var pageWebinarsByDateViewModel = await _mediator.Send(getWebinarForMonthQuery);
                         
                                 return Ok(pageWebinarsByDateViewModel);
@@ -8074,11 +8701,42 @@ Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
                         
                         
                             [HttpPost(Name = &quot;AddWebinar&quot;)]
-                            public async Task&lt;ActionResult&lt;int&gt;&gt; 
-                            Create([FromBody] CreatedWebinarCommand createWebinarCommand)
+                            public async Task&lt;ActionResult&lt;int&gt;&gt; Create([FromBody] CreatedWebinarCommand createWebinarCommand)
                             {
                                 var result = await _mediator.Send(createWebinarCommand);
                                 return Ok(result.Id);
+                            }
+                        
+                            [HttpGet(&quot;{id}&quot;, Name = &quot;GetWebinar&quot;)]
+                            [ProducesResponseType(StatusCodes.Status200OK)]
+                            [ProducesDefaultResponseType]
+                            public async Task&lt;ActionResult&lt;WebinarViewModel&gt;&gt; GetWebinarById(int id)
+                            {
+                                var result = await _mediator.Send((new GetWebinarQuery() { Id = id }));
+                                return Ok(result);
+                            }
+                        
+                            [HttpPut(Name = &quot;UpdateWebinar&quot;)]
+                            [ProducesResponseType(StatusCodes.Status204NoContent)]
+                            [ProducesResponseType(StatusCodes.Status404NotFound)]
+                            [ProducesDefaultResponseType]
+                            public async Task&lt;ActionResult&gt; Update([FromBody] UpdateWebinarCommand updatePostCommand)
+                            {
+                                await _mediator.Send(updatePostCommand);
+                        
+                        
+                                return NoContent();
+                            }
+                        
+                            [HttpDelete(&quot;{id}&quot;, Name = &quot;DeleteWebinar&quot;)]
+                            [ProducesResponseType(StatusCodes.Status204NoContent)]
+                            [ProducesResponseType(StatusCodes.Status404NotFound)]
+                            [ProducesDefaultResponseType]
+                            public async Task&lt;ActionResult&gt; Delete(int id)
+                            {
+                                var deletepostCommand = new DeleteWebinarCommand() { WebinarId = id };
+                                await _mediator.Send(deletepostCommand);
+                                return NoContent();
                             }
                         }
                     </code>
@@ -8179,6 +8837,10 @@ Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
             </div>
         </div>
     </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Pozostało jeszcze to ?
+        </span></span>
+    </section>
     <section class="slide" style="background-color:black">
         <figure>
             <img class="cover" src="pictures/a/26.png" alt="blog">
@@ -8186,8 +8848,22 @@ Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
         </figure>
     </section>
     <section class="slide creamGG">
+        <span class="shout colors" ><span>Dla ułatwienia ten problem zostawie
+        </span></span>
+    </section>
+    <section class="slide creamGG">
         <span class="shout colors" ><span>Już prawie mamy wszystko 😎
         </span></span>
+    </section>
+    <section class="slide creamGG">
+        <span class="shout colors" ><span>Jak testować REST API ?
+        </span></span>
+    </section>
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/fidlder.png" alt="blog">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
     </section>
     <section class="slide creamGG">
         <span class="shout colors" ><span>Dodajmy Swagger UI 😎
@@ -8479,7 +9155,12 @@ Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
             <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
         </figure>
     </section>
-
+    <section class="slide" style="background-color:black">
+        <figure>
+            <img class="cover" src="pictures/blazor/f2.PNG" alt="blog">
+            <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
+        </figure>
+    </section>
     <section class="slide creamPP " >
         <span class="shout colors smallerfont2" ><span>
             Nie mam ochoty pisać kodu HTTPClinet do mojego API w ASP.NET Core
@@ -8574,6 +9255,13 @@ Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />😬
             <img class="cover" src="pictures/blazor/26.PNG" alt="blog">
             <figcaption class="white">Copyright © 2021 Cezary Walenciuk</figcaption>
         </figure>
+    </section>
+    <section class="slide creamPP " >
+        <span class="shout colors " ><span>
+            Wygenerowaną klasę warto przerobić
+            <br /><br />
+            👿
+        </span></span>
     </section>
     <section class="slide prism over bhgry">
         <div class="grid-container">
