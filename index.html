@@ -5218,31 +5218,27 @@ Trzeba napisać fałszywe obiekty dla Repozytoriów<br /><br />👺
 
 
 
-                            mockWebinarRepository.Setup(repo =&gt; repo.GetPagedWebinarsForDate
-                            (It.IsAny&lt;SearchOptionsWebinars&gt;(), 
-                            It.IsAny&lt;int&gt;(), It.IsAny&lt;int&gt;(), 
-                            It.IsAny&lt;DateTime?&gt;()))
-                            .ReturnsAsync((DateTime date, int page, int pageSize) =&gt;
-                            {
-                                var matches = webinars.Where(x =&gt; x.Date.Month == date.Month 
-                                &amp;&amp; x.Date.Year == date.Year)
-                                .Skip((page - 1) * pageSize).Take(pageSize).ToList();
-                        
-                                return matches;
-                            });
-                        
+                                mockWebinarRepository.Setup(repo =&gt; repo.GetPagedWebinarsForDate
+                                (It.IsAny&lt;SearchOptionsWebinars&gt;(), It.IsAny&lt;int&gt;(), It.IsAny&lt;int&gt;(), It.IsAny&lt;DateTime?&gt;()))
+                                .ReturnsAsync((SearchOptionsWebinars s, int page, int pageSize, DateTime date) =&gt;
+                                {
+                                    var matches = webinars.Where(x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year)
+                                    .Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    
+                                    return matches;
+                                });
+                    
 
-
-
-                            mockWebinarRepository.Setup(repo =&gt; repo.GetTotalCountOfWebinarsForDate
-                            (It.IsAny&lt;SearchOptionsWebinars&gt;(), It.IsAny&lt;DateTime?&gt;()))
-                            .ReturnsAsync((DateTime date) =&gt;
-                            {
-                                var matches = webinars.Count
-                                (x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year);
-                        
-                                return matches;
-                            });
+                                
+                                mockWebinarRepository.Setup(repo =&gt; repo.GetTotalCountOfWebinarsForDate
+                                (It.IsAny&lt;SearchOptionsWebinars&gt;(), It.IsAny&lt;DateTime?&gt;()))
+                                .ReturnsAsync((SearchOptionsWebinars s, DateTime date) =&gt;
+                                {
+                                    var matches = webinars.Count
+                                    (x =&gt; x.Date.Month == date.Month &amp;&amp; x.Date.Year == date.Year);
+                    
+                                    return matches;
+                                });
                         
                             return mockWebinarRepository;
                         }
